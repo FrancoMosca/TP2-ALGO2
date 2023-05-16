@@ -1,8 +1,10 @@
 #include <iostream>
+#include "BatallaDigital.h"
 
 using namespace std;
 
 int main() {
-    cout << "Hola" << endl;
+    BatallaDigital * batallaDigital = new BatallaDigital();
+    batallaDigital->iniciarJuego();
     return 0;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "BatallaDigital.h"
+#include "string"
 
 using namespace std;
 

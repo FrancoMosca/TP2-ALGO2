@@ -6,5 +6,5 @@ Casillero::Casillero(elemento_t elemento) {
 }
 
 Ficha *Casillero::getFicha() {
-    return ficha;
+    return this->ficha;
 }

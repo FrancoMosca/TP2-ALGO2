@@ -41,11 +41,11 @@ void BatallaDigital::crearTableroPrincipal() {
 }
 
 void BatallaDigital::mostrarTableroPorCoordenadas() {
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            for (int k = 0; k < 10; k++) {
+    for (int i = 1; i < 10; i++) {
+        for (int j = 1; j < 10; j++) {
+            for (int k = 1; k < 10; k++) {
                 char ficha = this->tableroPrincipal->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha();
-                cout << "Casillero [" << i << "]" << " [" << j << "]" << " [" << k << "]" << ficha;
+                cout << "Casillero [" << i << "]" << " [" << j << "]" << " [" << k << "]" << " " << ficha << endl;
             }
         }
     }

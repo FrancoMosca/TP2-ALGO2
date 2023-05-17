@@ -2,7 +2,7 @@
 #define CASILLERO_H
 
 #include "Ficha.h"
-
+#include "string"
 
 class Casillero {
 private:

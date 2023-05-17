@@ -7,12 +7,19 @@ Tablero::Tablero(int fila, int columna, int profundidad) {
     this->columna = columna;
     this->profundidad = profundidad;
     Lista<Lista<Lista<Casillero*>*>*>* filas = new Lista<Lista<Lista<Casillero*>*>*>;
-    for(int i=0; i < this->fila; i++){
+    for(int i = 0; i < this->fila; i++){
         Lista<Lista<Casillero*>*>* columnas = new Lista<Lista<Casillero*>*>;
-        for(int j=0; j < this->columna; j++){
+        for(int j = 0; j < this->columna; j++){
             Lista<Casillero*>* profundidad = new Lista<Casillero*>;
-            for(int k=0; this->profundidad; k++){
-                Casillero * casillero = new Casillero();
+            for(int k = 0; k < this->profundidad; k++){
+                Casillero * casillero;
+                if (k <= 2) {
+                    casillero = new Casillero(AGUA);
+                } else if (k <= 5) {
+                    casillero = new Casillero(TIERRA);
+                } else {
+                    casillero = new Casillero(AIRE);
+                }
                 profundidad->add(casillero);
             }
             columnas->add(profundidad);

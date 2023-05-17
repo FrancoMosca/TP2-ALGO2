@@ -13,6 +13,7 @@ public:
     ~BatallaDigital();
     void iniciarJuego();
     void crearTableroPrincipal();
+    void mostrarTableroPorCoordenadas();
 };
 
 #endif

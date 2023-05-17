@@ -5,6 +5,8 @@
 #include "Lista.h"
 #include "string"
 
+static const char SIMBOLO_FICHA_VACIO = '-';
+
 class Tablero {
 private:
     int fila;

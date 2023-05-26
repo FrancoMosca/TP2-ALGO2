@@ -52,3 +52,27 @@ Casillero *Tablero::obtenerCasillero(int fila, int columna, int profundidad) {
     }
     return this->casilleros->get(fila)->get(columna)->get(profundidad);
 }
+
+int Tablero::getFila() {
+    return fila;
+}
+
+void Tablero::setFila(int fila) {
+    Tablero::fila = fila;
+}
+
+int Tablero::getColumna() {
+    return columna;
+}
+
+void Tablero::setColumna(int columna) {
+    Tablero::columna = columna;
+}
+
+int Tablero::getProfundidad() {
+    return profundidad;
+}
+
+void Tablero::setProfundidad(int profundidad) {
+    Tablero::profundidad = profundidad;
+}

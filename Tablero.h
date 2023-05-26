@@ -18,6 +18,18 @@ public:
     Tablero(int fila, int columna, int profundidad);
     virtual ~Tablero();
     Casillero * obtenerCasillero(int fila, int columna, int profundidad);
+
+    int getFila();
+
+    void setFila(int fila);
+
+    int getColumna();
+
+    void setColumna(int columna);
+
+    int getProfundidad();
+
+    void setProfundidad(int profundidad);
 };
 
 

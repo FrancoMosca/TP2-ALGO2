@@ -1,38 +1,48 @@
-/*
-*Carta.h
-*
-*Created on :24/04/2023
-*   Author:algo2
-*/
+#ifndef CARTA_H_
+#define CARTA_H_
+
+#include <string>
 
 class Carta
+
 {
+
 private:
-    unsigned int x,y,z;
-    bool activo;
-    int contador;
-    int radio;
+
+int x,y,z;
+bool activo;
+int contador;
+int radio;
+std::string tipo;
 
 public:
-    //Metodos carta avion
-    void detectarMinas();
 
-    //Metodos carta barco
-    void dispararMisil();
+	Carta(int x,int y,int z,bool activo,int contador,int radio,std::string tipo);
 
-    //Metodos ataque quimico
-    void ataqueQuimico();
+	//Metodos compartidos
+	void obtenerRango (std::string tipo);
 
-    //Metodos compartidos
-    void obtenerRango(int radio);
+	//Metodos carta avion
+	void detectarMinas();
 
-    //Metodos granada
-    void desarmarSoldados();
+	//Metodos carta barco
+	void dispararMisil();
 
-    //Metodos ataque multiple
-    void ataqueMultiple();
+	//Metodos ataque quimico
+	void ataqueQuimico();
 
-    //Metodos escudo
-    void aumentarResistencia();
+	//Metodos granada
+	void desarmarSoldados();
 
+	//Metodos ataque multiple
+	void ataqueMultiple();
+
+	//Metodos escudo
+	void aumentarResistencia();
+
+	virtual ~Carta();
+
+    static std::string obtenerTipoCartaAleatorio();
 };
+
+#endif

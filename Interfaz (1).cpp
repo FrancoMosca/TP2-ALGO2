@@ -121,11 +121,11 @@ void crearTabla(BMP* ubicacion,int totalFilas, int totalColumnas){
 	}
 }
 
-void mostrarCapa(Tablero tablero, int altura, BMP* ubicacion,int jugador){
-	int totalFilas = tablero.getFila();
-	int totalColumnas = tablero.getColumna();
-	int tamano = tablero.getProfundidad();
-	if (altura > tablero.getProfundidad()){
+void mostrarCapa(Tablero *tablero, int altura, BMP* ubicacion,int jugador){
+	int totalFilas = tablero->getFila();
+	int totalColumnas = tablero->getColumna();
+	int tamano = tablero->getProfundidad();
+	if (altura > tablero->getProfundidad()){
 		throw "la altura no es valida";
 	}
 	RGBApixel  agua,tierra,aire,vacio;
@@ -136,56 +136,56 @@ void mostrarCapa(Tablero tablero, int altura, BMP* ubicacion,int jugador){
 	ubicacion->SetSize(640,430);
 	ubicacion->SetBitDepth(8);
 	crearTabla(ubicacion,totalFilas,totalColumnas);
-	if(altura < 5){
-		for (int i = 0; i < totalFilas; i++){
-			for (int j = 0; j < totalColumnas; j++){
-				elemento_t elemento = tablero.obtenerCasillero(i,j,altura)->getFicha()->getElementoFicha2();
-				int jugadores = tablero.obtenerCasillero(i,j,altura)->getFicha()->getJugador();
+	if(altura < 6){
+		for (int i = 1; i < totalFilas+1; i++){
+			for (int j = 1; j < totalColumnas+1; j++){
+				elemento_t elemento = tablero->obtenerCasillero(i,j,altura)->getFicha()->getElementoFicha2();
+				int jugadores = tablero->obtenerCasillero(i,j,altura)->getFicha()->getJugador();
 				if (elemento == SOLDADO) {
 					if(jugadores != jugador || jugadores!= 0){
-						colorSector(i,j,tierra,ubicacion,totalFilas,totalColumnas);
+						colorSector(i-1,j-1,tierra,ubicacion,totalFilas,totalColumnas);
 					}else{
-					agregarSoldado(i,j,ubicacion,totalFilas,totalColumnas);
+					agregarSoldado(i-1,j-1,ubicacion,totalFilas,totalColumnas);
 					}
 				} else if (elemento == MINA){
 					if(jugadores != jugador || jugadores!= 0){
-						colorSector(i,j,tierra,ubicacion,totalFilas,totalColumnas);
+						colorSector(i-1,j-1,tierra,ubicacion,totalFilas,totalColumnas);
 					}else{
-					agregarMina(i,j,ubicacion,totalFilas,totalColumnas);
+					agregarMina(i-1,j-1,ubicacion,totalFilas,totalColumnas);
 					}
 				} else if (elemento == ARMAMENTO){
 					if(jugadores != jugador || jugadores!= 0){
-						colorSector(i,j,tierra,ubicacion,totalFilas,totalColumnas);
+						colorSector(i-1,j-1,tierra,ubicacion,totalFilas,totalColumnas);
 					}else{
-					agregarArmamento(i,j,ubicacion,totalFilas,totalColumnas);
+					agregarArmamento(i-1,j-1,ubicacion,totalFilas,totalColumnas);
 					}
 				}else if (elemento == BARCO){
 					if(jugadores != jugador || jugadores!= 0){
-						colorSector(i,j,agua,ubicacion,totalFilas,totalColumnas);
+						colorSector(i-1,j-1,agua,ubicacion,totalFilas,totalColumnas);
 					}else{
-					agregarBarco(i,j,ubicacion,totalFilas,totalColumnas);
+					agregarBarco(i-1,j-1,ubicacion,totalFilas,totalColumnas);
 					}
 				}else if (elemento == AGUA) {
-					colorSector(i,j,agua,ubicacion,totalFilas,totalColumnas);
+					colorSector(i-1,j-1,agua,ubicacion,totalFilas,totalColumnas);
 				} else if (elemento == TIERRA) {
-					colorSector(i,j,tierra,ubicacion,totalFilas,totalColumnas);
+					colorSector(i-1,j-1,tierra,ubicacion,totalFilas,totalColumnas);
 				} else if (elemento == VACIO) {
-					colorSector(i,j,vacio,ubicacion,totalFilas,totalColumnas);
+					colorSector(i-1,j-1,vacio,ubicacion,totalFilas,totalColumnas);
 				}
 			}
 		}
 	}else{
-		for (int i = 0; i < totalFilas; i++){
-			for (int j = 0; j < totalColumnas; j++){
-				colorSector(i,j,aire,ubicacion,totalFilas,totalColumnas);
-				for (int k = 5; k < tamano; k++){
-					elemento_t elemento = tablero.obtenerCasillero(i,j,k)->getFicha()->getElementoFicha2();
-					int jugadores = tablero.obtenerCasillero(i,j,k)->getFicha()->getJugador();
+		for (int i = 1; i < totalFilas+1; i++){
+			for (int j = 1; j < totalColumnas+1; j++){
+				colorSector(i-1,j-1,aire,ubicacion,totalFilas,totalColumnas);
+				for (int k = 6; k < tamano; k++){
+					elemento_t elemento = tablero->obtenerCasillero(i,j,k)->getFicha()->getElementoFicha2();
+					int jugadores = tablero->obtenerCasillero(i,j,k)->getFicha()->getJugador();
 					if (elemento == AVION){
 						if(jugadores != jugador || jugadores!= 0){
-							colorSector(i,j,aire,ubicacion,totalFilas,totalColumnas);
+							colorSector(i-1,j-1,aire,ubicacion,totalFilas,totalColumnas);
 						}else{
-						agregarAvion(i,j,ubicacion,totalFilas,totalColumnas);
+						agregarAvion(i-1,j-1,ubicacion,totalFilas,totalColumnas);
 						}
 					}
 				}
@@ -194,35 +194,35 @@ void mostrarCapa(Tablero tablero, int altura, BMP* ubicacion,int jugador){
 	}
 }
 
-void mostrarTablero(Tablero tablero, int jugador){
-	int tamano = tablero.getProfundidad();
+void mostrarTablero(Tablero *tablero, int jugador){
 	BMP capa_1;
-	mostrarCapa(tablero, 0, &capa_1,jugador);
+	mostrarCapa(tablero, 1, &capa_1,jugador);
 	capa_1.WriteToFile("primerNivel");
-	if (tamano>1){
+	int tamano = tablero->getProfundidad();
+	if(tamano >1){
 		BMP capa_2;
-		mostrarCapa(tablero, 1, &capa_2,jugador);
+		mostrarCapa(tablero, 2, &capa_2,jugador);
 		capa_2.WriteToFile("segundoNivel");
 	}
-	if (tamano>2){
+	if(tamano>2){
 		BMP capa_3;
-		mostrarCapa(tablero, 2, &capa_3,jugador);
+		mostrarCapa(tablero, 3, &capa_3,jugador);
 		capa_3.WriteToFile("tercerNivel");
 	}
-	if (tamano>3){
+	if(tamano>3){
 		BMP capa_4;
-		mostrarCapa(tablero, 3, &capa_4,jugador);
+		mostrarCapa(tablero, 4, &capa_4,jugador);
 		capa_4.WriteToFile("cuartoNivel");
 	}
-	if (tamano>4){
+	if(tamano>4){
 		BMP capa_5;
-		mostrarCapa(tablero, 4, &capa_5,jugador);
+		mostrarCapa(tablero, 5, &capa_5,jugador);
 		capa_5.WriteToFile("quintoNivel");
 	}
 	if(tamano>5){
-	BMP capa_cielo;
-	mostrarCapa(tablero, 6, &capa_cielo,jugador);
-	capa_cielo.WriteToFile("cielo");
+		BMP capa_cielo;
+		mostrarCapa(tablero, 8, &capa_cielo,jugador);
+		capa_cielo.WriteToFile("cielo");
 	}
 }
 

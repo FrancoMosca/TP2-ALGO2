@@ -24,7 +24,7 @@ void agregarAvion(int fila,int columna,BMP* ubicacion,int totalFilas, int totalC
 
 void crearTabla(BMP* ubicacion,int totalFilas, int totalColumnas);
 
-void mostrarCapa(Tablero tablero, int altura, BMP* ubicacion, int jugador);
+void mostrarCapa(Tablero* tablero, int altura, BMP* ubicacion, int jugador);
 
-void mostrarTablero(Tablero tablero, int jugador);
+void mostrarTablero(Tablero* tablero, int jugador);
 #endif /* INTERFAZ_H_ */

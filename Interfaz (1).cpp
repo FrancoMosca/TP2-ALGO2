@@ -195,20 +195,35 @@ void mostrarCapa(Tablero tablero, int altura, BMP* ubicacion,int jugador){
 }
 
 void mostrarTablero(Tablero tablero, int jugador){
-	BMP capa_1, capa_2, capa_3, capa_4, capa_5,capa_cielo;
+	int tamano = tablero.getProfundidad();
+	BMP capa_1;
 	mostrarCapa(tablero, 0, &capa_1,jugador);
-	mostrarCapa(tablero, 1, &capa_2,jugador);
-	mostrarCapa(tablero, 2, &capa_3,jugador);
-	mostrarCapa(tablero, 3, &capa_4,jugador);
-	mostrarCapa(tablero, 4, &capa_5,jugador);
-	mostrarCapa(tablero, 8, &capa_cielo,jugador);
 	capa_1.WriteToFile("primerNivel");
-	capa_2.WriteToFile("segundoNivel");
-	capa_3.WriteToFile("tercerNivel");
-	capa_4.WriteToFile("cuartoNivel");
-	capa_5.WriteToFile("quintoNivel");
+	if (tamano>1){
+		BMP capa_2;
+		mostrarCapa(tablero, 1, &capa_2,jugador);
+		capa_2.WriteToFile("segundoNivel");
+	}
+	if (tamano>2){
+		BMP capa_3;
+		mostrarCapa(tablero, 2, &capa_3,jugador);
+		capa_3.WriteToFile("tercerNivel");
+	}
+	if (tamano>3){
+		BMP capa_4;
+		mostrarCapa(tablero, 3, &capa_4,jugador);
+		capa_4.WriteToFile("cuartoNivel");
+	}
+	if (tamano>4){
+		BMP capa_5;
+		mostrarCapa(tablero, 4, &capa_5,jugador);
+		capa_5.WriteToFile("quintoNivel");
+	}
+	if(tamano>5){
+	BMP capa_cielo;
+	mostrarCapa(tablero, 6, &capa_cielo,jugador);
 	capa_cielo.WriteToFile("cielo");
-
+	}
 }
 
 

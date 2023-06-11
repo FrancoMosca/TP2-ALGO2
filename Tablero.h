@@ -18,18 +18,15 @@ public:
     Tablero(int fila, int columna, int profundidad);
     virtual ~Tablero();
     Casillero * obtenerCasillero(int fila, int columna, int profundidad);
-
+    bool existeLaCasilla(int fila, int columna, int profundidad);
     int getFila();
-
     void setFila(int fila);
-
     int getColumna();
-
     void setColumna(int columna);
-
     int getProfundidad();
-
     void setProfundidad(int profundidad);
+    void setCasilla(size_t fila, size_t columna, size_t profundidad, char simboloFicha);
+    int obtenerCantidadDePosiciones();
 };
 
 

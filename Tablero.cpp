@@ -14,17 +14,17 @@ Tablero::Tablero(int fila, int columna, int profundidad) {
             for(int k = 0; k < this->profundidad; k++){
                 Casillero * casillero;
                 if (k <= 2) {
-                    casillero = new Casillero(AGUA);
+                    casillero = new Casillero(AGUA, VACIO);
                 } else if (k <= 5) {
-                    casillero = new Casillero(TIERRA);
+                    casillero = new Casillero(TIERRA, VACIO);
                 } else {
-                    casillero = new Casillero(AIRE);
+                    casillero = new Casillero(AIRE, VACIO);
                 }
-                profundidad->add(casillero);
+                profundidad->agregar(casillero);
             }
-            columnas->add(profundidad);
+            columnas->agregar(profundidad);
         }
-        filas->add(columnas);
+        filas->agregar(columnas);
     }
     this->casilleros = filas;
 }
@@ -32,15 +32,15 @@ Tablero::Tablero(int fila, int columna, int profundidad) {
 Tablero::~Tablero() {
     Lista<Lista<Lista<Casillero*>*>*>* filas = this->casilleros;
     while (filas->avanzarCursor()) {
-        Lista<Lista<Casillero*>*>* columnas = this->casilleros->getCursor();
+        Lista<Lista<Casillero*>*>* columnas = this->casilleros->obtenerCursor();
         while (columnas->avanzarCursor()){
-            Lista<Casillero*>* profundidad = columnas->getCursor();
+            Lista<Casillero*>* profundidad = columnas->obtenerCursor();
             while (profundidad->avanzarCursor()) {
-                delete profundidad->getCursor();
+                delete profundidad->obtenerCursor();
             }
-            delete columnas->getCursor();
+            delete columnas->obtenerCursor();
         }
-        delete filas->getCursor();
+        delete filas->obtenerCursor();
     }
 }
 
@@ -50,7 +50,7 @@ Casillero *Tablero::obtenerCasillero(int fila, int columna, int profundidad) {
         string coordenadasInvalidas = "Coordenadas de casilleros invalidas";
         throw coordenadasInvalidas;
     }
-    return this->casilleros->get(fila)->get(columna)->get(profundidad);
+    return this->casilleros->obtener(fila)->obtener(columna)->obtener(profundidad);
 }
 
 int Tablero::getFila() {
@@ -75,4 +75,20 @@ int Tablero::getProfundidad() {
 
 void Tablero::setProfundidad(int profundidad) {
     Tablero::profundidad = profundidad;
+}
+
+bool Tablero::existeLaCasilla(int fila, int columna, int profundidad) {
+    if(this->fila < fila || this->columna < columna || this->profundidad < profundidad || fila < 1 || columna < 1 || profundidad < 1){
+        return false;
+    }
+    return true;
+}
+
+void Tablero::setCasilla(size_t fila, size_t columna, size_t profundidad, char simboloFicha) {
+    this->casilleros->obtener(fila)->obtener(columna)->obtener(profundidad)->getFicha()->setElementoF(simboloFicha);
+
+}
+
+int Tablero::obtenerCantidadDePosiciones() {
+    return (this->fila * this->columna * this->profundidad);
 }

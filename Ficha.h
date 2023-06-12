@@ -40,7 +40,7 @@ public:
 
     char getElementoF() const;
 
-    void setElementoF(char elementoF);
+    void setSimboloFecha(char elementoF);
 
     elemento_t getElemento() const;
 

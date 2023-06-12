@@ -150,25 +150,31 @@ void BatallaDigital::jugarJuego() {
         this->cantidadJugadasRealizadas++;
         this->jugadorActual = turnos.desacolar();
         cout << "[ Ronda: " << this->cantidadJugadasRealizadas << " ] Es el turno del idJugador"
-             << this->jugadorActual->getNombreJugador() << endl;
-
+             << this->jugadorActual->getNombreJugador() << endl << endl;
 
         if (this->mazo->getCantidadCartas() > 0 &&
             this->jugadorActual->getMazo()->getCantidadCartas() < CANTIDAD_CARTAS_MAZO_JUGADORES) {
-            cout << "Repartiendo Cartas para los jugadores " << endl;
+            cout << "Repartiendo Cartas para los jugadores " << endl << endl;
             this->repartirCartasAlJugadorActual();
         }
 
+        this->jugadorActual->getMazo()->imprimirMazo();
         char usarCarta;
-        cout << "Desea usar la carta obtenida ? Ingrese 'S' " << endl;
+        cout << endl << "Desea usar la carta obtenida ? Ingrese 'S' " << endl;
         cin >> usarCarta;
-
         if (usarCarta == 'S') {
             int numeroCarta;
             cout << "Ingrese la carta que desea usar: " << endl;
             cin >> numeroCarta;
             this->usarCarta(numeroCarta);
         }
+
+        cout << "Ahora Debes ingresar una mina" << endl;
+        this->solicitarIngresoDeCordenadas(fila, columna, profundidad);
+        while (!(this->esFichaValidaMina(fila, columna, profundidad))) {
+            this->solicitarIngresoDeCordenadas(fila, columna, profundidad);
+        }
+        this->tableroPrincipal->setCasillaMina(fila, columna, profundidad, 'M');
     }
 }
 
@@ -193,6 +199,7 @@ bool BatallaDigital::esFichaValida(int &fila, int &columna, int &profundidad) {
     }
     return esValido;
 }
+
 
 bool BatallaDigital::estaEnRangoValido(int &fila, int &columna, int &profundidad) {
     int maxFilas = this->tableroPrincipal->getFila();
@@ -324,5 +331,15 @@ bool BatallaDigital::validarInsertsDisponibles(int cantidadElementos, int insert
         esInsertValido = true;
     }
     return esInsertValido;
+}
+
+bool BatallaDigital::esFichaValidaMina(int fila, int columna, int profundidad) {
+    bool esValido = true;
+    if (!estaEnRangoValido(fila, columna, profundidad)) {
+        cout << "->[Error]: ingresante un rango invalido, recuerda que va desde 1 al maximo,por favor ingrese devuelta"
+             << endl;
+        esValido = false;
+    }
+    return esValido;
 }
 

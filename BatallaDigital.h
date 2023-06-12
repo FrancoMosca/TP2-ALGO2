@@ -51,6 +51,8 @@ public:
     void generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador);
 
     bool validarInsertsDisponibles(int cantidadElementos, int insertsDisponibles);
+
+    bool esFichaValidaMina(int fila, int columna, int profundidad);
 };
 
 #endif

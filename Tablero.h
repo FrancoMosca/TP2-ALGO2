@@ -27,6 +27,7 @@ public:
     void setProfundidad(int profundidad);
     void setCasilla(size_t fila, size_t columna, size_t profundidad, char simboloFicha, int i);
     int obtenerCantidadDePosiciones();
+    void setCasillaMina(size_t fila, size_t columna, size_t profundidad, char simboloFicha);
 };
 
 

@@ -45,7 +45,6 @@ bool Ficha::aumentarContador() {
 
 void Ficha::bloquear(int turnos) {
     this->estaBloqueada = true;
-    this->idJugador = 0;
     this->turnosRestantesParaDesbloqueo = turnos;
 }
 
@@ -68,8 +67,8 @@ char Ficha::getElementoF() const {
     return simboloFicha;
 }
 
-void Ficha::setElementoF(char elementoF) {
-    Ficha::simboloFicha = elementoF;
+void Ficha::setSimboloFecha(char simboloFicha) {
+    Ficha::simboloFicha = simboloFicha;
 }
 
 elemento_t Ficha::getElemento() const {

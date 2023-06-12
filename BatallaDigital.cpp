@@ -25,6 +25,7 @@ void BatallaDigital::iniciarJuego() {
     this->crearMazoPorJugador();
     this->obtenerCantidadDeInsertsPorJugador();
     this->crearArmamentoDelJugador();
+    this->mostrarTableroPorCoordenadas();
     this->iniciarTurnos();
 
 }
@@ -55,20 +56,15 @@ void BatallaDigital::crearTableroPrincipal() {
 
 void BatallaDigital::mostrarTableroPorCoordenadas() {
     Tablero *tablero = this->tableroPrincipal;
-    int contador = 0;
     for (int i = 1; i <= tablero->getFila(); i++) {
         for (int j = 1; j <= tablero->getColumna(); j++) {
             for (int k = 1; k <= tablero->getProfundidad(); k++) {
-                contador++;
-                char ficha = tablero->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha();
-                if (ficha == 'S') {
-                    cout << "Casillero [" << i << "]" << " [" << j << "]" << " [" << k << "]" << " " << ficha
-                         << " en terreno " << tablero << endl;
-                }
+                int id = tablero->obtenerCasillero(i, j, k)->getFicha()->getIdJugador();
+                    cout << "Casillero [" << i << "]" << " [" << j << "]" << " [" << k << "]" << " " << id
+                    << " " << tableroPrincipal->obtenerCasillero(i , j ,k)->getFicha()->getElementoFicha() << endl;
             }
         }
     }
-    cout << contador << endl << endl;
 }
 
 void BatallaDigital::crearJugadores() {

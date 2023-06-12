@@ -4,6 +4,7 @@ Ficha::Ficha(char simboloFicha) {
     this->simboloFicha = simboloFicha;
     this->estaBloqueada = false;
     this->turnosRestantesParaDesbloqueo = 0;
+    this->idJugador = 999999; // Ficha con idJugador especial, ya que fue creada sin un idJugador REAL
 }
 
 Ficha::Ficha(char simboloFicha, int idJugador) {

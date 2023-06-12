@@ -24,7 +24,7 @@ void BatallaDigital::iniciarJuego() {
     this->crearMazo();
     this->crearMazoPorJugador();
     this->obtenerCantidadDeInsertsPorJugador();
-    this->crearSoldados();
+    this->crearArmamentoDelJugador();
     this->iniciarTurnos();
 
 }
@@ -255,7 +255,7 @@ void BatallaDigital::aplicarHabilidadCarta(Carta *carta) {
     }
 }
 
-void BatallaDigital::crearSoldados() {
+void BatallaDigital::crearArmamentoDelJugador() {
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
         Jugador * jugador = this->jugadores->obtenerCursor();
@@ -263,43 +263,55 @@ void BatallaDigital::crearSoldados() {
         cout << endl << endl;
         cout << "Se iniciara la creacion de soldados" << endl;
         cout << "La creacion de soldados es tolamente automatica, no hace falta ingresar posiciones" << endl;
-        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear";
+        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << "Cuantos soldados quiere agregar: ";
         cin >> cantidadSoldados;
+        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes())) {
+            cout << "Cuantos soldados quiere agregar: ";
+            cin >> cantidadSoldados;
+        }
         generarPosiciones(cantidadSoldados, 'S', jugador);
-        /*
+        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantos Barcos quiere agregar: ";
         cin >> cantidadBarcos;
-        generarPosiciones(cantidadBarcos, 'B', idJugador);
+        while (this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())) {
+            cout << "Cuantos Barcos quiere agregar: ";
+            cin >> cantidadBarcos;
+        }
+        generarPosiciones(cantidadBarcos, 'B', jugador);
+        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantos aviones quiere agregar ";
         cin >> cantidadAviones;
-        generarPosiciones(cantidadAviones, 'A', idJugador);
+        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())) {
+            cout << "Cuantos aviones quiere agregar: ";
+            cin >> cantidadAviones;
+        }
+        generarPosiciones(cantidadAviones, 'A', jugador);
+        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantas minas quiere agregar ";
         cin >> cantidadMinas;
-        generarPosiciones(cantidadMinas, 'M', idJugador);
-         */
+        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())) {
+            cout << "Cuantos aviones quiere agregar: ";
+            cin >> cantidadMinas;
+        }
+        generarPosiciones(cantidadMinas, 'M', jugador);
     }
 }
 
 void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha, Jugador * jugador) {
-    for (int i = 0; i < jugador->getCantidadInsertsRestantes(); i++) {
+    for (int i = 0; i < cantidadElementos; i++) {
         random_device rd;
         mt19937 gen(rd());
         uniform_int_distribution<int> dist(1, 10);
         int fila = dist(gen), columna = dist(gen), profundidad = dist(gen);
-        //char simboloFicha;
-        //cout << "Debe colocar un soldado o un armamento" << endl;
-        //cout << "Ingresar el simbolo de su ficha, S (soldado) o A (armamento): ";
-        //cin >> simboloFicha;
-        //this->solicitarIngresoDeCordenadas(fila, columna, profundidad);
         while (!esFichaValida(fila, columna, profundidad)) {
-//        this->solicitarIngresoDeCordenadas(fila, columna, profundidad);
             fila = dist(gen), columna = dist(gen), profundidad = dist(gen);
         }
         tableroPrincipal->setCasilla(fila, columna, profundidad, simboloFicha, jugador->getIdJugador());
         cout << "Se inserto la casilla [" << fila << "][" << columna << "][" << profundidad << "] = " << simboloFicha
              << endl << endl;
     }
+    jugador->setCantidadInsertsRestantes(jugador->getCantidadInsertsRestantes() - cantidadElementos);
 }
 
 void BatallaDigital::obtenerCantidadDeInsertsPorJugador() {
@@ -308,5 +320,13 @@ void BatallaDigital::obtenerCantidadDeInsertsPorJugador() {
     while (this->jugadores->avanzarCursor()) {
         this->jugadores->obtenerCursor()->setCantidadInsertsRestantes(cantidadInsertsPorJugador);
     }
+}
+
+bool BatallaDigital::validarInsertsDisponibles(int cantidadElementos, int insertsDisponibles) {
+    bool esInsertValido = false;
+    if (cantidadElementos > insertsDisponibles) {
+        esInsertValido = true;
+    }
+    return esInsertValido;
 }
 

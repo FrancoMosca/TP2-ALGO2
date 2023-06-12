@@ -32,7 +32,7 @@ void Jugador::setMazo(Mazo *mazo) {
     Jugador::mazo = mazo;
 }
 
-int Jugador::getCantidadInsertsRestantes() const {
+int Jugador::getCantidadInsertsRestantes() {
     return cantidadInsertsRestantes;
 }
 

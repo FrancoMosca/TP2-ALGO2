@@ -35,7 +35,7 @@ public:
 
     void setMazo(Mazo *mazo);
 
-    int getCantidadInsertsRestantes() const;
+    int getCantidadInsertsRestantes();
 
     void setCantidadInsertsRestantes(int cantidadInsertsRestantes);
 

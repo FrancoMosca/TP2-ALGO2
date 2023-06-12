@@ -45,10 +45,12 @@ public:
 
     void aplicarHabilidadCarta(Carta *carta);
 
-    void crearSoldados();
+    void crearArmamentoDelJugador();
 
     void obtenerCantidadDeInsertsPorJugador();
     void generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador);
+
+    bool validarInsertsDisponibles(int cantidadElementos, int insertsDisponibles);
 };
 
 #endif

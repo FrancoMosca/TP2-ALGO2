@@ -1,33 +1,21 @@
 #include "Ficha.h"
 
 Ficha::Ficha(char simboloFicha) {
-    this->elementoF = simboloFicha;
+    this->simboloFicha = simboloFicha;
     this->estaBloqueada = false;
     this->turnosRestantesParaDesbloqueo = 0;
 }
 
-Ficha::Ficha(elemento_t elementoFicha, int jugador) {
+Ficha::Ficha(char simboloFicha, int idJugador) {
+    this->simboloFicha = simboloFicha;
     this->estaBloqueada = false;
     this->turnosRestantesParaDesbloqueo = 0;
-    this->elemento = elementoFicha;
-    this->jugador = jugador;
-    /*
-    if (elementoFicha == SOLDADO) {
-        this->elementoF = (jugador+48);
-    } else if (elementoFicha == MINA){
-        this->elementoF = 'M';
-    } else if (elementoFicha == ARMAMENTO){
-        this->elementoF = 'R';
-    }else if (elementoFicha == BARCO){
-        this->elementoF = 'B';
-    }else if (elementoFicha == AVION){
-        this->elementoF = 'P';
-    }
-*/
+    this->idJugador = idJugador;
 }
+
 
 char Ficha::getElementoFicha() {
-    return this->elementoF;
+    return this->simboloFicha;
 }
 
 elemento_t Ficha::getElementoFicha2() {
@@ -39,7 +27,7 @@ Ficha::~Ficha() {
 }
 
 int Ficha::getJugador() {
-    return this->jugador;
+    return this->idJugador;
 }
 
 bool Ficha::getBloqueada() {
@@ -56,31 +44,31 @@ bool Ficha::aumentarContador() {
 
 void Ficha::bloquear(int turnos) {
     this->estaBloqueada = true;
-    this->jugador = 0;
+    this->idJugador = 0;
     this->turnosRestantesParaDesbloqueo = turnos;
 }
 
 void Ficha::cambiarElemento(elemento_t nuevoElemento) {
     this->elemento = nuevoElemento;
     if (nuevoElemento == SOLDADO) {
-        this->elementoF = (jugador + 48);
+        this->simboloFicha = (idJugador + 48);
     } else if (nuevoElemento == MINA) {
-        this->elementoF = 'M';
+        this->simboloFicha = 'M';
     } else if (nuevoElemento == ARMAMENTO) {
-        this->elementoF = 'R';
+        this->simboloFicha = 'R';
     } else if (nuevoElemento == BARCO) {
-        this->elementoF = 'B';
+        this->simboloFicha = 'B';
     } else if (nuevoElemento == AVION) {
-        this->elementoF = 'P';
+        this->simboloFicha = 'P';
     }
 }
 
 char Ficha::getElementoF() const {
-    return elementoF;
+    return simboloFicha;
 }
 
 void Ficha::setElementoF(char elementoF) {
-    Ficha::elementoF = elementoF;
+    Ficha::simboloFicha = elementoF;
 }
 
 elemento_t Ficha::getElemento() const {
@@ -98,3 +86,13 @@ int Ficha::getVidas() const {
 void Ficha::setVidas(int vidas) {
     Ficha::vidas = vidas;
 }
+
+int Ficha::getIdJugador() const {
+    return idJugador;
+}
+
+void Ficha::setIdJugador(int idJugador) {
+    Ficha::idJugador = idJugador;
+}
+
+

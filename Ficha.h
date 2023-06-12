@@ -15,18 +15,21 @@ class Ficha {
 private:
 
 
-    char elementoF;
+    char simboloFicha;
     bool estaBloqueada;
     int turnosRestantesParaDesbloqueo;
     elemento_t elemento;
-    int jugador;
+    int idJugador;
     int vidas;
 public:
-    Ficha();
     Ficha(char simboloFicha);
-    Ficha(elemento_t elementoFicha,int jugador);
-    Ficha(elemento_t elementoFicha);
+    Ficha(char simboloFicha, int idJugador);
     char getElementoFicha();
+
+    int getIdJugador() const;
+
+    void setIdJugador(int idJugador);
+
     elemento_t getElementoFicha2();
     ~Ficha();
     int getJugador();

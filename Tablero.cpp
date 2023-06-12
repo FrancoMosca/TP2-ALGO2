@@ -84,9 +84,10 @@ bool Tablero::existeLaCasilla(int fila, int columna, int profundidad) {
     return true;
 }
 
-void Tablero::setCasilla(size_t fila, size_t columna, size_t profundidad, char simboloFicha) {
-    this->casilleros->obtener(fila)->obtener(columna)->obtener(profundidad)->getFicha()->setElementoF(simboloFicha);
-
+void Tablero::setCasilla(size_t fila, size_t columna, size_t profundidad, char simboloFicha, int idJugador) {
+    Ficha *ficha = this->casilleros->obtener(fila)->obtener(columna)->obtener(profundidad)->getFicha();
+    ficha->setElementoF(simboloFicha);
+    ficha->setIdJugador(idJugador);
 }
 
 int Tablero::obtenerCantidadDePosiciones() {

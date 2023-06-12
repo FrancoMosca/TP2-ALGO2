@@ -48,8 +48,7 @@ public:
     void crearSoldados();
 
     void obtenerCantidadDeInsertsPorJugador();
-
-    void generarPosiciones(int cantidad, char i);
+    void generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador);
 };
 
 #endif

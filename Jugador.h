@@ -18,7 +18,7 @@ private:
     string nombreJugador;
     Ficha *ficha;
     Mazo *mazo;
-    Lista<Casillero *> *jugadas;
+    int cantidadInsertsRestantes;
 
 public:
     Jugador(string nombre, char simboloDeFicha);
@@ -29,19 +29,15 @@ public:
 
     const string &getNombreJugador();
 
-    void setNombreJugador(string &nombreJugador);
-
     Ficha *getFicha();
-
-    void setFicha(Ficha *ficha);
 
     Mazo *getMazo() const;
 
     void setMazo(Mazo *mazo);
 
-    Lista<Casillero *> *getJugadas() const;
+    int getCantidadInsertsRestantes() const;
 
-    void setJugadas(Lista<Casillero *> *jugadas);
+    void setCantidadInsertsRestantes(int cantidadInsertsRestantes);
 
 };
 

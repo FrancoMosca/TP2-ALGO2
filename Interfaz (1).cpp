@@ -9,8 +9,8 @@
 #include "Casillero.h"
 
 void colorSector(int fila, int columna,RGBApixel color,BMP* ubicacion,int totalFilas, int totalColumnas){
-	for(int i = 640/totalFilas*fila+1; i < 640/totalFilas*(fila+1);i++){
-		for (int j = 430/totalColumnas*columna+1; j< 430/totalColumnas*(columna+1); j++){
+	for(int i = 640/totalColumnas*columna+1; i < 640/totalColumnas*(columna+1);i++){
+		for (int j = 430/totalFilas*fila+1; j< 430/totalFilas*(fila+1); j++){
 			ubicacion->SetPixel(i,j,color);
 		}
 	}
@@ -22,8 +22,8 @@ void agregarSoldado(int fila,int columna,BMP* ubicacion,int totalFilas, int tota
 	blanco.Blue = 255;blanco.Green = 255; blanco.Red = 255;
 	color.Red =69;color.Green = 36; color.Blue = 29;
 	colorSector(fila,columna,color,ubicacion,totalFilas,totalColumnas);
-	int iniciox = 640/totalFilas*fila+1 + ((640/totalFilas-4)/2);
-	int inicioy = 430/totalColumnas*columna+1 + ((430/totalColumnas-5)/2);
+	int iniciox = 640/totalColumnas*columna+1 + ((640/totalColumnas-4)/2);
+	int inicioy = 430/totalFilas*fila+1 + ((430/totalFilas-5)/2);
 	ubicacion->SetPixel(iniciox+1,inicioy,blanco);
 	ubicacion->SetPixel(iniciox+2,inicioy,blanco);
 	ubicacion->SetPixel(iniciox+3,inicioy,blanco);
@@ -39,8 +39,8 @@ void agregarSoldado(int fila,int columna,BMP* ubicacion,int totalFilas, int tota
 void agregarMina(int fila,int columna,BMP* ubicacion,int totalFilas, int totalColumnas){
 	RGBApixel negro;
 	negro.Blue = 0;negro.Red = 0;negro.Green = 0;
-	int iniciox = 640/totalFilas*fila+1 + ((640/totalFilas-5)/2);
-	int inicioy = 430/totalColumnas*columna+1 + ((430/totalColumnas-5)/2);
+	int iniciox = 640/totalColumnas*columna+1 + ((640/totalColumnas-5)/2);
+	int inicioy = 430/totalFilas*fila+1 + ((430/totalFilas-5)/2);
 	for(int j = 0; j<5; j++){
 		ubicacion->SetPixel(iniciox,inicioy+j,negro);
 		ubicacion->SetPixel(iniciox+4,inicioy+j,negro);
@@ -56,8 +56,8 @@ void agregarArmamento(int fila,int columna,BMP* ubicacion,int totalFilas, int to
 	blanco.Red = 255;blanco.Green = 255; blanco.Blue = 255;
 	color.Red =69;color.Green = 36; color.Blue = 29;
 	colorSector(fila,columna,color,ubicacion,totalFilas,totalColumnas);
-	int iniciox = 640/totalFilas*fila+1 + ((640/totalFilas-4)/2);
-	int inicioy = 430/totalColumnas*columna+1 + ((430/totalColumnas-5)/2);
+	int iniciox = 640/totalColumnas*columna+1 + ((640/totalColumnas-4)/2);
+	int inicioy = 430/totalFilas*fila+1 + ((430/totalFilas-5)/2);
 	for(int j = 0; j<5; j++){
 		ubicacion->SetPixel(iniciox,inicioy+j,blanco);
 	}
@@ -76,8 +76,8 @@ void agregarBarco(int fila,int columna,BMP* ubicacion,int totalFilas, int totalC
 	blanco.Red = 255;blanco.Green = 255; blanco.Blue = 255;
 	color.Red =37;color.Green = 109; color.Blue = 123;
 	colorSector(fila,columna,color,ubicacion,totalFilas,totalColumnas);
-	int iniciox = 640/totalFilas*fila+1 + ((640/totalFilas-4)/2);
-	int inicioy = 430/totalColumnas*columna+1 + ((430/totalColumnas-5)/2);
+	int iniciox = 640/totalColumnas*columna+1 + ((640/totalColumnas-4)/2);
+	int inicioy = 430/totalFilas*fila+1 + ((430/totalFilas-5)/2);
 	for(int j = 0; j<5; j++){
 		ubicacion->SetPixel(iniciox,inicioy+j,blanco);
 	}
@@ -96,8 +96,8 @@ void agregarAvion(int fila,int columna,BMP* ubicacion,int totalFilas, int totalC
 	blanco.Red = 255;blanco.Green = 255; blanco.Blue = 255;
 	color.Red =0;color.Green = 204; color.Blue = 255;
 	colorSector(fila,columna,color,ubicacion,totalFilas,totalColumnas);
-	int iniciox = 640/totalFilas*fila+1 + ((640/totalFilas-4)/2);
-	int inicioy = 430/totalColumnas*columna+1 + ((430/totalColumnas-5)/2);
+	int iniciox = 640/totalColumnas*columna+1 + ((640/totalColumnas-4)/2);
+	int inicioy = 430/totalFilas*fila+1 + ((430/totalFilas-5)/2);
 	for(int j = 0; j<5; j++){
 		ubicacion->SetPixel(iniciox,inicioy+j,blanco);
 	}
@@ -111,11 +111,11 @@ void agregarAvion(int fila,int columna,BMP* ubicacion,int totalFilas, int totalC
 void crearTabla(BMP* ubicacion,int totalFilas, int totalColumnas){
 	RGBApixel cuadrilla;
 	cuadrilla.Blue = 25;
-	for (int i =640/totalFilas;i<640;i+= 640/totalFilas){
+	for (int i =640/totalColumnas;i<640;i+= 640/totalColumnas){
 		for (int j = 0; j<429; j ++)
 			ubicacion->SetPixel((int)i,(int)j,cuadrilla);
 	}
-	for (int j =430/totalColumnas;j<430;j+= 430/totalColumnas){
+	for (int j =430/totalFilas;j<430;j+= 430/totalFilas){
 		for (int i = 0; i<640; i ++)
 			ubicacion->SetPixel((int)i,(int)j,cuadrilla);
 	}

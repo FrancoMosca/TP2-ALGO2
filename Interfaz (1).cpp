@@ -50,25 +50,7 @@ void agregarMina(int fila,int columna,BMP* ubicacion,int totalFilas, int totalCo
 	ubicacion->SetPixel(iniciox+3,inicioy+1,negro);
 }
 
-void agregarArmamento(int fila,int columna,BMP* ubicacion,int totalFilas, int totalColumnas){
-	RGBApixel  color;
-	RGBApixel blanco;
-	blanco.Red = 255;blanco.Green = 255; blanco.Blue = 255;
-	color.Red =69;color.Green = 36; color.Blue = 29;
-	colorSector(fila,columna,color,ubicacion,totalFilas,totalColumnas);
-	int iniciox = 640/totalColumnas*columna+1 + ((640/totalColumnas-4)/2);
-	int inicioy = 430/totalFilas*fila+1 + ((430/totalFilas-5)/2);
-	for(int j = 0; j<5; j++){
-		ubicacion->SetPixel(iniciox,inicioy+j,blanco);
-	}
-	for(int j = 1; j<3; j++){
-		ubicacion->SetPixel(iniciox+j,inicioy,blanco);
-		ubicacion->SetPixel(iniciox+j,inicioy+2,blanco);
-	}
-	ubicacion->SetPixel(iniciox+3,inicioy+1,blanco);
-	ubicacion->SetPixel(iniciox+2,inicioy+3,blanco);
-	ubicacion->SetPixel(iniciox+3,inicioy+4,blanco);
-}
+
 
 void agregarBarco(int fila,int columna,BMP* ubicacion,int totalFilas, int totalColumnas){
 	RGBApixel  color;
@@ -100,12 +82,12 @@ void agregarAvion(int fila,int columna,BMP* ubicacion,int totalFilas, int totalC
 	int inicioy = 430/totalFilas*fila+1 + ((430/totalFilas-5)/2);
 	for(int j = 0; j<5; j++){
 		ubicacion->SetPixel(iniciox,inicioy+j,blanco);
+		ubicacion->SetPixel(iniciox+3,inicioy+j,blanco);
 	}
 	for(int j = 1; j<3; j++){
 		ubicacion->SetPixel(iniciox+j,inicioy,blanco);
 		ubicacion->SetPixel(iniciox+j,inicioy+2,blanco);
 	}
-	ubicacion->SetPixel(iniciox+3,inicioy+1,blanco);
 }
 
 void crearTabla(BMP* ubicacion,int totalFilas, int totalColumnas){
@@ -153,12 +135,6 @@ void mostrarCapa(Tablero *tablero, int altura, BMP* ubicacion,int jugador){
 						colorSector(i-1,j-1,tierra,ubicacion,totalFilas,totalColumnas);
 					}else{
 					agregarMina(i-1,j-1,ubicacion,totalFilas,totalColumnas);
-					}
-				} else if (elemento == ARMAMENTO){
-					if(jugadores != jugador || jugadores!= 0){
-						colorSector(i-1,j-1,tierra,ubicacion,totalFilas,totalColumnas);
-					}else{
-					agregarArmamento(i-1,j-1,ubicacion,totalFilas,totalColumnas);
 					}
 				}else if (elemento == BARCO){
 					if(jugadores != jugador || jugadores!= 0){

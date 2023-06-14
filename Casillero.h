@@ -26,6 +26,9 @@ public:
     //Pre: -
     //Post: retorna el valor booleano True si la ficha asociada al casillero se encuentra vacia y False en caso contrario
     bool estaCasilleroVacio();
+    //Pre: -
+    //Post: retorna el tipo de terreno asociado al casillero
+    terreno_t getTerreno();
 };
 
 #endif

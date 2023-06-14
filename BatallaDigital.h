@@ -73,6 +73,8 @@ public:
     void eliminarSoldado(int fila, int columna, int profundidad);
 
     bool existeSoldadoEnemigo(int fila, int columna, int profundidad);
+
+    bool esPosicionBloqueada(int fila, int columna, int profundidad);
 };
 
 #endif

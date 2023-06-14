@@ -390,7 +390,9 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'w':
         case 'W': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
-            if (existeMina(fila - 1, columna, nuevaProfundidad)) {
+            if (esPosicionBloqueada(fila - 1, columna, nuevaProfundidad)) {
+                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+            } else if (existeMina(fila - 1, columna, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna, nuevaProfundidad, VACIO, 0);
@@ -403,7 +405,9 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 's':
         case 'S': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
-            if (existeMina(fila + 1, columna, nuevaProfundidad)) {
+            if (esPosicionBloqueada(fila + 1, columna, nuevaProfundidad)) {
+                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+            } else if (existeMina(fila + 1, columna, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna, nuevaProfundidad, VACIO, 0);
@@ -416,7 +420,9 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'a':
         case 'A': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
-            if (existeMina(fila, columna - 1, nuevaProfundidad)) {
+            if (esPosicionBloqueada(fila, columna - 1, nuevaProfundidad)) {
+                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+            } else if (existeMina(fila, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila, columna - 1, nuevaProfundidad, VACIO, 0);
@@ -429,7 +435,9 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'd':
         case 'D': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
-            if (existeMina(fila, columna + 1, nuevaProfundidad)) {
+            if (esPosicionBloqueada(fila , columna + 1, nuevaProfundidad)) {
+                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+            } else if (existeMina(fila, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila, columna + 1, nuevaProfundidad, VACIO, 0);
@@ -442,7 +450,9 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'q':
         case 'Q': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
-            if (existeMina(fila - 1, columna - 1, nuevaProfundidad)) {
+            if (esPosicionBloqueada(fila - 1, columna - 1, nuevaProfundidad)) {
+                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+            } else if (existeMina(fila - 1, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna - 1, nuevaProfundidad, VACIO, 0);
@@ -455,7 +465,9 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'e':
         case 'E': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
-            if (existeMina(fila - 1, columna + 1, nuevaProfundidad)) {
+            if (esPosicionBloqueada(fila - 1, columna + 1, nuevaProfundidad)) {
+                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+            } else if (existeMina(fila - 1, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna + 1, nuevaProfundidad, VACIO, 0);
@@ -468,7 +480,9 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'z':
         case 'Z': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
-            if (existeMina(fila + 1, columna - 1, nuevaProfundidad)) {
+            if (esPosicionBloqueada(fila + 1, columna - 1, nuevaProfundidad)) {
+                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+            } else if (existeMina(fila + 1, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna - 1, nuevaProfundidad, VACIO, 0);
@@ -481,7 +495,9 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'x':
         case 'X': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
-            if (existeMina(fila + 1, columna + 1, nuevaProfundidad)) {
+            if (esPosicionBloqueada(fila + 1, columna + 1, nuevaProfundidad)) {
+                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+            } else if (existeMina(fila + 1, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna + 1, nuevaProfundidad, VACIO, 0);
@@ -528,6 +544,14 @@ void BatallaDigital::eliminarSoldado(int fila, int columna, int profundidad) {
 bool BatallaDigital::existeSoldadoEnemigo(int fila, int columna, int profundidad) {
     Ficha *ficha = this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
     if (ficha->getElementoFicha() == SOLDADO && ficha->getIdJugador() != this->jugadorActual->getIdJugador()) {
+        return true;
+    }
+    return false;
+}
+
+bool BatallaDigital::esPosicionBloqueada(int fila, int columna, int profundidad) {
+    Ficha *ficha = this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
+    if (ficha->getBloqueada()) {
         return true;
     }
     return false;

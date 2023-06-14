@@ -19,17 +19,10 @@ char Ficha::getElementoFicha() {
     return this->simboloFicha;
 }
 
-elemento_t Ficha::getElementoFicha2() {
-    return this->elemento;
-}
-
 Ficha::~Ficha() {
 
 }
 
-int Ficha::getJugador() {
-    return this->idJugador;
-}
 
 bool Ficha::getBloqueada() {
     return this->estaBloqueada;
@@ -46,38 +39,14 @@ bool Ficha::aumentarContador() {
 void Ficha::bloquear(int turnos) {
     this->estaBloqueada = true;
     this->turnosRestantesParaDesbloqueo = turnos;
+    this->idJugador = 0;
 }
 
-void Ficha::cambiarElemento(elemento_t nuevoElemento) {
-    this->elemento = nuevoElemento;
-    if (nuevoElemento == SOLDADO) {
-        this->simboloFicha = (idJugador + 48);
-    } else if (nuevoElemento == MINA) {
-        this->simboloFicha = 'M';
-    } else if (nuevoElemento == ARMAMENTO) {
-        this->simboloFicha = 'R';
-    } else if (nuevoElemento == BARCO) {
-        this->simboloFicha = 'B';
-    } else if (nuevoElemento == AVION) {
-        this->simboloFicha = 'P';
-    }
-}
-
-char Ficha::getElementoF() const {
-    return simboloFicha;
-}
 
 void Ficha::setSimboloFecha(char simboloFicha) {
     Ficha::simboloFicha = simboloFicha;
 }
 
-elemento_t Ficha::getElemento() const {
-    return elemento;
-}
-
-void Ficha::setElemento(elemento_t elemento) {
-    Ficha::elemento = elemento;
-}
 
 int Ficha::getVidas() const {
     return vidas;

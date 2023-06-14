@@ -71,6 +71,8 @@ public:
     bool existeMina(int fila, int columna, int profundidad);
 
     void eliminarSoldado(int fila, int columna, int profundidad);
+
+    bool existeSoldadoEnemigo(int fila, int columna, int profundidad);
 };
 
 #endif

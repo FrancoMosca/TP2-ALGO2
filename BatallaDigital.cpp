@@ -392,6 +392,8 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (existeMina(fila - 1, columna, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna, nuevaProfundidad);
+            } else if (existeSoldadoEnemigo(fila - 1, columna, nuevaProfundidad)) {
+                this->tableroPrincipal->setCasilla(fila - 1, columna, nuevaProfundidad, VACIO, 0);
             } else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
@@ -403,6 +405,8 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (existeMina(fila + 1, columna, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna, nuevaProfundidad);
+            } else if (existeSoldadoEnemigo(fila + 1, columna, nuevaProfundidad)) {
+                this->tableroPrincipal->setCasilla(fila + 1, columna, nuevaProfundidad, VACIO, 0);
             } else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
@@ -414,6 +418,8 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (existeMina(fila, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila, columna - 1, nuevaProfundidad);
+            } else if (existeSoldadoEnemigo(fila, columna - 1, nuevaProfundidad)) {
+                this->tableroPrincipal->setCasilla(fila, columna - 1, nuevaProfundidad, VACIO, 0);
             } else {
                 this->tableroPrincipal->setCasilla(fila, columna - 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
@@ -425,6 +431,8 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (existeMina(fila, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila, columna + 1, nuevaProfundidad);
+            } else if (existeSoldadoEnemigo(fila, columna + 1, nuevaProfundidad)) {
+                this->tableroPrincipal->setCasilla(fila, columna + 1, nuevaProfundidad, VACIO, 0);
             } else {
                 this->tableroPrincipal->setCasilla(fila, columna + 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
@@ -436,6 +444,8 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (existeMina(fila - 1, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna - 1, nuevaProfundidad);
+            } else if (existeSoldadoEnemigo(fila - 1, columna - 1, nuevaProfundidad)) {
+                this->tableroPrincipal->setCasilla(fila - 1, columna - 1, nuevaProfundidad, VACIO, 0);
             } else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna - 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
@@ -447,6 +457,8 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (existeMina(fila - 1, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna + 1, nuevaProfundidad);
+            } else if (existeSoldadoEnemigo(fila - 1, columna + 1, nuevaProfundidad)) {
+                this->tableroPrincipal->setCasilla(fila - 1, columna + 1, nuevaProfundidad, VACIO, 0);
             } else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna + 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
@@ -458,6 +470,8 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (existeMina(fila + 1, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna - 1, nuevaProfundidad);
+            } else if (existeSoldadoEnemigo(fila + 1, columna - 1, nuevaProfundidad)) {
+                this->tableroPrincipal->setCasilla(fila + 1, columna - 1, nuevaProfundidad, VACIO, 0);
             } else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna - 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
@@ -469,6 +483,8 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (existeMina(fila + 1, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna + 1, nuevaProfundidad);
+            } else if (existeSoldadoEnemigo(fila + 1, columna + 1, nuevaProfundidad)) {
+                this->tableroPrincipal->setCasilla(fila + 1, columna + 1, nuevaProfundidad, VACIO, 0);
             } else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna + 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
@@ -507,6 +523,14 @@ bool BatallaDigital::existeMina(int fila, int columna, int profundidad) {
 void BatallaDigital::eliminarSoldado(int fila, int columna, int profundidad) {
     Ficha *ficha = this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
     ficha->bloquear(5);
+}
+
+bool BatallaDigital::existeSoldadoEnemigo(int fila, int columna, int profundidad) {
+    Ficha *ficha = this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
+    if (ficha->getElementoFicha() == SOLDADO && ficha->getIdJugador() != this->jugadorActual->getIdJugador()) {
+        return true;
+    }
+    return false;
 }
 
 

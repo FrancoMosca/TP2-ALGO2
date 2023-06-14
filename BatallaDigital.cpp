@@ -60,8 +60,8 @@ void BatallaDigital::mostrarTableroPorCoordenadas() {
         for (int j = 1; j <= tablero->getColumna(); j++) {
             for (int k = 1; k <= tablero->getProfundidad(); k++) {
                 int id = tablero->obtenerCasillero(i, j, k)->getFicha()->getIdJugador();
-                    cout << "Casillero [" << i << "]" << " [" << j << "]" << " [" << k << "]" << " " << id
-                    << " " << tableroPrincipal->obtenerCasillero(i , j ,k)->getFicha()->getElementoFicha() << endl;
+                cout << "Casillero [" << i << "]" << " [" << j << "]" << " [" << k << "]" << " " << id
+                     << " " << tableroPrincipal->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha() << endl;
             }
         }
     }
@@ -151,30 +151,46 @@ void BatallaDigital::jugarJuego() {
         this->jugadorActual = turnos.desacolar();
         cout << "[ Ronda: " << this->cantidadJugadasRealizadas << " ] Es el turno del idJugador"
              << this->jugadorActual->getNombreJugador() << endl << endl;
+        repartirCartas();
+        elegirCarta();
+        agregarMina(fila, columna, profundidad);
+        decidirMoverSoldadoArmamento(fila, columna, profundidad);
+    }
+}
 
-        if (this->mazo->getCantidadCartas() > 0 &&
-            this->jugadorActual->getMazo()->getCantidadCartas() < CANTIDAD_CARTAS_MAZO_JUGADORES) {
-            cout << "Repartiendo Cartas para los jugadores " << endl << endl;
-            this->repartirCartasAlJugadorActual();
-        }
+void BatallaDigital::repartirCartas() {
+    if (mazo->getCantidadCartas() > 0 &&
+        jugadorActual->getMazo()->getCantidadCartas() < CANTIDAD_CARTAS_MAZO_JUGADORES) {
+        cout << "Repartiendo Cartas para los jugadores " << endl << endl;
+        repartirCartasAlJugadorActual();
+    }
+}
 
-        this->jugadorActual->getMazo()->imprimirMazo();
-        char usarCarta;
-        cout << endl << "Desea usar la carta obtenida ? Ingrese 'S' " << endl;
-        cin >> usarCarta;
-        if (usarCarta == 'S') {
-            int numeroCarta;
-            cout << "Ingrese la carta que desea usar: " << endl;
-            cin >> numeroCarta;
-            this->usarCarta(numeroCarta);
-        }
+void BatallaDigital::elegirCarta() {
+    jugadorActual->getMazo()->imprimirMazo();
+    char usarCarta;
+    cout << endl << "Desea usar la carta obtenida ? Ingrese 'S' " << endl;
+    cin >> usarCarta;
+    if (usarCarta == 'S') {
+        int numeroCarta;
+        cout << "Ingrese la carta que desea usar: " << endl;
+        cin >> numeroCarta;
+        BatallaDigital::usarCarta(numeroCarta);
+    }
+}
 
-        cout << "Ahora Debes ingresar una mina" << endl;
-        this->solicitarIngresoDeCordenadas(fila, columna, profundidad);
-        while (!(this->esFichaValidaMina(fila, columna, profundidad))) {
-            this->solicitarIngresoDeCordenadas(fila, columna, profundidad);
-        }
-        this->tableroPrincipal->setCasillaMina(fila, columna, profundidad, 'M');
+void BatallaDigital::agregarMina(int fila, int columna, int profundidad) {
+    cout << "Ahora Debes ingresar una mina" << endl;
+    solicitarIngresoDeCordenadas(fila, columna, profundidad);
+    while (!(esFichaValidaMina(fila, columna, profundidad))) {
+        solicitarIngresoDeCordenadas(fila, columna, profundidad);
+    }
+    Ficha *ficha = tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
+    if (!ficha->getBloqueada() && ficha->getElementoFicha() == VACIO &&
+        ficha->getIdJugador() != jugadorActual->getIdJugador()) {
+        tableroPrincipal->setCasilla(fila, columna, profundidad, MINA, jugadorActual->getIdJugador());
+    } else if (ficha->getElementoFicha() != VACIO && ficha->getIdJugador() != jugadorActual->getIdJugador()) {
+        ficha->bloquear(5);
     }
 }
 
@@ -261,12 +277,13 @@ void BatallaDigital::aplicarHabilidadCarta(Carta *carta) {
 void BatallaDigital::crearArmamentoDelJugador() {
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
-        Jugador * jugador = this->jugadores->obtenerCursor();
+        Jugador *jugador = this->jugadores->obtenerCursor();
         int cantidadSoldados, cantidadBarcos, cantidadAviones, cantidadMinas;
         cout << endl << endl;
         cout << "Se iniciara la creacion de soldados" << endl;
         cout << "La creacion de soldados es tolamente automatica, no hace falta ingresar posiciones" << endl;
-        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
+        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes()
+             << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << "Cuantos soldados quiere agregar: ";
         cin >> cantidadSoldados;
         while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes())) {
@@ -274,7 +291,8 @@ void BatallaDigital::crearArmamentoDelJugador() {
             cin >> cantidadSoldados;
         }
         generarPosiciones(cantidadSoldados, 'S', jugador);
-        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
+        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes()
+             << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantos Barcos quiere agregar: ";
         cin >> cantidadBarcos;
         while (this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())) {
@@ -282,7 +300,8 @@ void BatallaDigital::crearArmamentoDelJugador() {
             cin >> cantidadBarcos;
         }
         generarPosiciones(cantidadBarcos, 'B', jugador);
-        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
+        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes()
+             << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantos aviones quiere agregar ";
         cin >> cantidadAviones;
         while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())) {
@@ -290,7 +309,8 @@ void BatallaDigital::crearArmamentoDelJugador() {
             cin >> cantidadAviones;
         }
         generarPosiciones(cantidadAviones, 'A', jugador);
-        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes() << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
+        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes()
+             << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantas minas quiere agregar ";
         cin >> cantidadMinas;
         while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())) {
@@ -301,7 +321,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
     }
 }
 
-void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha, Jugador * jugador) {
+void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador) {
     for (int i = 0; i < cantidadElementos; i++) {
         random_device rd;
         mt19937 gen(rd());
@@ -318,7 +338,8 @@ void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha,
 }
 
 void BatallaDigital::obtenerCantidadDeInsertsPorJugador() {
-    this->cantidadInsertsPorJugador = this->tableroPrincipal->obtenerCantidadDePosiciones() / this->jugadores->contarElementos();
+    this->cantidadInsertsPorJugador =
+            this->tableroPrincipal->obtenerCantidadDePosiciones() / this->jugadores->contarElementos();
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
         this->jugadores->obtenerCursor()->setCantidadInsertsRestantes(cantidadInsertsPorJugador);
@@ -342,4 +363,150 @@ bool BatallaDigital::esFichaValidaMina(int fila, int columna, int profundidad) {
     }
     return esValido;
 }
+
+void BatallaDigital::decidirMoverSoldadoArmamento(int fila, int columna, int profundidad) {
+    cout << "Ahora Debes  mover un soldado o un armamento (AVION O BARCO)" << endl;
+    cout << "Elige un soldado tuyo:" << endl;
+    solicitarIngresoDeCordenadas(fila, columna, profundidad);
+    while (!(esFichaValida(fila, columna, profundidad))) {
+        solicitarIngresoDeCordenadas(fila, columna, profundidad);
+    }
+    char movimiento;
+    cout << "Ingrese Movimiento (movimientos validos: w,s,a,d,x,z (puede ser en mayuscula))" << endl;
+    cin >> movimiento;
+
+    int nuevaProfundidad;
+    cout << "Ingrese la nueva profundidad, debe ser 1 mayor o menor que la del soldado elegido" << endl;
+    cin >> nuevaProfundidad;
+    if (validarSoldadoArmamentoElegido(fila, columna, profundidad) && validarMovimiento(movimiento)) {
+        moverElemento(fila, columna, profundidad, movimiento, nuevaProfundidad);
+    } else {
+        cout << "Perdiste Un turno por haber elegido mal, sorry :( " << endl;
+    }
+}
+
+void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char movimiento, int nuevaProfundidad) {
+    switch (movimiento) {
+        case 'w':
+        case 'W': {
+            this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
+            if (existeMina(fila - 1, columna, nuevaProfundidad)) {
+                eliminarSoldado(fila - 1, columna, nuevaProfundidad);
+            } else {
+                this->tableroPrincipal->setCasilla(fila - 1, columna, nuevaProfundidad, SOLDADO,
+                                                   this->jugadorActual->getIdJugador());
+            }
+            break;
+        }
+        case 's':
+        case 'S': {
+            this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
+            if (existeMina(fila + 1, columna, nuevaProfundidad)) {
+                eliminarSoldado(fila + 1, columna, nuevaProfundidad);
+            } else {
+                this->tableroPrincipal->setCasilla(fila + 1, columna, nuevaProfundidad, SOLDADO,
+                                                   this->jugadorActual->getIdJugador());
+            }
+            break;
+        }
+        case 'a':
+        case 'A': {
+            this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
+            if (existeMina(fila, columna - 1, nuevaProfundidad)) {
+                eliminarSoldado(fila, columna - 1, nuevaProfundidad);
+            } else {
+                this->tableroPrincipal->setCasilla(fila, columna - 1, nuevaProfundidad, SOLDADO,
+                                                   this->jugadorActual->getIdJugador());
+            }
+            break;
+        }
+        case 'd':
+        case 'D': {
+            this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
+            if (existeMina(fila, columna + 1, nuevaProfundidad)) {
+                eliminarSoldado(fila, columna + 1, nuevaProfundidad);
+            } else {
+                this->tableroPrincipal->setCasilla(fila, columna + 1, nuevaProfundidad, SOLDADO,
+                                                   this->jugadorActual->getIdJugador());
+            }
+            break;
+        }
+        case 'q':
+        case 'Q': {
+            this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
+            if (existeMina(fila - 1, columna - 1, nuevaProfundidad)) {
+                eliminarSoldado(fila - 1, columna - 1, nuevaProfundidad);
+            } else {
+                this->tableroPrincipal->setCasilla(fila - 1, columna - 1, nuevaProfundidad, SOLDADO,
+                                                   this->jugadorActual->getIdJugador());
+            }
+            break;
+        }
+        case 'e':
+        case 'E': {
+            this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
+            if (existeMina(fila - 1, columna + 1, nuevaProfundidad)) {
+                eliminarSoldado(fila - 1, columna + 1, nuevaProfundidad);
+            } else {
+                this->tableroPrincipal->setCasilla(fila - 1, columna + 1, nuevaProfundidad, SOLDADO,
+                                                   this->jugadorActual->getIdJugador());
+            }
+            break;
+        }
+        case 'z':
+        case 'Z': {
+            this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
+            if (existeMina(fila + 1, columna - 1, nuevaProfundidad)) {
+                eliminarSoldado(fila + 1, columna - 1, nuevaProfundidad);
+            } else {
+                this->tableroPrincipal->setCasilla(fila + 1, columna - 1, nuevaProfundidad, SOLDADO,
+                                                   this->jugadorActual->getIdJugador());
+            }
+            break;
+        }
+        case 'x':
+        case 'X': {
+            this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
+            if (existeMina(fila + 1, columna + 1, nuevaProfundidad)) {
+                eliminarSoldado(fila + 1, columna + 1, nuevaProfundidad);
+            } else {
+                this->tableroPrincipal->setCasilla(fila + 1, columna + 1, nuevaProfundidad, SOLDADO,
+                                                   this->jugadorActual->getIdJugador());
+            }
+            break;
+        }
+    }
+}
+
+bool BatallaDigital::validarMovimiento(char movimiento) {
+    bool esMovimientoValido = false;
+    if (movimiento == 'w' || movimiento == 'W' || movimiento == 'a' || movimiento == 'A' ||
+        movimiento == 's' || movimiento == 'S' || movimiento == 'd' || movimiento == 'D' ||
+        movimiento == 'z' || movimiento == 'Z' || movimiento == 'x' || movimiento == 'X') {
+        esMovimientoValido = true;
+    }
+    return esMovimientoValido;
+}
+
+bool BatallaDigital::validarSoldadoArmamentoElegido(int fila, int columna, int profundidad) {
+    Ficha *ficha = this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
+    if (ficha->getIdJugador() == this->jugadorActual->getIdJugador() && ficha->getElementoFicha() == SOLDADO) {
+        return true;
+    }
+    return false;
+}
+
+bool BatallaDigital::existeMina(int fila, int columna, int profundidad) {
+    Ficha *ficha = this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
+    if (ficha->getElementoFicha() == MINA && ficha->getIdJugador() != this->jugadorActual->getIdJugador()) {
+        return true;
+    }
+    return false;
+}
+
+void BatallaDigital::eliminarSoldado(int fila, int columna, int profundidad) {
+    Ficha *ficha = this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
+    ficha->bloquear(5);
+}
+
 

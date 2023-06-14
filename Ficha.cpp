@@ -40,6 +40,7 @@ void Ficha::bloquear(int turnos) {
     this->estaBloqueada = true;
     this->turnosRestantesParaDesbloqueo = turnos;
     this->idJugador = 0;
+    this->simboloFicha = VACIO;
 }
 
 

@@ -53,6 +53,24 @@ public:
     bool validarInsertsDisponibles(int cantidadElementos, int insertsDisponibles);
 
     bool esFichaValidaMina(int fila, int columna, int profundidad);
+
+    void agregarMina(int fila, int columna, int profundidad);
+
+    void elegirCarta();
+
+    void repartirCartas();
+
+    void decidirMoverSoldadoArmamento(int fila, int columna, int profundidad);
+
+    bool validarMovimiento(char movimiento);
+
+    void moverElemento(int fila, int columna, int profundidad, char movimiento, int nuevaProfundidad);
+
+    bool validarSoldadoArmamentoElegido(int fila, int columna, int profundidad);
+
+    bool existeMina(int fila, int columna, int profundidad);
+
+    void eliminarSoldado(int fila, int columna, int profundidad);
 };
 
 #endif

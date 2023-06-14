@@ -15,7 +15,10 @@ private:
     int turnosRestantesParaDesbloqueo;
     int idJugador;
     int vidas;
+  
 public:
+    //pre:
+    //post:
     Ficha(char simboloFicha);
     Ficha(char simboloFicha, int idJugador);
     char getElementoFicha();

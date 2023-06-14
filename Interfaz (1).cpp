@@ -139,8 +139,9 @@ void mostrarCapa(Tablero *tablero, int altura, BMP* ubicacion,int jugador){
 	if(altura < 6){
 		for (int i = 1; i < totalFilas+1; i++){
 			for (int j = 1; j < totalColumnas+1; j++){
-				elemento_t elemento = tablero->obtenerCasillero(i,j,altura)->getFicha()->getElementoFicha2();
-				int jugadores = tablero->obtenerCasillero(i,j,altura)->getFicha()->getJugador();
+				char elemento = tablero->obtenerCasillero(i,j,altura)->getFicha()->getElementoFicha();
+				int jugadores = tablero->obtenerCasillero(i,j,altura)->getFicha()->getIdJugador();
+				terreno_t terreno = tablero->obtenerCasillero(i,j,altura)->getTerreno();
 				if (elemento == SOLDADO) {
 					if(jugadores != jugador || jugadores!= 0){
 						colorSector(i-1,j-1,tierra,ubicacion,totalFilas,totalColumnas);
@@ -165,9 +166,9 @@ void mostrarCapa(Tablero *tablero, int altura, BMP* ubicacion,int jugador){
 					}else{
 					agregarBarco(i-1,j-1,ubicacion,totalFilas,totalColumnas);
 					}
-				}else if (elemento == AGUA) {
+				}else if (terreno == AGUA) {
 					colorSector(i-1,j-1,agua,ubicacion,totalFilas,totalColumnas);
-				} else if (elemento == TIERRA) {
+				} else if (terreno == TIERRA) {
 					colorSector(i-1,j-1,tierra,ubicacion,totalFilas,totalColumnas);
 				} else if (elemento == VACIO) {
 					colorSector(i-1,j-1,vacio,ubicacion,totalFilas,totalColumnas);
@@ -179,8 +180,8 @@ void mostrarCapa(Tablero *tablero, int altura, BMP* ubicacion,int jugador){
 			for (int j = 1; j < totalColumnas+1; j++){
 				colorSector(i-1,j-1,aire,ubicacion,totalFilas,totalColumnas);
 				for (int k = 6; k < tamano; k++){
-					elemento_t elemento = tablero->obtenerCasillero(i,j,k)->getFicha()->getElementoFicha2();
-					int jugadores = tablero->obtenerCasillero(i,j,k)->getFicha()->getJugador();
+					terreno_t elemento = tablero->obtenerCasillero(i,j,k)->getFicha()->getElementoFicha();
+					int jugadores = tablero->obtenerCasillero(i,j,k)->getFicha()->getIdJugador();
 					if (elemento == AVION){
 						if(jugadores != jugador || jugadores!= 0){
 							colorSector(i-1,j-1,aire,ubicacion,totalFilas,totalColumnas);

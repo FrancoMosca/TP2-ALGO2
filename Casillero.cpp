@@ -10,6 +10,10 @@ Ficha *Casillero::getFicha() {
     return this->ficha;
 }
 
+terreno_t Casillero::getTerreno(){
+    return this->terreno;
+}
+
 bool Casillero::estaCasilleroVacio() {
     if (this->ficha->getElementoFicha() == '-') {
         return true;

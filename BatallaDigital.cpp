@@ -25,7 +25,6 @@ void BatallaDigital::iniciarJuego() {
     this->crearMazoPorJugador();
     this->obtenerCantidadDeInsertsPorJugador();
     this->crearArmamentoDelJugador();
-    this->mostrarTableroPorCoordenadas();
     this->iniciarTurnos();
 
 }
@@ -151,10 +150,14 @@ void BatallaDigital::jugarJuego() {
         this->jugadorActual = turnos.desacolar();
         cout << "[ Ronda: " << this->cantidadJugadasRealizadas << " ] Es el turno del idJugador"
              << this->jugadorActual->getNombreJugador() << endl << endl;
-        repartirCartas();
-        elegirCarta();
-        agregarMina(fila, columna, profundidad);
-        decidirMoverSoldadoArmamento(fila, columna, profundidad);
+        this->repartirCartas();
+        this->elegirCarta();
+        this->agregarMina(fila, columna, profundidad);
+        this->decidirMoverSoldadoArmamento(fila, columna, profundidad);
+        this->decrementarTurnosFichas();
+        this->desbloquearFichas();
+        this->hayGanador();
+        this->avanzarTurno();
     }
 }
 
@@ -182,15 +185,16 @@ void BatallaDigital::elegirCarta() {
 void BatallaDigital::agregarMina(int fila, int columna, int profundidad) {
     cout << "Ahora Debes ingresar una mina" << endl;
     solicitarIngresoDeCordenadas(fila, columna, profundidad);
-    while (!(esFichaValidaMina(fila, columna, profundidad))) {
+    while (!(esFichaRangoValida(fila, columna, profundidad))) {
         solicitarIngresoDeCordenadas(fila, columna, profundidad);
     }
     Ficha *ficha = tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
     if (!ficha->getBloqueada() && ficha->getElementoFicha() == VACIO &&
         ficha->getIdJugador() != jugadorActual->getIdJugador()) {
         tableroPrincipal->setCasilla(fila, columna, profundidad, MINA, jugadorActual->getIdJugador());
-    } else if (ficha->getElementoFicha() != VACIO && ficha->getIdJugador() != jugadorActual->getIdJugador()) {
+    } else if (ficha->getElementoFicha() != VACIO) {
         ficha->bloquear(5);
+        cout << "UN SOLDADO MURIO, PUEDE SER ENEMIGO O UN SOLDADO COMPAÑERO. ATENTO A DONDE TIRAS LAS MINAS" << endl;
     }
 }
 
@@ -309,15 +313,6 @@ void BatallaDigital::crearArmamentoDelJugador() {
             cin >> cantidadAviones;
         }
         generarPosiciones(cantidadAviones, 'A', jugador);
-        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes()
-             << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
-        cout << endl << "Cuantas minas quiere agregar ";
-        cin >> cantidadMinas;
-        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())) {
-            cout << "Cuantos aviones quiere agregar: ";
-            cin >> cantidadMinas;
-        }
-        generarPosiciones(cantidadMinas, 'M', jugador);
     }
 }
 
@@ -354,7 +349,7 @@ bool BatallaDigital::validarInsertsDisponibles(int cantidadElementos, int insert
     return esInsertValido;
 }
 
-bool BatallaDigital::esFichaValidaMina(int fila, int columna, int profundidad) {
+bool BatallaDigital::esFichaRangoValida(int fila, int columna, int profundidad) {
     bool esValido = true;
     if (!estaEnRangoValido(fila, columna, profundidad)) {
         cout << "->[Error]: ingresante un rango invalido, recuerda que va desde 1 al maximo,por favor ingrese devuelta"
@@ -368,7 +363,7 @@ void BatallaDigital::decidirMoverSoldadoArmamento(int fila, int columna, int pro
     cout << "Ahora Debes  mover un soldado o un armamento (AVION O BARCO)" << endl;
     cout << "Elige un soldado tuyo:" << endl;
     solicitarIngresoDeCordenadas(fila, columna, profundidad);
-    while (!(esFichaValida(fila, columna, profundidad))) {
+    while (!(esFichaRangoValida(fila, columna, profundidad))) {
         solicitarIngresoDeCordenadas(fila, columna, profundidad);
     }
     char movimiento;
@@ -555,6 +550,50 @@ bool BatallaDigital::esPosicionBloqueada(int fila, int columna, int profundidad)
         return true;
     }
     return false;
+}
+
+void BatallaDigital::decrementarTurnosFichas() {
+    for (int i = 1; i <= this->tableroPrincipal->getFila(); i++) {
+        for (int j = 1; j <= this->tableroPrincipal->getColumna(); j++) {
+            for (int k = 1; k <= this->tableroPrincipal->getProfundidad(); k++) {
+                Ficha * ficha = this->tableroPrincipal->obtenerCasillero(i, j, k)->getFicha();
+                if (ficha->getBloqueada()) {
+                    ficha->decrementarTurnosRestantesDesbloqueo();
+                }
+            }
+        }
+    }
+}
+
+void BatallaDigital::desbloquearFichas() {
+    for (int i = 1; i <= this->tableroPrincipal->getFila(); i++) {
+        for (int j = 1; j <= this->tableroPrincipal->getColumna(); j++) {
+            for (int k = 1; k <= this->tableroPrincipal->getProfundidad(); k++) {
+                Ficha * ficha = this->tableroPrincipal->obtenerCasillero(i, j, k)->getFicha();
+                if (ficha->getBloqueada() && ficha->getTurnosRestantesParaDesbloqueo() == 0) {
+                    ficha->desbloquearFicha();
+                }
+            }
+        }
+    }
+}
+
+void BatallaDigital::avanzarTurno() {
+    this->turnos.acolar(this->jugadorActual);
+}
+
+void BatallaDigital::hayGanador() {
+   /* for (int i = 1; i <= this->tableroPrincipal->getFila(); i++) {
+        for (int j = 1; j <= this->tableroPrincipal->getColumna(); j++) {
+            for (int k = 1; k <= this->tableroPrincipal->getProfundidad(); k++) {
+                Ficha * ficha = this->tableroPrincipal->obtenerCasillero(i, j, k)->getFicha();
+                if (ficha->getBloqueada() && ficha->getTurnosRestantesParaDesbloqueo() == 0) {
+                    ficha->desbloquearFicha();
+                }
+            }
+        }
+    }
+    */
 }
 
 

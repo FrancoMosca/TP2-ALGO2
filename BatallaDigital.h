@@ -120,7 +120,7 @@ public:
 
     //Pre:
     //Post:
-    bool esFichaValidaMina(int fila, int columna, int profundidad);
+    bool esFichaRangoValida(int fila, int columna, int profundidad);
 
     //Pre:
     //Post:
@@ -165,6 +165,14 @@ public:
     //Pre:
     //Post:
     bool esPosicionBloqueada(int fila, int columna, int profundidad);
+
+    void decrementarTurnosFichas();
+
+    void desbloquearFichas();
+
+    void avanzarTurno();
+
+    void hayGanador();
 };
 
 #endif

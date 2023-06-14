@@ -28,12 +28,8 @@ bool Ficha::getBloqueada() {
     return this->estaBloqueada;
 }
 
-bool Ficha::aumentarContador() {
-    this->turnosRestantesParaDesbloqueo -= 1;
-    if (this->turnosRestantesParaDesbloqueo == 0) {
-        this->estaBloqueada = false;
-    }
-    return this->estaBloqueada;
+void Ficha::decrementarTurnosRestantesDesbloqueo(){
+    (this->turnosRestantesParaDesbloqueo)--;
 }
 
 void Ficha::bloquear(int turnos) {
@@ -41,6 +37,10 @@ void Ficha::bloquear(int turnos) {
     this->turnosRestantesParaDesbloqueo = turnos;
     this->idJugador = 0;
     this->simboloFicha = VACIO;
+}
+
+void Ficha::desbloquearFicha(){
+    this->estaBloqueada = false;
 }
 
 
@@ -63,6 +63,14 @@ int Ficha::getIdJugador() const {
 
 void Ficha::setIdJugador(int idJugador) {
     Ficha::idJugador = idJugador;
+}
+
+int Ficha::getTurnosRestantesParaDesbloqueo() const {
+    return turnosRestantesParaDesbloqueo;
+}
+
+void Ficha::setTurnosRestantesParaDesbloqueo(int turnosRestantesParaDesbloqueo) {
+    Ficha::turnosRestantesParaDesbloqueo = turnosRestantesParaDesbloqueo;
 }
 
 

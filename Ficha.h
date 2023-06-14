@@ -46,13 +46,12 @@ public:
     //post: retorna un valor booleano, True en caso de que la ficha se escuentra bloqueada y Fals en caso contrario
     bool getBloqueada();
 
-    //pre: la ficha se encuentra bloqueada
-    //post: disminuye la cantidad de turnos restantes para desbloquear la ficha y retorna un valor booleano, True en caso de que la ficha continue bloqueada y False en caso de que se requiera desbloquear
-    bool aumentarContador();
 
     //pre: recibe como parametro un entero positivo que representa la cantidad de turnos que se encontrara bloqueada la ficha
     //post: la fich se mantiene inactiva durante "turnos" cantidad de turnos
     void bloquear(int turnos);
+
+
 
     //pre: -
     //post: la ficha es del tipo "elementoF"
@@ -65,6 +64,14 @@ public:
     //pre: -
     //post: la ficha tiene "vidas" vidas
     void setVidas(int vidas);
+
+    int getTurnosRestantesParaDesbloqueo() const;
+
+    void setTurnosRestantesParaDesbloqueo(int turnosRestantesParaDesbloqueo);
+
+    void desbloquearFicha();
+
+    void decrementarTurnosRestantesDesbloqueo();
 };
 
 #endif

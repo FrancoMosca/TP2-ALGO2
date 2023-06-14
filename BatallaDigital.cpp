@@ -259,18 +259,18 @@ void BatallaDigital::usarCarta(int numero) {
 
 void BatallaDigital::aplicarHabilidadCarta(Carta *carta) {
     habilidadCarta_t habilidad = carta->getHabilidad();
-    if (habilidad == CARTA_DETECTAR_MINA) {
-        carta->detectarMinas(this->tableroPrincipal);
+    if (habilidad == CARTA_AVION_RADAR) {
+        carta->avionRadar(this->tableroPrincipal,this->jugadorActual->getIdJugador());
     } else if (habilidad == CARTA_DISPARAR_MISIL) {
-        carta->dispararMisil();
+        carta->dispararMisil(this->tableroPrincipal,this->jugadorActual->getIdJugador());
     } else if (habilidad == CARTA_ATAQUE_QUIMICO) {
-        carta->ataqueQuimico();
+        carta->ataqueQuimico(this->tableroPrincipal);
     } else if (habilidad == CARTA_DESARMAR_SOLDADO) {
         carta->desarmarSoldados();
     } else if (habilidad == CARTA_ATAQUE_MULTIPLE) {
         carta->ataqueMultiple();
     } else if (habilidad == CARTA_AUMENTAR_RESISTENCIA) {
-        carta->aumentarResistencia(this->tableroPrincipal);
+        carta->aumentarResistencia();
     }
 }
 

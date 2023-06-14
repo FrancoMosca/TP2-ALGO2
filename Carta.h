@@ -2,9 +2,11 @@
 #define TP2_ALGO2_CARTA_H
 
 #include "Tablero.h"
+
+
 typedef enum {
     CARTA_SIN_EFECTO,
-    CARTA_DETECTAR_MINA,
+    CARTA_AVION_RADAR,
     CARTA_DISPARAR_MISIL,
     CARTA_ATAQUE_QUIMICO,
     CARTA_DESARMAR_SOLDADO,
@@ -32,13 +34,13 @@ public:
     void obtenerRango ();
 
     //Metodos carta avion
-    void detectarMinas(Tablero* tablero);
+    void avionRadar(Tablero * tablero, int idJugador);
 
     //Metodos carta barco
-    void dispararMisil();
+    void dispararMisil(Tablero * tablero, int idJugador);
 
     //Metodos ataque quimico
-    void ataqueQuimico();
+    void ataqueQuimico(Tablero * tablero);
 
     //Metodos granada
     void desarmarSoldados();
@@ -47,7 +49,13 @@ public:
     void ataqueMultiple();
 
     //Metodos escudo
-    void aumentarResistencia(Tablero * tablero);
+    void aumentarResistencia();
+
+    void solicitarIngresoDeCordenadas(int &filas, int &columnas, int &profundidad);
+
+    bool estaEnRangoValido(Tablero * tablero, &fila, int &columna, int &profundidad);
+
+    bool esFichaValida(int &fila, int &columna, int &profundidad);
 
     virtual ~Carta();
 };

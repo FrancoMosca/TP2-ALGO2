@@ -173,7 +173,7 @@ void Carta::solicitarIngresoDeCordenadas(int &filas, int &columnas, int &profund
     cin >> profundidad;
 }
 
-bool Carta::estaEnRangoValido(Tablero * tablero, &fila, int &columna, int &profundidad) {
+bool Carta::estaEnRangoValido(Tablero * tablero, int  &fila, int &columna, int &profundidad) {
     int maxFilas = tablero->getFila();
     int maxColumnas = tablero->getColumna();
     int maxProfundidad = tablero->getProfundidad();

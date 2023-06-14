@@ -12,7 +12,7 @@ typedef enum {
 
 class Casillero {
 private:
-    Ficha * ficha;
+    Ficha *ficha;
     bool estadoCasillero;
     terreno_t terreno;
 
@@ -20,12 +20,15 @@ public:
     //Pre: -
     //Post: se crea el casillero cuya ficha ubicada en el es "simboloFicha" y es del tipo "terreno" 
     Casillero(terreno_t terreno, char simboloFicha);
+
     //Pre: -
     //Post: retorna el puntero a la clase Ficha asociado al caillero 
-    Ficha * getFicha();
+    Ficha *getFicha();
+
     //Pre: -
     //Post: retorna el valor booleano True si la ficha asociada al casillero se encuentra vacia y False en caso contrario
     bool estaCasilleroVacio();
+
     //Pre: -
     //Post: retorna el tipo de terreno asociado al casillero
     terreno_t getTerreno();

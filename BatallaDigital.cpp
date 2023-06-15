@@ -2,6 +2,7 @@
 #include "Jugador.h"
 #include <random>
 #include <cstdlib>
+#include "Interface.h"
 using namespace std;
 
 BatallaDigital::BatallaDigital() {
@@ -146,11 +147,13 @@ void BatallaDigital::jugarJuego() {
     cout << "Jugar juego " << endl;
     int fila, columna, profundidad;
     char simboloFicha;
-    while (this->hayGanador) {
+    while (!this->hayGanador) {
         this->cantidadJugadasRealizadas++;
         this->jugadorActual = turnos.desacolar();
         cout << "[ RONDA: " << this->cantidadJugadasRealizadas << " ] ES EL TURNO DEL JUGADOR: "
              << this->jugadorActual->getNombreJugador() << endl << endl;
+        cout << "revise las imagenes para ver el estado del tablero"<< endl;
+        mostrarTablero(this->tableroPrincipal, jugadorActual->getIdJugador);
         this->repartirCartas();
         this->elegirCarta();
         this->limpiarConsola();

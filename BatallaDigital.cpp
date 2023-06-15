@@ -302,7 +302,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " .PUEDE DECIR QUE CANTIDAD DE ARMAMENTO CREAR, TANTO COMO SOLDADOS, BARCOS Y AVIONES" << endl << endl;
         cout << "CUANTOS SOLDADOS QUIERE AGREGAR: ";
         cin >> cantidadSoldados;
-        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes())&& (cantidadSoldados < (this->tableroPrincipal->setFila()* this->tabletoPrincipal->setColumna * 3 / jugadores->contarElememtos()))) {
+        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes())&& (cantidadSoldados < (this->tableroPrincipal->getFila()* this->tabletoPrincipal->getColumna * 3 / jugadores->contarElememtos()))) {
             cout << "CUANTOS SOLDADOS QUIERE AGREGAR: ";
             cin >> cantidadSoldados;
         }
@@ -312,7 +312,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " .PUEDE DECIR QUE CANTIDAD DE ARMAMENTO CREAR, TANTO COMO SOLDADOS, BARCOS Y AVIONES" << endl;
         cout << endl << "CUANTOS BARCOS QUIERE AGREGAR: ";
         cin >> cantidadBarcos;
-        while (this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())&& (cantidadBarcos < (this->tableroPrincipal->setFila()* this->tabletoPrincipal->setColumna * 2 / jugadores->contarElememtos()))) {
+        while (this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())&& (cantidadBarcos < (this->tableroPrincipal->getFila()* this->tabletoPrincipal->getColumna * 2 / jugadores->contarElememtos()))) {
             cout << "CUANTOS BARCOS QUIERE AGREGAR:";
             cin >> cantidadBarcos;
         }
@@ -321,7 +321,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantos aviones quiere agregar ";
         cin >> cantidadAviones;
-        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())&& (cantidadAviones < (this->tableroPrincipal->setFila()* this->tabletoPrincipal->setColumna * (this->tableroPrincipal->setProfundidad() -5) / jugadores->contarElememtos()))) {
+        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())&& (cantidadAviones < (this->tableroPrincipal->getFila()* this->tabletoPrincipal->getColumna * (this->tableroPrincipal->getProfundidad() -5) / jugadores->contarElememtos()))) {
             cout << "Cuantos aviones quiere agregar: ";
             cin >> cantidadAviones;
         }

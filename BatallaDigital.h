@@ -76,24 +76,24 @@ public:
     //Post: se solicita por pantalla la eleccion de numero de fila, columna y profundidad, su valor permanecera guardado en "filas","columnas","profundidad"  
     void solicitarIngresoDeCordenadas(int &filas, int &columnas, int &profundidad);
 
-    //Pre:recibe como parametro tres enteros que representan
-    //Post:
+    //Pre:recibe como parametro tres referencias a enteros que representan la posicion "fila" x "columna" x "profundidad" en el tablero
+    //Post: retorna el valor booleano False en caso de que la posición no ecista o se encuentre ocupada, retorna True en caso contrari
     bool esFichaValida(int &fila, int &columna, int &profundidad);
 
-    //Pre:
-    //Post:
+    //Pre:recibe como parametro tres referencias a enteros que representan la posicion "fila" x "columna" x "profundidad" en el tablero
+    //Post: retorna False en caso de que la posición nl exista y True en caso contrario
     bool estaEnRangoValido(int &fila, int &columna, int &profundidad);
 
-    //Pre:
-    //Post:
+    //Pre:recibe como parametro tres referencias a enteros que representan la posicion "fila" x "columna" x "profundidad" en el tablero
+    //Post: retorna el valor booleano true en caso de que el casillero se encuentre vacio y false en caso contrario
     bool estaCasilleroLibre(int &fila, int &columna, int &profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: el jugador obtiene una carta de manera aleatoria
     void repartirCartasAlJugadorActual();
 
-    //Pre:
-    //Post:
+    //Pre:-
+    //Post: inicializa una lista de turnos durante una ronda
     void iniciarTurnos();
 
     //Pre:

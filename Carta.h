@@ -2,7 +2,7 @@
 #define TP2_ALGO2_CARTA_H
 
 #include "Tablero.h"
-#include "Jugador.h"
+
 
 typedef enum {
     CARTA_SIN_EFECTO,
@@ -10,7 +10,7 @@ typedef enum {
     CARTA_DISPARAR_MISIL,
     CARTA_ATAQUE_QUIMICO,
     CARTA_AVION_KAMIKAZE,
-    CARTA_DESCARTAR_CARTA_ENEMIGA,
+    CARTA_TORMENTA_ELECTRICA,
     CARTA_FRANCOTIRADOR,
 } habilidadCarta_t;
 
@@ -45,7 +45,7 @@ public:
 
     //Pre:
     //Post:
-    void obtenerRango();
+    virtual ~Carta();
 
     //Pre:
     //Post:
@@ -67,15 +67,14 @@ public:
     //Metodos avion Kamikaze
     void avionKamikaze(Tablero *tablero, int idJugador);
 
-    //Pre:
-    //Post:
-    //Metodos escudo
-    void descartarCartaEnemiga(Lista<Jugador *> *jugadores);
 
+
+    void tormentaElectrica(Tablero *tablero);
     //Pre:
     //Post:
     //Metodos escudo
-    void francotirador();
+
+    void francotirador(Tablero *tablero, int idJugador);
 
     //Pre:
     //Post:
@@ -100,10 +99,11 @@ public:
     bool poseeBarco(Tablero *tablero, int idJugador);
     //Pre:
     //Post:
-    bool validarId(Lista<Jugador *> *jugadores, int idElegido);
+    bool poseeSoldado(Tablero *tablero, int idJugador);
     //Pre:
     //Post:
-    virtual ~Carta();
+    bool estaEnElAire(Tablero *tablero, int &fila, int &columna, int &profundidad);
+
 };
 
 

@@ -14,22 +14,19 @@ Carta::Carta(habilidadCarta_t efecto) {
     this->habilidadCarta = efecto;
 }
 
-habilidadCarta_t Carta::generarEfectoAleatorio() {
-
-    int efectoRandom = (rand() % 6) + 1;
-    return (habilidadCarta_t) efectoRandom;
-}
-
 void Carta::setHabilidad(habilidadCarta_t efecto) {
     this->habilidadCarta = efecto;
 }
+
 
 habilidadCarta_t Carta::getHabilidad() {
     return this->habilidadCarta;
 }
 
-Carta::~Carta() {
+habilidadCarta_t Carta::generarEfectoAleatorio() {
 
+    int efectoRandom = (rand() % 6) + 1;
+    return (habilidadCarta_t) efectoRandom;
 }
 
 void Carta::imprimirHabilidadCarta() {
@@ -65,9 +62,10 @@ void Carta::imprimirHabilidadCarta() {
     }
 }
 
-void Carta::obtenerRango() {
+Carta::~Carta() {
 
 }
+
 
 void Carta::avionRadar(Tablero *tablero, int idJugador) {
     if (this->poseeAvion(tablero,idJugador)) {
@@ -127,10 +125,10 @@ void Carta::ataqueQuimico(Tablero *tablero) {
                              (nuevaColumna < columna-1 || nuevaColumna > columna+1) ||
                              (nuevaProfundidad < profundidad-1 || nuevaProfundidad > profundidad+1)) {
                         tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(8);
-                        }
-                         else {
-                            tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(6);
-                         }
+                    }
+                    else {
+                        tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(6);
+                    }
                 }
             }
         }
@@ -188,36 +186,69 @@ void Carta::avionKamikaze(Tablero *tablero, int idJugador){
 }
 
 
-void Carta::descartarCartaEnemiga(Lista<Jugador *> *jugadores) {
-    int idElegido;
-    cout << "Se tira un dado de 6 lados, si sale 6 se descarta una carta de un enemigo."
-    int efectoRandom = (rand() % 6) + 1;
-    cout << "El resultado del dado es: " << efectoRandom << endl;
-    if(efectoRandom == 6){
-        cout << "Elija jugador a descartar una carta "
-        jugadores->iniciarCursor();
-        while (jugadores->avanzarCursor()) {
-            cout << "[" << (jugadores->obtenerCursor())->getIdJugador() << "]";
-            cout << (jugadores->obtenerCursor())->getNombreJugador();
-            cout << " con la ficha : " << jugadores->obtenerCursor()->getFicha()->getElementoFicha() << "\n";
+void Carta::tormentaElectrica(Tablero *tablero){
+    int fila, columna, profundidad;
+    cout << "TORMENTA ELECTRICA" << endl << endl << "Ingrese coordenadas de tormenta (rango de efecto 5x5x5)" << endl;
+    solicitarIngresoDeCordenadas(fila, columna, profundidad);
+    while (!(this->estaEnElAire(tablero,fila,columna,profundidad))) {
+        cout << "Ingrese coordenadas  en el aire";
+        solicitarIngresoDeCordenadas(fila, columna, profundidad);
+    }
+    for (int i = -2; i <= 2; i++) {
+        for (int j = -2; j <= 2; j++) {
+            for (int k = -2; k <= 2; k++) {
+                int nuevaFila = fila + i;
+                int nuevaColumna = columna + j;
+                int nuevaProfundidad = profundidad + k;
+
+                if (this->estaDentroDeTablero(tablero,nuevaFila,nuevaColumna,nuevaProfundidad) && this->estaEnElAire(tablero,nuevaFila,nuevaColumna,nuevaProfundidad)) {
+                    if(tablero->obtenerCasillero(nuevaFila,nuevaColumna,nuevaProfundidad)->getFicha()->getElementoFicha() == 'A')
+                        tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(3);
+                }
+            }
         }
-        cout << "-------------------------------------------\n";
-        cout << "Ingrese ID: ";
-        cin >> idElegido;
-        if(validarId(jugadores, idElegido)){
-            jugadores.iniciarCursor();
-            while(jugadores.avanzarCursor()){
-                if(jugadores.obtenerCursor()->getIdJugador() == idElegido){
-                    jugadores.obtenerCursor()->getMazo()->eliminarCarta(1);
+    }
+}
+
+
+
+
+
+
+
+void Carta::francotirador(Tablero *tablero, int idJugador) {
+    cout << "FRANCOTIRADOR " << endl;
+    bool haySoldadoEnemigo = false;
+    if(this->poseeSoldado(tablero,idJugador)){
+        for (int i = 1; i <= tablero->getFila(); i++) {
+            for (int j = 1; j <= tablero->getColumna(); j++) {
+                for (int k = 1; k <= tablero->getProfundidad(); k++) {
+                    int id = tablero->obtenerCasillero(i,j,k)->getFicha()->getIdJugador();
+                    if((tablero->obtenerCasillero(i,j,k)->getFicha()->getElementoFicha() == 'S') && id != idJugador){
+                        haySoldadoEnemigo = true;
+                        cout << "Soldado enemigo en posicion: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << endl;
+
+                    }
                 }
             }
         }
 
+        int fila, columna, profundidad;
+        if(haySoldadoEnemigo){
+            cout << endl << "Ingrese coordenadas a atacar: " << endl;
+            solicitarIngresoDeCordenadas(fila, columna, profundidad);
+            while (!(esFichaValida(tablero,fila, columna, profundidad)) && !(estaEnElAire(tablero,fila, columna, profundidad))) {
+                solicitarIngresoDeCordenadas(fila, columna, profundidad);
+            }
+            tablero->obtenerCasillero(fila,columna,profundidad)->getFicha()->bloquear(0);
+        }
+        else{
+            cout << endl << "No hay soldados enemigos a la vista" << endl;
+        }
     }
-    cout << "Mala suerte, pierde efecto la carta."
-}
-
-void Carta::francotirador() {
+    else{
+        cout << "Al no tener Soldados no puedes usar la carta de francotirador, por lo que perdiste la carta" << endl;
+    }
 
 }
 
@@ -304,12 +335,42 @@ bool Carta::poseeBarco(Tablero *tablero, int idJugador) {
     return poseeBarco;
 }
 
-bool Carta::validarId(Lista<Jugador *> jugadores, int idElegido) {
-    jugadores->iniciarCursor();
-    while (jugadores->avanzarCursor()) {
-        if (jugadores->obtenerCursor()->getIdJugador() == idElegido) {
-            return true;
+bool Carta::poseeSoldado(Tablero *tablero, int idJugador) {
+    bool poseeSoldado = false;
+    int i = 1;
+    while (i <= tablero->getFila() && !poseeSoldado) {
+        int j = 1;
+        while (j <= tablero->getColumna() && !poseeSoldado) {
+            int k = 1;
+            while (k <= tablero->getProfundidad() && !poseeSoldado) {
+                int id = tablero->obtenerCasillero(i, j, k)->getFicha()->getIdJugador();
+                if (tablero->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha() == 'S' && id == idJugador) {
+                    poseeSoldado = true;
+                }
+                k++;
+            }
+            j++;
         }
+        i++;
     }
-    return false;
+    return poseeSoldado;
 }
+
+bool Carta::estaEnElAire(Tablero *tablero, int &fila, int &columna, int &profundidad) {
+    int maxFilas = tablero->getFila();
+    int maxColumnas = tablero->getColumna();
+    int maxProfundidad = tablero->getProfundidad();
+    if (fila < 1 || fila > maxFilas || columna < 1 || columna > maxColumnas || profundidad < 6 ||
+        profundidad > maxProfundidad) {
+        return false;
+    }
+    return true;
+}
+
+
+
+
+
+
+
+

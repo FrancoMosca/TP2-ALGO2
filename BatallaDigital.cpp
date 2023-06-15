@@ -161,7 +161,6 @@ void BatallaDigital::jugarJuego() {
         this->desbloquearFichas();
         this->actualizarArmamento();
         this->avanzarTurno();
-        this->a
     }
 
     cout << "FELICIDADES" << endl;

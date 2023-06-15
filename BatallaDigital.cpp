@@ -344,7 +344,7 @@ void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha,
         mt19937 gen(rd());
         uniform_int_distribution<int> dist(1, 10);
         int fila = dist(gen), columna = dist(gen), profundidad = dist(gen);
-        while (!esFichaValida(fila, columna, profundidad)) {
+        while (!esFichaValida(fila, columna, profundidad)&&(this->tableroPrincipal->obtenerCasillero(fial,columna,profundidad)->getTerreno() == terreno)) {
             fila = dist(gen), columna = dist(gen), profundidad = dist(gen);
         }
         tableroPrincipal->setCasilla(fila, columna, profundidad, simboloFicha, jugador->getIdJugador());

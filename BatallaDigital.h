@@ -6,7 +6,6 @@
 #include "iostream"
 #include "Jugador.h"
 #include "Cola.h"
-#include "Interfaz.h"
 
 #define CANTIDAD_CARTAS_MAZO_PRINCIPAL 50
 #define CANTIDAD_CARTAS_MAZO_JUGADORES 7

@@ -40,5 +40,29 @@ void Jugador::setCantidadInsertsRestantes(int cantidadInsertsRestantes) {
     Jugador::cantidadInsertsRestantes = cantidadInsertsRestantes;
 }
 
+int Jugador::getCantidadElementosVivos() const {
+    return cantidadElementosVivos;
+}
+
+void Jugador::setCantidadElementosVivos(int i) {
+    this->cantidadElementosVivos = i;
+}
+
+void Jugador::decrementarElementosVivos() {
+    this->cantidadElementosVivos--;
+}
+
+void Jugador::aumentarElementosVivos() {
+    this->cantidadElementosVivos++;
+}
+
+bool Jugador::isPerdioLaPartida() const {
+    return perdioLaPartida;
+}
+
+void Jugador::setPerdioLaPartida(bool perdioLaPartida) {
+    Jugador::perdioLaPartida = perdioLaPartida;
+}
+
 
 

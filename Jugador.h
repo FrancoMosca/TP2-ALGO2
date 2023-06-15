@@ -19,6 +19,8 @@ private:
     Ficha *ficha;
     Mazo *mazo;
     int cantidadInsertsRestantes;
+    int cantidadElementosVivos;
+    bool perdioLaPartida;
 
 public:
     //Pre: -
@@ -45,6 +47,14 @@ public:
     //Post: reorna un puntero al mazo del jugador
     Mazo *getMazo() const;
 
+    int getCantidadElementosVivos() const;
+
+    void setCantidadElementosVivos(int i);
+
+    bool isPerdioLaPartida() const;
+
+    void setPerdioLaPartida(bool perdioLaPartida);
+
     //Pre: -
     //Post: el jugador tiene un mazo "mazo" de cartas
     void setMazo(Mazo *mazo);
@@ -56,6 +66,10 @@ public:
     //Pre: -
     //Post: el jugador tiene "cantidadInsertsRestantes" cantidad de elementos restantes permitidos que se pueden colocar en el tablero
     void setCantidadInsertsRestantes(int cantidadInsertsRestantes);
+
+    void decrementarElementosVivos();
+
+    void aumentarElementosVivos();
 };
 
 

@@ -50,9 +50,9 @@ void Mazo::barajarMazo() {
 void Mazo::imprimirMazo() {
     int i = 1;
     this->mazoCartas.iniciarCursor();
-    std::cout << "----------------Su mazo de carta------------------" << std::endl;
+    std::cout << "----------------SU MAZO DE CARTAS------------------" << std::endl;
     while (this->mazoCartas.avanzarCursor()) {
-        std::cout << "carta numero " << i++ << ": ";
+        std::cout << "CARTA NUMERO " << i++ << ": ";
         this->mazoCartas.obtenerCursor()->imprimirHabilidadCarta();
     }
 }

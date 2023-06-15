@@ -20,6 +20,8 @@ private:
     Jugador *jugadorActual;
     int cantidadJugadasRealizadas;
     int cantidadInsertsPorJugador;
+    int idJugadorGanador;
+    bool hayGanador;
 public:
     //Pre: -
     //Post: Crea una batalla no inicializada 
@@ -172,7 +174,19 @@ public:
 
     void avanzarTurno();
 
-    void hayGanador();
+    void actualizarArmamento();
+
+    void actualizarArmamento(const Ficha *ficha);
+
+    void limpiarConsola();
+
+    int getIdJugadorGanador() const;
+
+    void setIdJugadorGanador(int idJugadorGanador);
+
+    bool isHayGanador() const;
+
+    void setHayGanador(bool hayGanador);
 };
 
 #endif

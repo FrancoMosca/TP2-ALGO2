@@ -161,6 +161,7 @@ void BatallaDigital::jugarJuego() {
         this->desbloquearFichas();
         this->actualizarArmamento();
         this->avanzarTurno();
+        this->a
     }
 
     cout << "FELICIDADES" << endl;
@@ -636,7 +637,7 @@ void BatallaDigital::actualizarArmamento() {
         this->setIdJugadorGanador(idJugadorGanador);
         this->setHayGanador(true);
     } else {
-        this->setIdJugadorGanador(false);
+        this->setHayGanador(false);
     }
 }
 

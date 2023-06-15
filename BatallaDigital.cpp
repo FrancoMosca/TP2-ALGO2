@@ -396,7 +396,7 @@ void BatallaDigital::decidirMoverSoldadoArmamento(int fila, int columna, int pro
     int nuevaProfundidad;
     cout << "Ingrese la nueva profundidad, debe ser 1 mayor o menor que la del soldado elegido" << endl;
     cin >> nuevaProfundidad;
-    if (validarSoldadoArmamentoElegido(fila, columna, profundidad) && validarMovimiento(movimiento)) {
+    if (validarSoldadoArmamentoElegido(fila, columna, profundidad) && validarMovimiento(movimiento) && (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() == this->tableroPrincipal->obtenerCasillero(fila,columna,nuevaProfundidad)->getTerreno()){
         moverElemento(fila, columna, profundidad, movimiento, nuevaProfundidad);
     } else {
         cout << "Perdiste Un turno por haber elegido mal, sorry :( " << endl;

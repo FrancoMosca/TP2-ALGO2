@@ -139,7 +139,7 @@ void BatallaDigital::crearMazoPorJugador() {
         Mazo *nuevoMazo = new Mazo();
         this->jugadores->obtenerCursor()->setMazo(nuevoMazo);
     }
-    cout << "Proceso de repartision terminado " << endl;
+    cout << "Proceso de reparticion terminado " << endl;
 }
 
 void BatallaDigital::jugarJuego() {
@@ -173,7 +173,7 @@ void BatallaDigital::repartirCartas() {
     if (mazo->getCantidadCartas() > 0 &&
         jugadorActual->getMazo()->getCantidadCartas() < CANTIDAD_CARTAS_MAZO_JUGADORES) {
         cout << "REPARTIENDO CARTAS PARA LOS JUGADORES " << endl << endl;
-        repartirCartasAlJugadorActual();
+        this->repartirCartasAlJugadorActual();
     }
 }
 
@@ -280,12 +280,12 @@ void BatallaDigital::aplicarHabilidadCarta(Carta *carta) {
         carta->dispararMisil(this->tableroPrincipal,this->jugadorActual->getIdJugador());
     } else if (habilidad == CARTA_ATAQUE_QUIMICO) {
         carta->ataqueQuimico(this->tableroPrincipal);
-    } else if (habilidad == CARTA_DESARMAR_SOLDADO) {
-        carta->desarmarSoldados();
-    } else if (habilidad == CARTA_ATAQUE_MULTIPLE) {
-        carta->ataqueMultiple();
-    } else if (habilidad == CARTA_AUMENTAR_RESISTENCIA) {
-        carta->aumentarResistencia();
+    } else if (habilidad == CARTA_AVION_KAMIKAZE) {
+        carta->avionKamikaze(this->tableroPrincipal,this->jugadorActual->getIdJugador());
+    } else if (habilidad == CARTA_TORMENTA_ELECTRICA) {
+        carta->tormentaElectrica(this->tableroPrincipal);
+    } else if (habilidad == CARTA_FRANCOTIRADOR) {
+        carta->francotirador(this->tableroPrincipal,this->jugadorActual->getIdJugador());
     }
 }
 
@@ -344,7 +344,7 @@ void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha,
         mt19937 gen(rd());
         uniform_int_distribution<int> dist(1, 10);
         int fila = dist(gen), columna = dist(gen), profundidad = dist(gen);
-        while (!esFichaValida(fila, columna, profundidad)&&(this->tableroPrincipal->obtenerCasillero(fial,columna,profundidad)->getTerreno() == terreno)) {
+        while (!esFichaValida(fila, columna, profundidad)&&(this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() == terreno)) {
             fila = dist(gen), columna = dist(gen), profundidad = dist(gen);
         }
         tableroPrincipal->setCasilla(fila, columna, profundidad, simboloFicha, jugador->getIdJugador());

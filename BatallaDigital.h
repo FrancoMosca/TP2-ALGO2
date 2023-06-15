@@ -187,6 +187,27 @@ public:
     bool isHayGanador() const;
     
     void setHayGanador(bool hayGanador);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 #endif

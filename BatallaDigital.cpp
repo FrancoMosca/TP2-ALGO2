@@ -302,7 +302,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " .PUEDE DECIR QUE CANTIDAD DE ARMAMENTO CREAR, TANTO COMO SOLDADOS, BARCOS Y AVIONES" << endl << endl;
         cout << "CUANTOS SOLDADOS QUIERE AGREGAR: ";
         cin >> cantidadSoldados;
-        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes())&& (cantidadSoldados < (jugador->getCantidadInsertsRestantes() * 3 / 5))) {
+        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes())&& (cantidadSoldados < (this->tableroPrincipal->setFila()* this->tabletoPrincipal->setColumna * 3 / jugadores->contarElememtos()))) {
             cout << "CUANTOS SOLDADOS QUIERE AGREGAR: ";
             cin >> cantidadSoldados;
         }

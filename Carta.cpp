@@ -38,15 +38,15 @@ void Carta::imprimirHabilidadCarta() {
             std::cout << "CARTA SIN EFECTO " << std::endl;
             break;
         case 1:
-            std::cout << "CARTA PERDER TURNO " << std::endl;
+            std::cout << "CARTA AVION RADAR " << std::endl;
             break;
 
         case 2:
-            std::cout << "CARTA BLOQUEAR FICHA " << std::endl;
+            std::cout << "CARTA DISPARAR MISIL" << std::endl;
             break;
 
         case 3:
-            std::cout << "CARTA ANULAR CASILLERO " << std::endl;
+            std::cout << "CARTA ATAQUE QUIMICO " << std::endl;
             break;
 
         case 4:
@@ -126,7 +126,7 @@ void Carta::dispararMisil(Tablero *tablero, int idJugador) {
     if(poseeBarco){
         int fila, columna, profundidad;
         solicitarIngresoDeCordenadas(fila, columna, profundidad);
-        while (!(esFichaValida(fila, columna, profundidad))) {
+        while (!(esFichaValida(tablero,fila, columna, profundidad))) {
             solicitarIngresoDeCordenadas(fila, columna, profundidad);
         }
         tablero->obtenerCasillero(fila,columna,profundidad)->getFicha()->bloquear(3);
@@ -135,21 +135,37 @@ void Carta::dispararMisil(Tablero *tablero, int idJugador) {
         cout << "Al no tener Barcos no puedes la carta de misil, por lo que perdiste la carta" << endl;
     }
 
-
-
-
-
-
-
-
 }
 
 void Carta::ataqueQuimico(Tablero *tablero) {
+    int fila, columna, profundidad;
+    solicitarIngresoDeCordenadas(fila, columna, profundidad);
+    while (!(esFichaValida(tablero, fila, columna, profundidad))) {
+        solicitarIngresoDeCordenadas(fila, columna, profundidad);
+    }
+    for (int i = -2; i <= 2; i++) {
+        for (int j = -2; j <= 2; j++) {
+            for (int k = -2; k <= 2; k++) {
+                int nuevaFila = fila + i;
+                int nuevaColumna = columna + j;
+                int nuevaProfundidad = profundidad + k;
 
-
-
-
-
+                if (this->estaDentroDeTablero(tablero,nuevaFila,nuevaColumna,nuevaProfundidad)) {
+                    if (nuevaFila == fila && nuevaColumna == columna && nuevaProfundidad == profundidad) {
+                        tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(10);
+                    }
+                    else if ((nuevaFila < fila-1 || nuevaFila > fila+1) ||
+                             (nuevaColumna < columna-1 || nuevaColumna > columna+1) ||
+                             (nuevaProfundidad < profundidad-1 || nuevaProfundidad > profundidad+1)) {
+                        tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(8);
+                        }
+                         else {
+                            tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(6);
+                         }
+                }
+            }
+        }
+    }
 }
 
 void Carta::desarmarSoldados() {
@@ -164,6 +180,11 @@ void Carta::aumentarResistencia() {
 
 }
 
+
+
+
+
+
 void Carta::solicitarIngresoDeCordenadas(int &filas, int &columnas, int &profundidad) {
     cout << "Ingrese una fila :" << endl;
     cin >> filas;
@@ -173,7 +194,7 @@ void Carta::solicitarIngresoDeCordenadas(int &filas, int &columnas, int &profund
     cin >> profundidad;
 }
 
-bool Carta::estaEnRangoValido(Tablero * tablero, int  &fila, int &columna, int &profundidad) {
+bool Carta::estaEnRangoValido(Tablero *tablero, int &fila, int &columna, int &profundidad) {
     int maxFilas = tablero->getFila();
     int maxColumnas = tablero->getColumna();
     int maxProfundidad = tablero->getProfundidad();
@@ -184,12 +205,19 @@ bool Carta::estaEnRangoValido(Tablero * tablero, int  &fila, int &columna, int &
     return true;
 }
 
-bool Carta::esFichaValida(int &fila, int &columna, int &profundidad) {
+bool Carta::esFichaValida(Tablero *tablero, int &fila, int &columna, int &profundidad) {
     bool esValido = true;
-    if (!estaEnRangoValido(fila, columna, profundidad)) {
-        cout << "->[Error]: ingresante un rango invalido, recuerda que va desde 1 al maximo,por favor ingrese devuelta"
-             << endl;
+    if (!estaEnRangoValido(tablero,fila, columna, profundidad)) {
+        cout    << "->[Error]: ingresante un rango invalido, recuerda que va desde 1 al maximo,por favor ingrese devuelta"
+                << endl;
         esValido = false;
     }
     return esValido;
+}
+bool Carta::estaDentroDeTablero(Tablero *tablero,int &fila, int &columna, int &profundidad){
+    bool estaDentro = true;
+    if (!estaEnRangoValido(tablero,fila, columna, profundidad)) {
+        estaDentro = false;
+    }
+    return estaDentro;
 }

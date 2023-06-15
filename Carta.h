@@ -87,7 +87,12 @@ public:
 
     //Pre:
     //Post:
-    bool esFichaValida(int &fila, int &columna, int &profundidad);
+    bool esFichaValida(Tablero *tablero,int &fila, int &columna, int &profundidad);
+
+    //Pre:
+    //Post:
+    bool estaDentroDeTablero(Tablero *tablero,int &fila, int &columna, int &profundidad);
+
 
     //Pre:
     //Post:

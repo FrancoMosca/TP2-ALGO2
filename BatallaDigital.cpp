@@ -332,6 +332,13 @@ void BatallaDigital::crearArmamentoDelJugador() {
 }
 
 void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador) {
+    terreno_t terreno = TIERRA;
+    if (simboloFicha==BARCO){
+        terreno = AGUA;
+    }
+    if (simboloFicha==AVION){
+        terreno = AIRE;
+    }
     for (int i = 0; i < cantidadElementos; i++) {
         random_device rd;
         mt19937 gen(rd());

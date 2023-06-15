@@ -96,19 +96,19 @@ public:
     //Post: inicializa una lista de turnos durante una ronda
     void iniciarTurnos();
 
-    //Pre:
-    //Post:
+    //Pre: el jugador debe tener "numeroCarta" cantidad de cartas
+    //Post: se efectúa la habilidad de la carta elegida y se elimina del mazo del jugador dicha carta
     void usarCarta(int numeroCarta);
 
-    //Pre:
-    //Post:
+    //Pre: "carta" no puede ser NULL
+    //Post: efectua la habilidad de la carta sobre el tablero
     void aplicarHabilidadCarta(Carta *carta);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: se inicializa de forma aleatoria la cantidad de entidades del juego para el jugador
     void crearArmamentoDelJugador();
 
-    //Pre:
+    //Pre: -
     //Post:
     void obtenerCantidadDeInsertsPorJugador();
 

@@ -186,6 +186,8 @@ public:
 
     bool isHayGanador() const;
 
+    Tablero* getTablero();
+    
     void setHayGanador(bool hayGanador);
 };
 

@@ -1,7 +1,7 @@
 #include "BatallaDigital.h"
 #include "Jugador.h"
-#include <random>
 #include <cstdlib>
+#include <ctime>
 #include "Interface.h"
 
 using namespace std;
@@ -350,13 +350,11 @@ void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha,
         terreno = AIRE;
     }
     for (int i = 0; i < cantidadElementos; i++) {
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<int> dist(1, 10);
-        int fila = dist(gen), columna = dist(gen), profundidad = dist(gen);
+        std::srand(std::time(0));
+        int fila = (std::rand() % 10) + 1, columna = (std::rand() % 10) + 1, profundidad = (std::rand() % 10) + 1;
         while (!esFichaValida(fila, columna, profundidad) &&
                (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() == terreno)) {
-            fila = dist(gen), columna = dist(gen), profundidad = dist(gen);
+            fila = (std::rand() % 10) + 1, columna = (std::rand() % 10) + 1, profundidad = (std::rand() % 10) + 1;
         }
         tableroPrincipal->setCasilla(fila, columna, profundidad, simboloFicha, jugador->getIdJugador());
         cout << "Se inserto la casilla [" << fila << "][" << columna << "][" << profundidad << "] = " << simboloFicha

@@ -11,6 +11,7 @@ BatallaDigital::BatallaDigital() {
     this->mazo = NULL;
     this->jugadores = NULL;
     this->jugadorActual = NULL;
+    this->hayGanador = false;
 }
 
 BatallaDigital::~BatallaDigital() {

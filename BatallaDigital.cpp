@@ -198,12 +198,14 @@ void BatallaDigital::agregarMina(int fila, int columna, int profundidad) {
     }
     Ficha *ficha = tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getFicha();
     if (!ficha->getBloqueada() && ficha->getElementoFicha() == VACIO &&
-        ficha->getIdJugador() != jugadorActual->getIdJugador()) {
+        ficha->getIdJugador() != jugadorActual->getIdJugador() &&tableroPrincipal->obtenerCasillero(fila, columna, profundidad)-> getTerreno() == TIERRA  ) {
         tableroPrincipal->setCasilla(fila, columna, profundidad, MINA, jugadorActual->getIdJugador());
         cout << "MINA INSERTADA, ESPEREMOS QUE ALGUIEN LA PISE JEJE" << endl;
     } else if (ficha->getElementoFicha() != VACIO) {
         ficha->bloquear(5);
         cout << "UN SOLDADO MURIO, PUEDE SER ENEMIGO O UN SOLDADO COMPAÑERO. ATENTO A DONDE TIRAS LAS MINAS" << endl;
+    } else if(tableroPrincipal->obtenerCasillero(fila, columna, profundidad)-> getTerreno() != TIERRA){
+        cout << "La mina se ha perdido, recuerde que solo se pueden ubicar minas en las coordenadas donde haya tierra" << endl;
     }
 }
 
@@ -300,7 +302,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " .PUEDE DECIR QUE CANTIDAD DE ARMAMENTO CREAR, TANTO COMO SOLDADOS, BARCOS Y AVIONES" << endl << endl;
         cout << "CUANTOS SOLDADOS QUIERE AGREGAR: ";
         cin >> cantidadSoldados;
-        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes())) {
+        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes())&& (cantidadSoldados < (jugador->getCantidadInsertsRestantes() * 3 / 5))) {
             cout << "CUANTOS SOLDADOS QUIERE AGREGAR: ";
             cin >> cantidadSoldados;
         }
@@ -310,7 +312,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " .PUEDE DECIR QUE CANTIDAD DE ARMAMENTO CREAR, TANTO COMO SOLDADOS, BARCOS Y AVIONES" << endl;
         cout << endl << "CUANTOS BARCOS QUIERE AGREGAR: ";
         cin >> cantidadBarcos;
-        while (this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())) {
+        while (this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())&&(cantidadBarcos < (jugador->getCantidadInsertsRestantes()*2/5))) {
             cout << "CUANTOS BARCOS QUIERE AGREGAR:";
             cin >> cantidadBarcos;
         }
@@ -319,7 +321,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantos aviones quiere agregar ";
         cin >> cantidadAviones;
-        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())) {
+        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes())&&(cantidadAviones < (jugador->getCantidadInsertsRestantes() - jugador->getCantidadInsertsRestantes() * 5 ))) {
             cout << "Cuantos aviones quiere agregar: ";
             cin >> cantidadAviones;
         }

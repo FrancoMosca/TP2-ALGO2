@@ -168,45 +168,45 @@ public:
     //Post:
     bool esPosicionBloqueada(int fila, int columna, int profundidad);
 
+    //Pre:
+    //Post:
     void decrementarTurnosFichas();
 
+    //Pre:
+    //Post:
     void desbloquearFichas();
 
+    //Pre:
+    //Post:
     void avanzarTurno();
 
+    //Pre:
+    //Post:
     void actualizarArmamento();
 
+    //Pre:
+    //Post
     void actualizarArmamento(const Ficha *ficha);
 
+    //Pre:
+    //Post:
     void limpiarConsola();
 
+    //Pre:
+    //Post:
     int getIdJugadorGanador() const;
 
+    //Pre:
+    //Post:
     void setIdJugadorGanador(int idJugadorGanador);
 
+    //Pre:
+    //Post:
     bool isHayGanador() const;
     
+    //Pre:
+    //Post:
     void setHayGanador(bool hayGanador);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 };
 

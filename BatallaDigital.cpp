@@ -409,12 +409,15 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'W': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila - 1, columna, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+                cout << "Es Posicion bloqueada, perdiste un turno " << endl;
             } else if (existeMina(fila - 1, columna, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna, nuevaProfundidad, VACIO, 0);
-            } else {
+            } else if (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() != this->tableroPrincipal->obtenerCasillero(fila-1,columna,profundidad)->getTerreno()){
+                cout << "te moviste a un bioma no adecuado, se ha predido el turno"<<endl;
+              
+            }else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
             }
@@ -424,12 +427,15 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'S': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila + 1, columna, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+                cout << "Es Posicion bloqueada, perdiste un turno" << endl;
             } else if (existeMina(fila + 1, columna, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna, nuevaProfundidad, VACIO, 0);
-            } else {
+            }  else if (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() != this->tableroPrincipal->obtenerCasillero(fila+1,columna,profundidad)->getTerreno()){
+                cout << "te moviste a un bioma no adecuado, se ha predido el turno"<<endl;
+              
+            }else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
             }
@@ -444,7 +450,10 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
                 eliminarSoldado(fila, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila, columna - 1, nuevaProfundidad, VACIO, 0);
-            } else {
+            }  else if (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() != this->tableroPrincipal->obtenerCasillero(fila,columna-1,profundidad)->getTerreno()){
+                cout << "te moviste a un bioma no adecuado, se ha predido el turno"<<endl;
+              
+            }else {
                 this->tableroPrincipal->setCasilla(fila, columna - 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
             }
@@ -459,7 +468,10 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
                 eliminarSoldado(fila, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila, columna + 1, nuevaProfundidad, VACIO, 0);
-            } else {
+            }  else if (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() != this->tableroPrincipal->obtenerCasillero(fila,columna+1,profundidad)->getTerreno()){
+                cout << "te moviste a un bioma no adecuado, se ha predido el turno"<<endl;
+              
+            }else {
                 this->tableroPrincipal->setCasilla(fila, columna + 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
             }
@@ -474,7 +486,10 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
                 eliminarSoldado(fila - 1, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna - 1, nuevaProfundidad, VACIO, 0);
-            } else {
+            }  else if (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() != this->tableroPrincipal->obtenerCasillero(fila-1,columna-1,profundidad)->getTerreno()){
+                cout << "te moviste a un bioma no adecuado, se ha predido el turno"<<endl;
+              
+            }else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna - 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
             }
@@ -489,7 +504,10 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
                 eliminarSoldado(fila - 1, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna + 1, nuevaProfundidad, VACIO, 0);
-            } else {
+            }  else if (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() != this->tableroPrincipal->obtenerCasillero(fila-1,columna+1,profundidad)->getTerreno()){
+                cout << "te moviste a un bioma no adecuado, se ha predido el turno"<<endl;
+              
+            }else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna + 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
             }
@@ -504,7 +522,10 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
                 eliminarSoldado(fila + 1, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna - 1, nuevaProfundidad, VACIO, 0);
-            } else {
+            } else if (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() != this->tableroPrincipal->obtenerCasillero(fila+1,columna-1,profundidad)->getTerreno()){
+                cout << "te moviste a un bioma no adecuado, se ha predido el turno"<<endl;
+              
+            }else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna - 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
             }
@@ -519,7 +540,10 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
                 eliminarSoldado(fila + 1, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna + 1, nuevaProfundidad, VACIO, 0);
-            } else {
+            }  else if (this->tableroPrincipal->obtenerCasillero(fila,columna,profundidad)->getTerreno() != this->tableroPrincipal->obtenerCasillero(fila+1,columna+1,profundidad)->getTerreno()){
+                cout << "te moviste a un bioma no adecuado, se ha predido el turno"<<endl;
+              
+            }else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna + 1, nuevaProfundidad, SOLDADO,
                                                    this->jugadorActual->getIdJugador());
             }

@@ -15,7 +15,7 @@ Tablero::Tablero(int fila, int columna, int profundidad) {
                 Casillero *casillero;
                 if (k <= 2) {
                     casillero = new Casillero(AGUA, VACIO);
-                } else if (k <= 5) {
+                } else if (k <= 4) {
                     casillero = new Casillero(TIERRA, VACIO);
                 } else {
                     casillero = new Casillero(AIRE, VACIO);

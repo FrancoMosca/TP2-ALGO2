@@ -22,7 +22,13 @@ private:
     Jugador *jugadorActual;
     int cantidadJugadasRealizadas;
     int cantidadInsertsPorJugador;
-    int idJugadorGanador;
+    string nombreJugadorGanador;
+public:
+    const string &getNombreJugadorGanador() const;
+
+    void setNombreJugadorGanador(const string &nombreJugadorGanador);
+
+private:
     bool hayGanador;
 public:
     //Pre: -

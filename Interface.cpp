@@ -193,7 +193,7 @@ void mostrarTablero(Tablero *tablero, int jugador){
     }
     if(tamano>5){
         BMP capa_cielo;
-        mostrarCapa(tablero, 8, &capa_cielo,jugador);
+        mostrarCapa(tablero, 6, &capa_cielo,jugador);
         capa_cielo.WriteToFile("cielo");
     }
 }

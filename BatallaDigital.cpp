@@ -190,8 +190,7 @@ void BatallaDigital::jugarJuego() {
         this->actualizarArmamento();
         this->avanzarTurno();
     }
-
-    cout << "FELICIDADES" << endl;
+    cout << "FELICIDADES: " << this->nombreJugadorGanador << endl;
 }
 
 void BatallaDigital::repartirCartas() {
@@ -702,7 +701,7 @@ void BatallaDigital::avanzarTurno() {
 void BatallaDigital::actualizarArmamento() {
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
-        this->jugadores->obtenerCursor()->setElementosVivos(0);
+        this->jugadores->obtenerCursor()->setCantidadElementosVivos(0);
     }
     
     for (int i = 1; i <= this->tableroPrincipal->getFila(); i++) {
@@ -721,18 +720,18 @@ void BatallaDigital::actualizarArmamento() {
     }
 
     int cantidadJugadoresConSoldados = 0;
-    int idJugadorGanador = 0;
+    string nombreGanador;
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
         Jugador *jugador = this->jugadores->obtenerCursor();
         if (jugador->getCantidadElementosVivos() > 0) {
             cantidadJugadoresConSoldados++;
-            idJugadorGanador = jugador->getIdJugador();
+            nombreGanador = jugador->getNombreJugador();
         }
     }
 
     if (cantidadJugadoresConSoldados == 1) {
-        this->setIdJugadorGanador(idJugadorGanador);
+        this->setNombreJugadorGanador(nombreGanador);
         this->setHayGanador(true);
     } else {
         this->setHayGanador(false);
@@ -743,20 +742,20 @@ void BatallaDigital::limpiarConsola() {
     system("cls");
 }
 
-int BatallaDigital::getIdJugadorGanador() const {
-    return idJugadorGanador;
-}
-
-void BatallaDigital::setIdJugadorGanador(int idJugadorGanador) {
-    BatallaDigital::idJugadorGanador = idJugadorGanador;
-}
-
 bool BatallaDigital::isHayGanador() const {
     return hayGanador;
 }
 
 void BatallaDigital::setHayGanador(bool hayGanador) {
     BatallaDigital::hayGanador = hayGanador;
+}
+
+const string &BatallaDigital::getNombreJugadorGanador() const {
+    return nombreJugadorGanador;
+}
+
+void BatallaDigital::setNombreJugadorGanador(const string &nombreJugadorGanador) {
+    BatallaDigital::nombreJugadorGanador = nombreJugadorGanador;
 }
 
 

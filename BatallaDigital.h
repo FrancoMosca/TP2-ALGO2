@@ -1,6 +1,6 @@
 #ifndef BATALLADIGITAL_H
-#define BATALLADIGITAL_H#ifndef BATALLADIGITAL_H
 #define BATALLADIGITAL_H
+
 
 #include "Tablero.h"
 #include "string"

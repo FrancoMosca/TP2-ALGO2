@@ -1,4 +1,5 @@
 #ifndef BATALLADIGITAL_H
+#define BATALLADIGITAL_H#ifndef BATALLADIGITAL_H
 #define BATALLADIGITAL_H
 
 #include "Tablero.h"
@@ -6,6 +7,7 @@
 #include "iostream"
 #include "Jugador.h"
 #include "Cola.h"
+#include "Carta.h"
 
 #define CANTIDAD_CARTAS_MAZO_PRINCIPAL 50
 #define CANTIDAD_CARTAS_MAZO_JUGADORES 7
@@ -24,11 +26,14 @@ private:
     bool hayGanador;
 public:
     //Pre: -
-    //Post: Crea una batalla no inicializada 
+    //Post: Crea una batalla no inicializada
     BatallaDigital();
 
     //Pre: -
-    //Post: se libera la memoria solicitada 
+    //Post: se valida la posicion "fila" x "columna" x "profundidad"
+    bool validar(int fila,int columna,int profundidad, terreno_t terreno);
+    //Pre: -
+    //Post: se libera la memoria solicitada
     ~BatallaDigital();
 
     //Pre: -
@@ -40,15 +45,15 @@ public:
     void crearTableroPrincipal();
 
     //Pre: -
-    //Post: se solicitan los datos de cada jugador presente 
+    //Post: se solicitan los datos de cada jugador presente
     void crearJugadores();
 
     //Pre: -
-    //Post: retorna el valor boolenao True en caso de que ya exista un jugador con el identificador "simboloFichaElegido", en caso cotrario retorna False 
+    //Post: retorna el valor boolenao True en caso de que ya exista un jugador con el identificador "simboloFichaElegido", en caso cotrario retorna False
     bool esFichaOcupadaPorOtroJugador(char simboloFichaElegido);
 
     //Pre: -
-    //Post: se muestren por pantalla los jugadores presentes en la partida 
+    //Post: se muestren por pantalla los jugadores presentes en la partida
     void imprimirJugadores();
 
     //Pre: -
@@ -60,7 +65,7 @@ public:
     int getCantidadJugadores();
 
     //Pre: -
-    //Post: se crea un mazo donde se encotraran todas las cartas disponibles para usar durante la partida 
+    //Post: se crea un mazo donde se encotraran todas las cartas disponibles para usar durante la partida
     void crearMazo();
 
     //Pre: -
@@ -73,7 +78,7 @@ public:
     void jugarJuego();
 
     //Pre: -
-    //Post: se solicita por pantalla la eleccion de numero de fila, columna y profundidad, su valor permanecera guardado en "filas","columnas","profundidad"  
+    //Post: se solicita por pantalla la eleccion de numero de fila, columna y profundidad, su valor permanecera guardado en "filas","columnas","profundidad"
     void solicitarIngresoDeCordenadas(int &filas, int &columnas, int &profundidad);
 
     //Pre:recibe como parametro tres referencias a enteros que representan la posicion "fila" x "columna" x "profundidad" en el tablero
@@ -117,11 +122,11 @@ public:
     void generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador);
 
     //Pre: -
-    //Post: retorna el valor booleano true en caso de que "cantidadElemntos" entre en el rango permitido por "insertsdisponibles", en caso contrario retorna false 
+    //Post: retorna el valor booleano true en caso de que "cantidadElemntos" entre en el rango permitido por "insertsdisponibles", en caso contrario retorna false
     bool validarInsertsDisponibles(int cantidadElementos, int insertsDisponibles);
 
     //Pre: -
-    //Post: retorna el valor booleano true en caso de que exista la ficha en la posicion "fila" x "columna" x "profundidad" 
+    //Post: retorna el valor booleano true en caso de que exista la ficha en la posicion "fila" x "columna" x "profundidad"
     bool esFichaRangoValida(int fila, int columna, int profundidad);
 
     //Pre: -
@@ -185,7 +190,7 @@ public:
     void actualizarArmamento();
 
     //Pre:
-    //Post: se actualiza la cantidad de elementos sobrevivientes 
+    //Post: se actualiza la cantidad de elementos sobrevivientes
     void actualizarArmamento(const Ficha *ficha);
 
     //Pre: -
@@ -203,15 +208,21 @@ public:
     //Pre: -
     //Post: retorna el valor booleano true en caso de que algún jugador haya ganado y retorna false en caso contrario
     bool isHayGanador() const;
-    
+
     //Pre: -
-    //Post: existe un ganador 
+    //Post: existe un ganador
     void setHayGanador(bool hayGanador);
 
+    //Pre: -
+    //Post: se libera la memoria asociada al mazo de cada jugador
     void deleteMazoJugadores();
-
+    
+    //Pre: -
+    //Post: se libera la memoria asociada a cada jugador
     void deleteJugadores();
-
+    
+    //Pre: -
+    //Post: se libera la memoria asociada al mazo
     void deleteMazoPrincipal();
 };
 

@@ -186,7 +186,7 @@ void BatallaDigital::jugarJuego() {
             this->desbloquearFichas();
             this->actualizarArmamento();
         } else {
-            cout << "YA MORISTE !!!!!!!!";
+            cout << "YA MORISTE !!!!!!!!" << endl;
         }
         this->avanzarTurno();
     }

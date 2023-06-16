@@ -170,7 +170,7 @@ void Carta::avionKamikaze(Tablero *tablero, int idJugador){
                     while (k <= tablero->getProfundidad() && !avionADestruir) {
                         int id = tablero->obtenerCasillero(i, j, k)->getFicha()->getIdJugador();
                         if (tablero->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha() == 'A' && id == idJugador) {
-                            tablero->obtenerCasillero(i,j,k)->getFicha()->bloquear(0);
+                            tablero->obtenerCasillero(i,j,k)->getFicha()->bloquear(1);
                             cout << "Avion que se encotraba en: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << "ha hundido un barco con su sacrificio";
                             avionADestruir = true;
                         }
@@ -240,7 +240,7 @@ void Carta::francotirador(Tablero *tablero, int idJugador) {
             while (!(esFichaValida(tablero,fila, columna, profundidad)) && !(estaEnElAire(tablero,fila, columna, profundidad))) {
                 solicitarIngresoDeCordenadas(fila, columna, profundidad);
             }
-            tablero->obtenerCasillero(fila,columna,profundidad)->getFicha()->bloquear(0);
+            tablero->obtenerCasillero(fila,columna,profundidad)->getFicha()->bloquear(1);
         }
         else{
             cout << endl << "No hay soldados enemigos a la vista" << endl;

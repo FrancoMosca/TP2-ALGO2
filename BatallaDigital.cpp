@@ -328,10 +328,10 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " .PUEDE DECIR QUE CANTIDAD DE ARMAMENTO CREAR, TANTO COMO SOLDADOS, BARCOS Y AVIONES" << endl << endl;
         cout << "CUANTOS SOLDADOS QUIERE AGREGAR: ";
         cin >> cantidadSoldados;
-        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes()) &&
-               (cantidadSoldados < (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() * 3 /
+        while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes()) ||
+               (cantidadSoldados > (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() * 2 /
                                     jugadores->contarElementos()))) {
-            cout << "CUANTOS SOLDADOS QUIERE AGREGAR: ";
+            cout << "SON DEMACIADOS, PUEDE AGERGRA HASTA "<<(this->tableroPrincipal()->getColumna()) * ( this->tableroPrincipal()->getColumna()) * 2 / (jugadores->contarElementos())<< " SOLDADOS, CUANTOS SOLDADOS QUIERE AGREGAR: ";
             cin >> cantidadSoldados;
         }
         generarPosiciones(cantidadSoldados, 'S', jugador);
@@ -340,10 +340,10 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " .PUEDE DECIR QUE CANTIDAD DE ARMAMENTO CREAR, TANTO COMO SOLDADOS, BARCOS Y AVIONES" << endl;
         cout << endl << "CUANTOS BARCOS QUIERE AGREGAR: ";
         cin >> cantidadBarcos;
-        while ((this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())) &&
-               (cantidadBarcos < (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() * 2 /
+        while ((this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())) ||
+               (cantidadBarcos > (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() * 3 /
                                   jugadores->contarElementos()))) {
-            cout << "CUANTOS BARCOS QUIERE AGREGAR:" << endl;
+            cout << "BACROS DE MAS, SOLO PUEDE AGREGAR "<<(this->tableroPrincipal()->getColumna()) * ( this->tableroPrincipal()->getColumna()) * 3 / (jugadores->contarElementos())<<" BARCOS, CUANTOS BARCOS QUIERE AGREGAR:" << endl;
             cin >> cantidadBarcos;
         }
         generarPosiciones(cantidadBarcos, 'B', jugador);
@@ -351,10 +351,10 @@ void BatallaDigital::crearArmamentoDelJugador() {
              << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
         cout << endl << "Cuantos aviones quiere agregar ";
         cin >> cantidadAviones;
-        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes()) &&
-               (cantidadAviones < (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() *
+        while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes()) ||
+               (cantidadAviones > (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() *
                                    (this->tableroPrincipal->getProfundidad() - 5) / jugadores->contarElementos()))) {
-            cout << "Cuantos aviones quiere agregar: ";
+            cout << "aviones de mas, solo puede agregar "<<(this->tableroPrincipal()->getColumna()) * ( this->tableroPrincipal()->getColumna()) * (this->tableroPrincipal->getProfundidad() -5) / (jugadores->contarElementos())<<" aviones, Cuantos aviones quiere agregar: ";
             cin >> cantidadAviones;
         }
         generarPosiciones(cantidadAviones, 'A', jugador);
@@ -387,7 +387,7 @@ void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha,
         terreno = AIRE;
     }
     for (int i = 0; i < cantidadElementos; i++) {
-        //std::srand(std::time(0));
+        std::srand(std::time(NULL));
         int fila = (1 + std::rand() % (this->tableroPrincipal->getFila() - 1));
         int columna = (1 + std::rand() % (this->tableroPrincipal->getColumna() - 1));
         int profundidad = (1 + std::rand() % (this->tableroPrincipal->getProfundidad() - 1));

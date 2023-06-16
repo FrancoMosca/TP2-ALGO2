@@ -65,12 +65,20 @@ public:
     //post: la ficha tiene "vidas" vidas
     void setVidas(int vidas);
 
+    //Pre: -
+    //Post: retorna un entero que representa la cantidad de turnos faltantes para que la ficha sea desbloqueada
     int getTurnosRestantesParaDesbloqueo() const;
 
+    //Pre: "turnosRestantesParaDesbloqueo" es mayor a 0
+    //Post: la ficha queda bloqueada durante "turnosRestantesParaDesbloqueo" turnos
     void setTurnosRestantesParaDesbloqueo(int turnosRestantesParaDesbloqueo);
 
+    //Pre: -
+    //Post: la ficha queda desbloqueada
     void desbloquearFicha();
 
+    //Pre: -
+    //Post: los turnos restants para desbloqueo se desincrementan en 1
     void decrementarTurnosRestantesDesbloqueo();
 };
 

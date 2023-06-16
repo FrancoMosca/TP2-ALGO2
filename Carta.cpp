@@ -204,7 +204,7 @@ void Carta::tormentaElectrica(Tablero *tablero) {
                     if (tablero->obtenerCasillero(nuevaFila, nuevaColumna,
                                                   nuevaProfundidad)->getFicha()->getElementoFicha() == 'A')
                         tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(3);
-                        cout << "Tormenta electrica colocada en: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']';
+                        cout << "Tormenta electrica colocada en: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << endl;
                 }
             }
         }

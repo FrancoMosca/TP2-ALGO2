@@ -14,31 +14,33 @@ BatallaDigital::BatallaDigital() {
     this->jugadorActual = NULL;
     this->hayGanador = false;
 }
-void BatallaDigital::deleteMazoJugadores(){
-	this->jugadores->iniciarCursor();
-	while(this->jugadores->avanzarCursor()) {
-		this->jugadores->obtenerCursor()->getMazo()->destruirMazo();
-		delete this->jugadores->obtenerCursor()->getMazo();
-	}
-}
-void BatallaDigital::deleteJugadores(){
-	this->jugadores->iniciarCursor();
-	while (this->jugadores->avanzarCursor()){
-		this->jugadores->obtenerCursor()->destruirFichaJugador();
-		delete this->jugadores->obtenerCursor();
-	}
+
+void BatallaDigital::deleteMazoJugadores() {
+    this->jugadores->iniciarCursor();
+    while (this->jugadores->avanzarCursor()) {
+        this->jugadores->obtenerCursor()->getMazo()->destruirMazo();
+        delete this->jugadores->obtenerCursor()->getMazo();
+    }
 }
 
-void BatallaDigital::deleteMazoPrincipal(){
-	this->mazo->destruirMazo();
-	delete this->mazo;
+void BatallaDigital::deleteJugadores() {
+    this->jugadores->iniciarCursor();
+    while (this->jugadores->avanzarCursor()) {
+        this->jugadores->obtenerCursor()->destruirFichaJugador();
+        delete this->jugadores->obtenerCursor();
+    }
+}
+
+void BatallaDigital::deleteMazoPrincipal() {
+    this->mazo->destruirMazo();
+    delete this->mazo;
 }
 
 BatallaDigital::~BatallaDigital() {
-	this->deleteMazoJugadores();
-	this->deleteJugadores();
-	this->deleteMazoPrincipal();
-	delete this->tableroPrincipal;
+    this->deleteMazoJugadores();
+    this->deleteJugadores();
+    this->deleteMazoPrincipal();
+    delete this->tableroPrincipal;
 }
 
 void BatallaDigital::iniciarJuego() {
@@ -288,7 +290,7 @@ void BatallaDigital::iniciarTurnos() {
 }
 
 void BatallaDigital::usarCarta(int numero) {
-    if (((int)(this->jugadorActual->getMazo()->getCantidadCartas())) >= numero) {
+    if (((int) (this->jugadorActual->getMazo()->getCantidadCartas())) >= numero) {
         Carta *carta = this->jugadorActual->getMazo()->getMazoCartas().obtener(numero);
         aplicarHabilidadCarta(carta);
         this->jugadorActual->getMazo()->eliminarCarta(numero);
@@ -340,9 +342,8 @@ void BatallaDigital::crearArmamentoDelJugador() {
         cin >> cantidadBarcos;
         while ((this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())) &&
                (cantidadBarcos < (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() * 2 /
-                                  jugadores->contarElementos())))
-        {
-            cout << "CUANTOS BARCOS QUIERE AGREGAR:"<<endl;
+                                  jugadores->contarElementos()))) {
+            cout << "CUANTOS BARCOS QUIERE AGREGAR:" << endl;
             cin >> cantidadBarcos;
         }
         generarPosiciones(cantidadBarcos, 'B', jugador);
@@ -362,23 +363,23 @@ void BatallaDigital::crearArmamentoDelJugador() {
 
 }
 
-bool BatallaDigital::validar(int fila,int columna,int profundidad, terreno_t terreno){
-	if (!esFichaValida(fila, columna, profundidad)){
-		return false;
-	}
-	if (esFichaValida(fila, columna, profundidad)){
-		if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() == terreno){
-			return true;
-		}
-	}
-	return false;
+bool BatallaDigital::validar(int fila, int columna, int profundidad, terreno_t terreno) {
+    if (!esFichaValida(fila, columna, profundidad)) {
+        return false;
+    }
+    if (esFichaValida(fila, columna, profundidad)) {
+        if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() == terreno) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador) {
     terreno_t terreno;
     if (simboloFicha == SOLDADO) {
-            terreno = TIERRA;
-        }
+        terreno = TIERRA;
+    }
     if (simboloFicha == BARCO) {
         terreno = AGUA;
     }
@@ -387,13 +388,13 @@ void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha,
     }
     for (int i = 0; i < cantidadElementos; i++) {
         //std::srand(std::time(0));
-        int fila = (1+ std::rand() % (this->tableroPrincipal->getFila()-1));
-        int columna = (1+ std::rand() % (this->tableroPrincipal->getColumna()-1));
-        int profundidad = (1+ std::rand() % (this->tableroPrincipal->getProfundidad()-1));
-        while (!validar(fila,columna,profundidad,terreno)) {
-            fila = (1+ std::rand() % (this->tableroPrincipal->getFila()-1));
-            columna = (1+ std::rand() % (this->tableroPrincipal->getColumna()-1));
-            profundidad = (1+ std::rand() % (this->tableroPrincipal->getProfundidad()-1));
+        int fila = (1 + std::rand() % (this->tableroPrincipal->getFila() - 1));
+        int columna = (1 + std::rand() % (this->tableroPrincipal->getColumna() - 1));
+        int profundidad = (1 + std::rand() % (this->tableroPrincipal->getProfundidad() - 1));
+        while (!validar(fila, columna, profundidad, terreno)) {
+            fila = (1 + std::rand() % (this->tableroPrincipal->getFila() - 1));
+            columna = (1 + std::rand() % (this->tableroPrincipal->getColumna() - 1));
+            profundidad = (1 + std::rand() % (this->tableroPrincipal->getProfundidad() - 1));
         }
         tableroPrincipal->setCasilla(fila, columna, profundidad, simboloFicha, jugador->getIdJugador());
         cout << "Se inserto la casilla [" << fila << "][" << columna << "][" << profundidad << "] = " << simboloFicha

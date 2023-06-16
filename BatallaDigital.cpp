@@ -51,9 +51,7 @@ void BatallaDigital::iniciarJuego() {
     this->crearMazo();
     this->crearMazoPorJugador();
     this->obtenerCantidadDeInsertsPorJugador();
-    this->limpiarConsola();
     this->crearArmamentoDelJugador();
-    this->limpiarConsola();
     this->iniciarTurnos();
 
 }
@@ -175,19 +173,21 @@ void BatallaDigital::jugarJuego() {
     while (!this->hayGanador) {
         this->cantidadJugadasRealizadas++;
         this->jugadorActual = turnos.desacolar();
-        cout << "[ RONDA: " << this->cantidadJugadasRealizadas << " ] ES EL TURNO DEL JUGADOR: "
-             << this->jugadorActual->getNombreJugador() << endl << endl;
-        cout << "revise las imagenes para ver el estado del tablero" << endl;
-        mostrarTablero(this->tableroPrincipal, jugadorActual->getIdJugador());
-        this->repartirCartas();
-        this->elegirCarta();
-        this->limpiarConsola();
-        this->agregarMina(fila, columna, profundidad);
-        this->decidirMoverSoldadoArmamento(fila, columna, profundidad);
-        this->limpiarConsola();
-        this->decrementarTurnosFichas();
-        this->desbloquearFichas();
-        this->actualizarArmamento();
+        if (this->elJugadorEstaVivo()) {
+            cout << "[ RONDA: " << this->cantidadJugadasRealizadas << " ] ES EL TURNO DEL JUGADOR: "
+                 << this->jugadorActual->getNombreJugador() << endl << endl;
+            cout << "revise las imagenes para ver el estado del tablero" << endl;
+            mostrarTablero(this->tableroPrincipal, jugadorActual->getIdJugador());
+            this->repartirCartas();
+            this->elegirCarta();
+            this->agregarMina(fila, columna, profundidad);
+            this->decidirMoverSoldadoArmamento(fila, columna, profundidad);
+            this->decrementarTurnosFichas();
+            this->desbloquearFichas();
+            this->actualizarArmamento();
+        } else {
+            cout << "YA MORISTE !!!!!!!!";
+        }
         this->avanzarTurno();
     }
     cout << "FELICIDADES: " << this->nombreJugadorGanador << endl;
@@ -357,7 +357,6 @@ void BatallaDigital::crearArmamentoDelJugador() {
             cin >> cantidadAviones;
         }
         generarPosiciones(cantidadAviones, 'A', jugador);
-        this->limpiarConsola();
     }
 
 }
@@ -738,10 +737,6 @@ void BatallaDigital::actualizarArmamento() {
     }
 }
 
-void BatallaDigital::limpiarConsola() {
-    system("cls");
-}
-
 bool BatallaDigital::isHayGanador() const {
     return hayGanador;
 }
@@ -756,6 +751,24 @@ const string &BatallaDigital::getNombreJugadorGanador() const {
 
 void BatallaDigital::setNombreJugadorGanador(const string &nombreJugadorGanador) {
     BatallaDigital::nombreJugadorGanador = nombreJugadorGanador;
+}
+
+bool BatallaDigital::elJugadorEstaVivo() {
+    int contadorElementos = 0;
+    for (int i = 1; i <= this->tableroPrincipal->getFila(); i++) {
+        for (int j = 1; j <= this->tableroPrincipal->getColumna(); j++) {
+            for (int k = 1; k <= this->tableroPrincipal->getProfundidad(); k++) {
+                Ficha *ficha = this->tableroPrincipal->obtenerCasillero(i, j, k)->getFicha();
+                if (ficha->getIdJugador() == this->jugadorActual->getIdJugador() && ficha->getElementoFicha() == SOLDADO) {
+                    contadorElementos++;
+                }
+            }
+        }
+    }
+    if (contadorElementos > 0) {
+        return true;
+    }
+    return false;
 }
 
 

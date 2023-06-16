@@ -200,10 +200,6 @@ public:
     void actualizarArmamento(const Ficha *ficha);
 
     //Pre: -
-    //Post: se limpia el estado de la consola
-    void limpiarConsola();
-
-    //Pre: -
     //Post: retorna un entero que repesenta el id del jugador el cual gano la partida
     int getIdJugadorGanador() const;
 
@@ -230,6 +226,8 @@ public:
     //Pre: -
     //Post: se libera la memoria asociada al mazo
     void deleteMazoPrincipal();
+
+    bool elJugadorEstaVivo();
 };
 
 #endif

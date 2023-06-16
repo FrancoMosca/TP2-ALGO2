@@ -208,6 +208,11 @@ public:
     //Post: existe un ganador 
     void setHayGanador(bool hayGanador);
 
+    void deleteMazoJugadores();
+
+    void deleteJugadores();
+
+    void deleteMazoPrincipal();
 };
 
 #endif

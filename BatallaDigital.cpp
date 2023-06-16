@@ -16,7 +16,10 @@ BatallaDigital::BatallaDigital() {
 }
 
 BatallaDigital::~BatallaDigital() {
-
+    this->deleteMazoJugadores();
+    this->deleteJugadores();
+    this->deleteMazoPrincipal();
+    delete this->tableroPrincipal;
 }
 
 void BatallaDigital::iniciarJuego() {
@@ -713,6 +716,27 @@ bool BatallaDigital::isHayGanador() const {
 
 void BatallaDigital::setHayGanador(bool hayGanador) {
     BatallaDigital::hayGanador = hayGanador;
+}
+
+void BatallaDigital::deleteMazoJugadores() {
+    this->jugadores->iniciarCursor();
+    while (this->jugadores->avanzarCursor()) {
+        this->jugadores->obtenerCursor()->getMazo()->destruirMazo();
+        delete this->jugadores->obtenerCursor()->getMazo();
+    }
+}
+
+void BatallaDigital::deleteJugadores() {
+    this->jugadores->iniciarCursor();
+    while (this->jugadores->avanzarCursor()) {
+        this->jugadores->obtenerCursor()->destruirFichaJugador();
+        delete this->jugadores->obtenerCursor();
+    }
+}
+
+void BatallaDigital::deleteMazoPrincipal() {
+    this->mazo->destruirMazo();
+    delete this->mazo;
 }
 
 

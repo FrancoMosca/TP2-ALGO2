@@ -82,6 +82,8 @@ public:
     //Pre: -
     //Post: se umenta la cantidad de elementos vivos del jugador
     void aumentarElementosVivos();
+
+    void destruirFichaJugador();
 };
 
 

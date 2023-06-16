@@ -64,5 +64,9 @@ void Jugador::setPerdioLaPartida(bool perdioLaPartida) {
     Jugador::perdioLaPartida = perdioLaPartida;
 }
 
+void Jugador::destruirFichaJugador() {
+    delete this->ficha;
+}
+
 
 

@@ -6,13 +6,13 @@ Tablero::Tablero(int fila, int columna, int profundidad) {
     this->fila = fila;
     this->columna = columna;
     this->profundidad = profundidad;
-    Lista<Lista<Lista<Casillero*>*>*>* filas = new Lista<Lista<Lista<Casillero*>*>*>;
-    for(int i = 0; i < this->fila; i++){
-        Lista<Lista<Casillero*>*>* columnas = new Lista<Lista<Casillero*>*>;
-        for(int j = 0; j < this->columna; j++){
-            Lista<Casillero*>* profundidad = new Lista<Casillero*>;
-            for(int k = 0; k < this->profundidad; k++){
-                Casillero * casillero;
+    Lista<Lista<Lista<Casillero *> *> *> *filas = new Lista<Lista<Lista<Casillero *> *> *>;
+    for (int i = 0; i < this->fila; i++) {
+        Lista<Lista<Casillero *> *> *columnas = new Lista<Lista<Casillero *> *>;
+        for (int j = 0; j < this->columna; j++) {
+            Lista<Casillero *> *profundidad = new Lista<Casillero *>;
+            for (int k = 0; k < this->profundidad; k++) {
+                Casillero *casillero;
                 if (k <= 2) {
                     casillero = new Casillero(AGUA, VACIO);
                 } else if (k <= 5) {
@@ -30,11 +30,11 @@ Tablero::Tablero(int fila, int columna, int profundidad) {
 }
 
 Tablero::~Tablero() {
-    Lista<Lista<Lista<Casillero*>*>*>* filas = this->casilleros;
+    Lista<Lista<Lista<Casillero *> *> *> *filas = this->casilleros;
     while (filas->avanzarCursor()) {
-        Lista<Lista<Casillero*>*>* columnas = this->casilleros->obtenerCursor();
-        while (columnas->avanzarCursor()){
-            Lista<Casillero*>* profundidad = columnas->obtenerCursor();
+        Lista<Lista<Casillero *> *> *columnas = this->casilleros->obtenerCursor();
+        while (columnas->avanzarCursor()) {
+            Lista<Casillero *> *profundidad = columnas->obtenerCursor();
             while (profundidad->avanzarCursor()) {
                 delete profundidad->obtenerCursor();
             }
@@ -45,8 +45,8 @@ Tablero::~Tablero() {
 }
 
 Casillero *Tablero::obtenerCasillero(int fila, int columna, int profundidad) {
-    if((fila <= 0) || (columna <= 0) || (profundidad <= 0) ||
-        (fila > this->fila) || (columna > this->columna) ||(profundidad > this->profundidad)){
+    if ((fila <= 0) || (columna <= 0) || (profundidad <= 0) ||
+        (fila > this->fila) || (columna > this->columna) || (profundidad > this->profundidad)) {
         string coordenadasInvalidas = "Coordenadas de casilleros invalidas";
         throw coordenadasInvalidas;
     }
@@ -78,7 +78,8 @@ void Tablero::setProfundidad(int profundidad) {
 }
 
 bool Tablero::existeLaCasilla(int fila, int columna, int profundidad) {
-    if(this->fila < fila || this->columna < columna || this->profundidad < profundidad || fila < 1 || columna < 1 || profundidad < 1){
+    if (this->fila < fila || this->columna < columna || this->profundidad < profundidad || fila < 1 || columna < 1 ||
+        profundidad < 1) {
         return false;
     }
     return true;

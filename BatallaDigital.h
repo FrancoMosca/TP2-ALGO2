@@ -116,96 +116,96 @@ public:
     //Post: se inicializan en el tablero "cantidadElementos" fichas del tipo "simboloFicha" pertenecientes al jugador "jugador"
     void generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: retorna el valor booleano true en caso de que "cantidadElemntos" entre en el rango permitido por "insertsdisponibles", en caso contrario retorna false 
     bool validarInsertsDisponibles(int cantidadElementos, int insertsDisponibles);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: retorna el valor booleano true en caso de que exista la ficha en la posicion "fila" x "columna" x "profundidad" 
     bool esFichaRangoValida(int fila, int columna, int profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: se agrega una mina en l posicion "fila" x "columna" x "profundidad"
     void agregarMina(int fila, int columna, int profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: pregunta por pantalla si se desea utilizar una carta, en caso afirmativo se ejecuta su habilidad
     void elegirCarta();
 
-    //Pre:
-    //Post:
+    //Pre: el jugador no debe superar el numero de cartas permitidos
+    //Post: se reparte una carta aleatoria a un jugador
     void repartirCartas();
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: solicita por consola la ralizacion de un movimiento en un entidad del juego prteneciente a un jugador
     void decidirMoverSoldadoArmamento(int fila, int columna, int profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: recibe como parametro un caracter que represnta la posicion a la que se quiere mover una entidad del juego
+    //Post: retorna el valor booleano true en caso de que el movimiento elegido se pueda efectuar y false en caso contrario
     bool validarMovimiento(char movimiento);
 
-    //Pre:
-    //Post:
+    //Pre: recibe como parametro la posicion del elemento que se desea mover ("fila" x "columna" x "profundidad"), el tipo de movimiento que se desea realizar y la nueva profundidad (esta debe ser o "profundidad" o "profundidad"+1 o "profundidad"-1)
+    //Post: se realiza el movimiento del elemento
     void moverElemento(int fila, int columna, int profundidad, char movimiento, int nuevaProfundidad);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: retorna el valor booleano true en caso de que exista un soldado en la posicion "fila" x "columna" x "profundidad" y este sea del jugador seleccionado, retorna false en caso contrario
     bool validarSoldadoArmamentoElegido(int fila, int columna, int profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: retorna el valor booleano true en caso de que exista un soldado en la posicion "fila" x "columna" x "profundidad" y este sea del jugador seleccionado, retorna false en caso contrario
     bool existeMina(int fila, int columna, int profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: existe un soldado ubicado en la posicion "fila" x "columna" x "profundidad"
+    //Post: se elimina del tablero el soldado "fila" x "columna" x "profundidad"
     void eliminarSoldado(int fila, int columna, int profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: retorna el valor booleano true en caso de que exista un soldado en la posicion "fila" x "columna" x "profundidad" y que este sea de un jugador distinto al jugador que la utiliza, retorna false en caso contraro
     bool existeSoldadoEnemigo(int fila, int columna, int profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: retorna el valor booleano true en caso de que la ficha la posicion "fila" x "columna" x "profundidad", retorna false en caso contrario
     bool esPosicionBloqueada(int fila, int columna, int profundidad);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: se disminuye el tiempo de bloqueo de las fichas bloqueadas
     void decrementarTurnosFichas();
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: se desbloquean las fichas que ya hayan estado inacivas el tiempo predeterminado
     void desbloquearFichas();
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: el turno de jugada pasa al siguiete jugador
     void avanzarTurno();
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: se validan la cantidad de elementos de cada jugador para corroborar si ya se debe dar por finalizado el juego
     void actualizarArmamento();
 
     //Pre:
-    //Post
+    //Post: se actualiza la cantidad de elementos sobrevivientes 
     void actualizarArmamento(const Ficha *ficha);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: se limpia el estado de la consola
     void limpiarConsola();
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: retorna un entero que repesenta el id del jugador el cual gano la partida
     int getIdJugadorGanador() const;
 
-    //Pre:
-    //Post:
+    //Pre: idjugadorganador es in id existente en l lista de jugadores
+    //Post: queda asociado el id del jugador que ha ganado la batalla
     void setIdJugadorGanador(int idJugadorGanador);
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: retorna el valor booleano true en caso de que algún jugador haya ganado y retorna false en caso contrario
     bool isHayGanador() const;
     
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: existe un ganador 
     void setHayGanador(bool hayGanador);
 
 };

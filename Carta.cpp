@@ -118,6 +118,7 @@ void Carta::ataqueQuimico(Tablero *tablero) {
                 if (this->estaDentroDeTablero(tablero, nuevaFila, nuevaColumna, nuevaProfundidad)) {
                     if (nuevaFila == fila && nuevaColumna == columna && nuevaProfundidad == profundidad) {
                         tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(10);
+                        cout << "ATAQUE QUIMICO EXITOSO";
                     } else if ((nuevaFila < fila - 1 || nuevaFila > fila + 1) ||
                                (nuevaColumna < columna - 1 || nuevaColumna > columna + 1) ||
                                (nuevaProfundidad < profundidad - 1 || nuevaProfundidad > profundidad + 1)) {
@@ -203,6 +204,7 @@ void Carta::tormentaElectrica(Tablero *tablero) {
                     if (tablero->obtenerCasillero(nuevaFila, nuevaColumna,
                                                   nuevaProfundidad)->getFicha()->getElementoFicha() == 'A')
                         tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(3);
+                        cout << "Tormenta electrica colocada en: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']';
                 }
             }
         }
@@ -238,6 +240,7 @@ void Carta::francotirador(Tablero *tablero, int idJugador) {
                 solicitarIngresoDeCordenadas(fila, columna, profundidad);
             }
             tablero->obtenerCasillero(fila, columna, profundidad)->getFicha()->bloquear(1);
+            cout <<"SOLDADO ELIMINADO" << endl;
         } else {
             cout << endl << "No hay soldados enemigos a la vista" << endl;
         }

@@ -226,16 +226,16 @@ void BatallaDigital::solicitarIngresoDeCordenadas(int &filas, int &columnas, int
 }
 
 bool BatallaDigital::esFichaValida(int &fila, int &columna, int &profundidad) {
-    bool esValido = true;
+    
     if (!estaEnRangoValido(fila, columna, profundidad)) {
         cout << "->[Error]: ingresante un rango invalido, recuerda que va desde 1 al maximo,por favor ingrese devuelta"
              << endl;
-        esValido = false;
+        return false;
     } else if (!estaCasilleroLibre(fila, columna, profundidad)) {
         cout << "->[Error]: La casilla ya se encuentra ocupada,por favor elige otra :\n";
-        esValido = false;
+        return false;
     }
-    return esValido;
+    return true;
 }
 
 

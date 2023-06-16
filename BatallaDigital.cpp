@@ -343,10 +343,9 @@ void BatallaDigital::crearArmamentoDelJugador() {
         while ((this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())) ||
                (cantidadBarcos > (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() * 3 /
                                   jugadores->contarElementos()))) {
-            cout << "BACROS DE MAS, SOLO PUEDE AGREGAR "<<(this->tableroPrincipal->getColumna()) * ( this->tableroPrincipal->getColumna()) * 3 / (jugadores->contarElementos())<<" BARCOS, CUANTOS BARCOS QUIERE AGREGAR:" << endl;
+            cout << "BARCOS DE MAS, SOLO PUEDE AGREGAR "<<(this->tableroPrincipal->getColumna()) * ( this->tableroPrincipal->getColumna()) * 3 / (jugadores->contarElementos())<<" BARCOS, CUANTOS BARCOS QUIERE AGREGAR:" << endl;
             cin >> cantidadBarcos;
         }
-        this->jugadorActual->setElementosVivis(cantidadSoldados);
         generarPosiciones(cantidadBarcos, 'B', jugador);
         cout << "Usted tiene " << jugador->getCantidadInsertsRestantes()
              << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
@@ -701,6 +700,11 @@ void BatallaDigital::avanzarTurno() {
 }
 
 void BatallaDigital::actualizarArmamento() {
+    this->jugadores->iniciarCursor();
+    while (this->jugadores->avanzarCursor()) {
+        this->jugadores->obtenerCursor()->setElementosVivos(0);
+    }
+    
     for (int i = 1; i <= this->tableroPrincipal->getFila(); i++) {
         for (int j = 1; j <= this->tableroPrincipal->getColumna(); j++) {
             for (int k = 1; k <= this->tableroPrincipal->getProfundidad(); k++) {

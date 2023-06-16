@@ -355,7 +355,7 @@ void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha,
     for (int i = 0; i < cantidadElementos; i++) {
         std::srand(std::time(0));
         int fila = (std::rand() % 10) + 1, columna = (std::rand() % 10) + 1, profundidad = (std::rand() % 10) + 1;
-        while (!esFichaValida(fila, columna, profundidad) &&
+        while (!esFichaValida(fila, columna, profundidad) ||
                (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() == terreno)) {
             fila = (std::rand() % 10) + 1, columna = (std::rand() % 10) + 1, profundidad = (std::rand() % 10) + 1;
         }

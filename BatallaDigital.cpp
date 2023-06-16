@@ -69,8 +69,8 @@ void BatallaDigital::crearTableroPrincipal() {
     cout << "Profundidad:" << endl;
     cin >> profundidad;
 
-    while (fila < 2 || columna < 2 || profundidad < 2) {
-        cout << "[Error]: La cantidad de filas, columnas y profundidad debe ser mayor a 1" << endl;
+    while (fila < 6 || columna < 6 || profundidad < 6) {
+        cout << "[Error]: La cantidad de filas, columnas y profundidad debe ser mayor o igual a 7" << endl;
         cout << "Ingresa las dimensiones del tablero" << endl;
         cout << "Filas:" << endl;;
         cin >> fila;
@@ -331,7 +331,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
         while (this->validarInsertsDisponibles(cantidadSoldados, jugador->getCantidadInsertsRestantes()) ||
                (cantidadSoldados > (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() * 2 /
                                     jugadores->contarElementos()))) {
-            cout << "SON DEMACIADOS, PUEDE AGERGRA HASTA "<<(this->tableroPrincipal()->getColumna()) * ( this->tableroPrincipal()->getColumna()) * 2 / (jugadores->contarElementos())<< " SOLDADOS, CUANTOS SOLDADOS QUIERE AGREGAR: ";
+            cout << "SON DEMASIADOS, PUEDE AGREGAR HASTA "<<(this->tableroPrincipal->getColumna()) * ( this->tableroPrincipal->getColumna()) * 2 / (jugadores->contarElementos())<< " SOLDADOS, CUANTOS SOLDADOS QUIERE AGREGAR: ";
             cin >> cantidadSoldados;
         }
         generarPosiciones(cantidadSoldados, 'S', jugador);
@@ -343,7 +343,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
         while ((this->validarInsertsDisponibles(cantidadBarcos, jugador->getCantidadInsertsRestantes())) ||
                (cantidadBarcos > (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() * 3 /
                                   jugadores->contarElementos()))) {
-            cout << "BACROS DE MAS, SOLO PUEDE AGREGAR "<<(this->tableroPrincipal()->getColumna()) * ( this->tableroPrincipal()->getColumna()) * 3 / (jugadores->contarElementos())<<" BARCOS, CUANTOS BARCOS QUIERE AGREGAR:" << endl;
+            cout << "BACROS DE MAS, SOLO PUEDE AGREGAR "<<(this->tableroPrincipal->getColumna()) * ( this->tableroPrincipal->getColumna()) * 3 / (jugadores->contarElementos())<<" BARCOS, CUANTOS BARCOS QUIERE AGREGAR:" << endl;
             cin >> cantidadBarcos;
         }
         generarPosiciones(cantidadBarcos, 'B', jugador);
@@ -354,7 +354,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
         while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes()) ||
                (cantidadAviones > (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() *
                                    (this->tableroPrincipal->getProfundidad() - 5) / jugadores->contarElementos()))) {
-            cout << "aviones de mas, solo puede agregar "<<(this->tableroPrincipal()->getColumna()) * ( this->tableroPrincipal()->getColumna()) * (this->tableroPrincipal->getProfundidad() -5) / (jugadores->contarElementos())<<" aviones, Cuantos aviones quiere agregar: ";
+            cout << "aviones de mas, solo puede agregar "<<(this->tableroPrincipal->getColumna()) * ( this->tableroPrincipal->getColumna()) * (this->tableroPrincipal->getProfundidad() -5) / (jugadores->contarElementos())<<" aviones, Cuantos aviones quiere agregar: ";
             cin >> cantidadAviones;
         }
         generarPosiciones(cantidadAviones, 'A', jugador);

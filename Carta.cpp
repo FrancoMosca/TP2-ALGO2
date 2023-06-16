@@ -50,11 +50,11 @@ void Carta::imprimirHabilidadCarta() {
             break;
 
         case 5:
-            std::cout << "CARTA ELIMINAR CARTA" << std::endl;
+            std::cout << "CARTA TORMENTA ELECTRICA" << std::endl;
             break;
 
         case 6:
-            std::cout << "CARTA ROBAR  " << std::endl;
+            std::cout << "CARTA FRANCOTIRADOR  " << std::endl;
             break;
         default:
             break;

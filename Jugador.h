@@ -47,12 +47,20 @@ public:
     //Post: reorna un puntero al mazo del jugador
     Mazo *getMazo() const;
 
+    //Pre: -
+    //Post: retorna un entero que representa la cantidad de elementos restantes del jugador
     int getCantidadElementosVivos() const;
 
+    //Pre: "i" debe ser positivo
+    //Post: el jugador tiene "i" elementos vivos
     void setCantidadElementosVivos(int i);
 
+    //Pre: -
+    //Post: retorna el valor booleano True en caso de que al jugador ya no le queden elementos con vida, retorna false en caso contrario
     bool isPerdioLaPartida() const;
 
+    //Pre: -
+    //Post: el jugador ha perdido la partida
     void setPerdioLaPartida(bool perdioLaPartida);
 
     //Pre: -
@@ -67,8 +75,12 @@ public:
     //Post: el jugador tiene "cantidadInsertsRestantes" cantidad de elementos restantes permitidos que se pueden colocar en el tablero
     void setCantidadInsertsRestantes(int cantidadInsertsRestantes);
 
+    //Pre: -
+    //Post: se decrementa la cantidad de elementos vivos del jugador
     void decrementarElementosVivos();
 
+    //Pre: -
+    //Post: se umenta la cantidad de elementos vivos del jugador
     void aumentarElementosVivos();
 };
 

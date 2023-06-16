@@ -346,6 +346,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
             cout << "BACROS DE MAS, SOLO PUEDE AGREGAR "<<(this->tableroPrincipal->getColumna()) * ( this->tableroPrincipal->getColumna()) * 3 / (jugadores->contarElementos())<<" BARCOS, CUANTOS BARCOS QUIERE AGREGAR:" << endl;
             cin >> cantidadBarcos;
         }
+        this->jugadorActual->setElementosVivis(cantidadSoldados);
         generarPosiciones(cantidadBarcos, 'B', jugador);
         cout << "Usted tiene " << jugador->getCantidadInsertsRestantes()
              << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
@@ -409,7 +410,6 @@ void BatallaDigital::obtenerCantidadDeInsertsPorJugador() {
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
         this->jugadores->obtenerCursor()->setCantidadInsertsRestantes(cantidadInsertsPorJugador);
-        this->jugadores->obtenerCursor()->setCantidadElementosVivos(cantidadInsertsPorJugador);
     }
 }
 

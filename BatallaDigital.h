@@ -109,11 +109,11 @@ public:
     void crearArmamentoDelJugador();
 
     //Pre: -
-    //Post:
+    //Post: batalla digital queda asociada a una determinada cantidad de entidades permitidas por jugador
     void obtenerCantidadDeInsertsPorJugador();
 
-    //Pre:
-    //Post:
+    //Pre: recibe como parmetros un entero que representa la cantidad de posiciones a generar, un caracter que reprenta al simbolo que se desea generar y un puntero a jugador (no puede ser nulo) al que se le asociaran los elementos
+    //Post: se inicializan en el tablero "cantidadElementos" fichas del tipo "simboloFicha" pertenecientes al jugador "jugador"
     void generarPosiciones(int cantidadElementos, char simboloFicha, Jugador *jugador);
 
     //Pre:

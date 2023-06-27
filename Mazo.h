@@ -42,7 +42,7 @@ public:
     void eliminarCarta(unsigned int pos);
 
     //Pre: -
-    //Post: retorna una lista que contiene a las cartas del maso
+    //Post: retorna una lista que contiene a las cartas del mazo
     Lista<Carta *> &getMazoCartas();
 
     //Pre:-

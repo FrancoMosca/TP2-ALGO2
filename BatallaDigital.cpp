@@ -59,8 +59,8 @@ void BatallaDigital::iniciarJuego() {
 void BatallaDigital::crearTableroPrincipal() {
     size_t fila, columna, profundidad;
 
-    cout << "Ingresa las dimensiones del tablero" << endl;
-    cout << "Filas:" << endl;;
+    cout << "Ingresa las dimensiones del tablero (filas,columnas y profundidad deben ser mayor o igual a 7)" << endl;
+    cout << "Filas:" << endl;
     cin >> fila;
     cout << "Columnas:" << endl;
     cin >> columna;
@@ -117,7 +117,7 @@ void BatallaDigital::crearJugadores() {
 
 int BatallaDigital::getCantidadJugadores() {
     int inputCantidadJugadores = 0;
-    cout << "Ingrese la cantidad de jugadores: \n";
+    cout << "Ingrese la cantidad de jugadores (De 2 a 6 jugadores): \n";
     cin >> inputCantidadJugadores;
     while (inputCantidadJugadores < 2 || inputCantidadJugadores > 6) {
         cout << "[Error]: Deben jugar de 2 a 6 jugadores: ";
@@ -140,7 +140,7 @@ void BatallaDigital::imprimirJugadores() {
     cout << "-----------JUGADORES DE LA PARTIDA ------------------\n";
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
-        cout << "[" << (this->jugadores->obtenerCursor())->getIdJugador() << "]";
+        cout << "[" << (this->jugadores->obtenerCursor())->getIdJugador() << "] ";
         cout << (this->jugadores->obtenerCursor())->getNombreJugador();
         cout << " con la ficha : " << this->jugadores->obtenerCursor()->getFicha()->getElementoFicha() << "\n";
     }
@@ -148,7 +148,7 @@ void BatallaDigital::imprimirJugadores() {
 }
 
 void BatallaDigital::crearMazo() {
-    cout << "Iniciando proceso de creacion de Mazo" << endl;
+    cout << "Iniciando proceso de creacion de Mazo..." << endl;
     Mazo *nuevoMazo = NULL;
     nuevoMazo = new Mazo(CANTIDAD_CARTAS_MAZO_PRINCIPAL);
     nuevoMazo->barajarMazo();
@@ -157,7 +157,7 @@ void BatallaDigital::crearMazo() {
 }
 
 void BatallaDigital::crearMazoPorJugador() {
-    cout << "Iniciando proceso de repartision de cartas para el idJugador" << endl;
+    cout << "Iniciando proceso de repartision de cartas para el idJugador..." << endl;
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
         Mazo *nuevoMazo = new Mazo();

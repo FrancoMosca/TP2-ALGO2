@@ -180,12 +180,8 @@ public:
     bool esPosicionBloqueada(int fila, int columna, int profundidad);
 
     //Pre: -
-    //Post: se disminuye el tiempo de bloqueo de las fichas bloqueadas
+    //Post: se disminuye el tiempo de bloqueo de las fichas bloqueadas y se activan las que llegaron a tiempo maximo de desbloqueo 
     void decrementarTurnosFichas();
-
-    //Pre: -
-    //Post: se desbloquean las fichas que ya hayan estado inacivas el tiempo predeterminado
-    void desbloquearFichas();
 
     //Pre: -
     //Post: el turno de jugada pasa al siguiete jugador
@@ -227,7 +223,6 @@ public:
     //Post: se libera la memoria asociada al mazo
     void deleteMazoPrincipal();
 
-    bool elJugadorEstaVivo();
 };
 
 #endif

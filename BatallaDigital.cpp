@@ -173,7 +173,7 @@ void BatallaDigital::jugarJuego() {
     while (!this->hayGanador) {
         this->cantidadJugadasRealizadas++;
         this->jugadorActual = turnos.desacolar();
-        if (this->elJugadorEstaVivo()) {
+        if (jugadorActual->getCantidadElementosVivos()) {
             cout << "[ RONDA: " << this->cantidadJugadasRealizadas << " ] ES EL TURNO DEL JUGADOR: "
                  << this->jugadorActual->getNombreJugador() << endl << endl;
             cout << "revise las imagenes para ver el estado del tablero" << endl;
@@ -183,7 +183,6 @@ void BatallaDigital::jugarJuego() {
             this->agregarMina(fila, columna, profundidad);
             this->decidirMoverSoldadoArmamento(fila, columna, profundidad);
             this->decrementarTurnosFichas();
-            this->desbloquearFichas();
             this->actualizarArmamento();
         } else {
             cout << "YA MORISTE !!!!!!!!" << endl;
@@ -334,6 +333,7 @@ void BatallaDigital::crearArmamentoDelJugador() {
             cin >> cantidadSoldados;
         }
         generarPosiciones(cantidadSoldados, 'S', jugador);
+        jugador->setCantidadElementosVivos(cantidadSoldados);
         cout << endl << endl;
         cout << "USTED TIENE: " << jugador->getCantidadInsertsRestantes()
              << " .PUEDE DECIR QUE CANTIDAD DE ARMAMENTO CREAR, TANTO COMO SOLDADOS, BARCOS Y AVIONES" << endl;
@@ -674,19 +674,9 @@ void BatallaDigital::decrementarTurnosFichas() {
                 Ficha *ficha = this->tableroPrincipal->obtenerCasillero(i, j, k)->getFicha();
                 if (ficha->getBloqueada()) {
                     ficha->decrementarTurnosRestantesDesbloqueo();
-                }
-            }
-        }
-    }
-}
-
-void BatallaDigital::desbloquearFichas() {
-    for (int i = 1; i <= this->tableroPrincipal->getFila(); i++) {
-        for (int j = 1; j <= this->tableroPrincipal->getColumna(); j++) {
-            for (int k = 1; k <= this->tableroPrincipal->getProfundidad(); k++) {
-                Ficha *ficha = this->tableroPrincipal->obtenerCasillero(i, j, k)->getFicha();
-                if (ficha->getBloqueada() && ficha->getTurnosRestantesParaDesbloqueo() == 0) {
-                    ficha->desbloquearFicha();
+                    if (ficha->getTurnosRestantesParaDesbloqueo() <= 0){
+                        ficha->desbloquearFicha();
+                    }
                 }
             }
         }
@@ -752,23 +742,4 @@ const string &BatallaDigital::getNombreJugadorGanador() const {
 void BatallaDigital::setNombreJugadorGanador(const string &nombreJugadorGanador) {
     BatallaDigital::nombreJugadorGanador = nombreJugadorGanador;
 }
-
-bool BatallaDigital::elJugadorEstaVivo() {
-    int contadorElementos = 0;
-    for (int i = 1; i <= this->tableroPrincipal->getFila(); i++) {
-        for (int j = 1; j <= this->tableroPrincipal->getColumna(); j++) {
-            for (int k = 1; k <= this->tableroPrincipal->getProfundidad(); k++) {
-                Ficha *ficha = this->tableroPrincipal->obtenerCasillero(i, j, k)->getFicha();
-                if (ficha->getIdJugador() == this->jugadorActual->getIdJugador() && ficha->getElementoFicha() == SOLDADO) {
-                    contadorElementos++;
-                }
-            }
-        }
-    }
-    if (contadorElementos > 0) {
-        return true;
-    }
-    return false;
-}
-
 

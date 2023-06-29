@@ -13,9 +13,9 @@ Tablero::Tablero(int fila, int columna, int profundidad) {
             Lista<Casillero *> *profundidad = new Lista<Casillero *>;
             for (int k = 0; k < this->profundidad; k++) {
                 Casillero *casillero;
-                if (k <= 2) {
+                if (k <= NIVEL_DE_AGUA) {
                     casillero = new Casillero(AGUA, VACIO);
-                } else if (k <= 4) {
+                } else if (k <= NIVEL_DE_TIERRA) {
                     casillero = new Casillero(TIERRA, VACIO);
                 } else {
                     casillero = new Casillero(AIRE, VACIO);
@@ -47,7 +47,7 @@ Tablero::~Tablero() {
 Casillero *Tablero::obtenerCasillero(int fila, int columna, int profundidad) {
     if ((fila <= 0) || (columna <= 0) || (profundidad <= 0) ||
         (fila > this->fila) || (columna > this->columna) || (profundidad > this->profundidad)) {
-        string coordenadasInvalidas = "Coordenadas de casilleros invalidas";
+        string coordenadasInvalidas = "COORDENADAS DE CASILLEROS INVALIDAS";
         throw coordenadasInvalidas;
     }
     return this->casilleros->obtener(fila)->obtener(columna)->obtener(profundidad);

@@ -4,6 +4,8 @@
 #include "Casillero.h"
 #include "Lista.h"
 #include "string"
+#define NIVEL_DE_AGUA 2
+#define NIVEL_DE_TIERRA 4
 
 static const char SIMBOLO_FICHA_VACIO = '-';
 

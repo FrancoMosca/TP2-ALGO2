@@ -2,7 +2,7 @@
 #define TP2_ALGO2_CARTA_H
 
 #include "Tablero.h"
-
+#define RANGO_DE_EXPLOSION 2
 
 typedef enum {
     CARTA_SIN_EFECTO,

@@ -67,21 +67,26 @@ Carta::~Carta() {
 
 
 void Carta::avionRadar(Tablero *tablero, int idJugador) {
+    bool hayMinas = false;
     if (this->poseeAvion(tablero, idJugador)) {
-        cout << "AVION RADAR " << endl << endl << "Estas son las minas enemigas encontradas: " << endl;
+        cout << "AVION RADAR " << endl << endl << "BUSCANDO MINAS... " << endl;
         for (int i = 1; i <= tablero->getFila(); i++) {
             for (int j = 1; j <= tablero->getColumna(); j++) {
                 for (int k = 1; k <= tablero->getProfundidad(); k++) {
                     int id = tablero->obtenerCasillero(i, j, k)->getFicha()->getIdJugador();
                     if ((tablero->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha() == 'M') &&
                         id != idJugador) {
-                        cout << "Mina en posicion: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << endl;
+                        hayMinas = true;
+                        cout << "MINA EN POSICION: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << endl;
                     }
                 }
             }
         }
+        if(!hayMinas){
+            cout << endl << "NO SE ENCONTRARON MINAS" << endl;
+        }
     } else {
-        cout << "Al no tener Avion no puedes la carta de Radar, por lo que perdiste la carta" << endl;
+        cout << "AL NO TENER AVION NO PUEDES USAR ESTA CARTA, PIERDES LA CARTA" << endl;
     }
 }
 
@@ -89,28 +94,28 @@ void Carta::dispararMisil(Tablero *tablero, int idJugador) {
 
     if (this->poseeBarco(tablero, idJugador)) {
         int fila, columna, profundidad;
-        cout << "DISPARAR MISIL " << endl << endl << "Ingrese coordenadas a atacar: " << endl;
+        cout << "DISPARAR MISIL " << endl << endl << "INGRESE COORDENADAS A ATACAR: " << endl;
         solicitarIngresoDeCordenadas(fila, columna, profundidad);
         while (!(esFichaValida(tablero, fila, columna, profundidad))) {
             solicitarIngresoDeCordenadas(fila, columna, profundidad);
         }
         tablero->obtenerCasillero(fila, columna, profundidad)->getFicha()->bloquear(3);
     } else {
-        cout << "Al no tener Barcos no puedes la carta de misil, por lo que perdiste la carta" << endl;
+        cout << "AL NO TENER BARCOS NO PUEDES USAR ESTRA CARTA, PIERDES LA CARTA" << endl;
     }
 
 }
 
 void Carta::ataqueQuimico(Tablero *tablero) {
     int fila, columna, profundidad;
-    cout << "ATAQUE QUIMICO" << endl << endl << "Ingrese coordenadas a atacar (rango de explosion 5x5x5)" << endl;
+    cout << "ATAQUE QUIMICO" << endl << endl << "INGRESE COORDENADAS A ATACAR (RANGO DE EXPLOSION 5x5x5)" << endl;
     solicitarIngresoDeCordenadas(fila, columna, profundidad);
     while (!(esFichaValida(tablero, fila, columna, profundidad))) {
         solicitarIngresoDeCordenadas(fila, columna, profundidad);
     }
-    for (int i = -2; i <= 2; i++) {
-        for (int j = -2; j <= 2; j++) {
-            for (int k = -2; k <= 2; k++) {
+    for (int i = -RANGO_DE_EXPLOSION; i <= RANGO_DE_EXPLOSION; i++) {
+        for (int j = -RANGO_DE_EXPLOSION; j <= RANGO_DE_EXPLOSION; j++) {
+            for (int k = -RANGO_DE_EXPLOSION; k <= RANGO_DE_EXPLOSION; k++) {
                 int nuevaFila = fila + i;
                 int nuevaColumna = columna + j;
                 int nuevaProfundidad = profundidad + k;
@@ -118,7 +123,7 @@ void Carta::ataqueQuimico(Tablero *tablero) {
                 if (this->estaDentroDeTablero(tablero, nuevaFila, nuevaColumna, nuevaProfundidad)) {
                     if (nuevaFila == fila && nuevaColumna == columna && nuevaProfundidad == profundidad) {
                         tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(10);
-                        cout << "ATAQUE QUIMICO EXITOSO";
+                        cout << "ATAQUE QUIMICO EXITOSO" << endl << endl;
                     } else if ((nuevaFila < fila - 1 || nuevaFila > fila + 1) ||
                                (nuevaColumna < columna - 1 || nuevaColumna > columna + 1) ||
                                (nuevaProfundidad < profundidad - 1 || nuevaProfundidad > profundidad + 1)) {
@@ -146,7 +151,7 @@ void Carta::avionKamikaze(Tablero *tablero, int idJugador) {
                     if (tablero->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha() == 'B' && id != idJugador) {
                         hayBarcoEnemigo = true;
                         tablero->obtenerCasillero(i, j, k)->getFicha()->bloquear(1);
-                        cout << "Barco destruido en: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << endl;
+                        cout << "BARCO DESTRUIDO EN: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << endl;
                     }
                     k++;
                 }
@@ -155,7 +160,7 @@ void Carta::avionKamikaze(Tablero *tablero, int idJugador) {
             i++;
         }
         if (!hayBarcoEnemigo) {
-            cout << "No hay barcos enemigos, la carta queda anulada" << endl;
+            cout << "NO HAY BARCOS ENEMIGOS, LA CARTA SE DESTRUYE" << endl;
         } else {
             bool avionADestruir = false;
             int i = 1;
@@ -168,8 +173,8 @@ void Carta::avionKamikaze(Tablero *tablero, int idJugador) {
                         if (tablero->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha() == 'A' &&
                             id == idJugador) {
                             tablero->obtenerCasillero(i, j, k)->getFicha()->bloquear(1);
-                            cout << "Avion que se encotraba en: " << '[' << i << ']' << '[' << j << ']' << '[' << k
-                                 << ']' << "ha hundido un barco con su sacrificio";
+                            cout << "AVION ENCONTRADO EN: " << '[' << i << ']' << '[' << j << ']' << '[' << k
+                                 << ']' << "HA HUNDIDO UN BARCO CON SU SACRIFICIO";
                             avionADestruir = true;
                         }
                         k++;
@@ -180,21 +185,21 @@ void Carta::avionKamikaze(Tablero *tablero, int idJugador) {
             }
         }
     }
-    cout << "Al no tener Avion no puedes la carta, por lo que perdiste la misma" << endl;
+    cout << "AL NO TENER AVION NO PUEDE USAR ESTA CARTA, SE ELIMINA LA CARTA" << endl;
 }
 
 
 void Carta::tormentaElectrica(Tablero *tablero) {
     int fila, columna, profundidad;
-    cout << "TORMENTA ELECTRICA" << endl << endl << "Ingrese coordenadas de tormenta (rango de efecto 5x5x5)" << endl;
+    cout << "TORMENTA ELECTRICA" << endl << endl << "INGRESE COORDENADAS DE TORMENTA (RANGO DE EFECTO 5x5x5)" << endl;
     solicitarIngresoDeCordenadas(fila, columna, profundidad);
     while (!(this->estaEnElAire(tablero, fila, columna, profundidad))) {
-        cout << "Ingrese coordenadas  en el aire";
+        cout << "COORDENADAS INGRESADAS INVALIDAS, POR FAVOR INGRESE NUEVAMENTE: ";
         solicitarIngresoDeCordenadas(fila, columna, profundidad);
     }
-    for (int i = -2; i <= 2; i++) {
-        for (int j = -2; j <= 2; j++) {
-            for (int k = -2; k <= 2; k++) {
+    for (int i = -RANGO_DE_EXPLOSION; i <= RANGO_DE_EXPLOSION; i++) {
+        for (int j = -RANGO_DE_EXPLOSION; j <= RANGO_DE_EXPLOSION; j++) {
+            for (int k = -RANGO_DE_EXPLOSION; k <= RANGO_DE_EXPLOSION; k++) {
                 int nuevaFila = fila + i;
                 int nuevaColumna = columna + j;
                 int nuevaProfundidad = profundidad + k;
@@ -204,7 +209,7 @@ void Carta::tormentaElectrica(Tablero *tablero) {
                     if (tablero->obtenerCasillero(nuevaFila, nuevaColumna,
                                                   nuevaProfundidad)->getFicha()->getElementoFicha() == 'A')
                         tablero->obtenerCasillero(nuevaFila, nuevaColumna, nuevaProfundidad)->getFicha()->bloquear(3);
-                        cout << "Tormenta electrica colocada en: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << endl;
+                        cout << "TORMENTA ELECTRICA COLOCADA EN: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']' << endl;
                 }
             }
         }
@@ -223,7 +228,7 @@ void Carta::francotirador(Tablero *tablero, int idJugador) {
                     if ((tablero->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha() == 'S') &&
                         id != idJugador) {
                         haySoldadoEnemigo = true;
-                        cout << "Soldado enemigo en posicion: " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']'
+                        cout << "SOLDADO ENEMIGO EN POSICION : " << '[' << i << ']' << '[' << j << ']' << '[' << k << ']'
                              << endl;
 
                     }
@@ -233,7 +238,7 @@ void Carta::francotirador(Tablero *tablero, int idJugador) {
 
         int fila, columna, profundidad;
         if (haySoldadoEnemigo) {
-            cout << endl << "Ingrese coordenadas a atacar: " << endl;
+            cout << endl << "INGRESE COORDENADAS A ATACAR: " << endl;
             solicitarIngresoDeCordenadas(fila, columna, profundidad);
             while (!(esFichaValida(tablero, fila, columna, profundidad)) &&
                    !(estaEnElAire(tablero, fila, columna, profundidad))) {
@@ -242,21 +247,21 @@ void Carta::francotirador(Tablero *tablero, int idJugador) {
             tablero->obtenerCasillero(fila, columna, profundidad)->getFicha()->bloquear(1);
             cout <<"SOLDADO ELIMINADO" << endl;
         } else {
-            cout << endl << "No hay soldados enemigos a la vista" << endl;
+            cout << endl << "NO HAY SOLDADO ENEMIGO A LA VISTA" << endl;
         }
     } else {
-        cout << "Al no tener Soldados no puedes usar la carta de francotirador, por lo que perdiste la carta" << endl;
+        cout << "AL NO TENER SOLDADOS NO PUEDES USAR ESTA CARTA, POR LO QUE PERDISTE LA CARTA" << endl;
     }
 
 }
 
 
 void Carta::solicitarIngresoDeCordenadas(int &filas, int &columnas, int &profundidad) {
-    cout << "Ingrese una fila :" << endl;
+    cout << "INGRESE UNA FILA :" << endl;
     cin >> filas;
-    cout << "Ingrese una columna :" << endl;
+    cout << "INGRESE UNA COLUMNA :" << endl;
     cin >> columnas;
-    cout << "Ingrese una profundidad : " << endl;
+    cout << "INGRESE UNA PROFUNDIDAD : " << endl;
     cin >> profundidad;
 }
 
@@ -274,7 +279,7 @@ bool Carta::estaEnRangoValido(Tablero *tablero, int &fila, int &columna, int &pr
 bool Carta::esFichaValida(Tablero *tablero, int &fila, int &columna, int &profundidad) {
     bool esValido = true;
     if (!estaEnRangoValido(tablero, fila, columna, profundidad)) {
-        cout << "->[Error]: ingresante un rango invalido, recuerda que va desde 1 al maximo,por favor ingrese devuelta"
+        cout << "->[ERROR]: INGRESASTE UN RANGO INVALIDO, RECUERDA QUE VADESDE 1 AL MAXIMO, POR FAVOR INGRESE NUEVAMENTE"
              << endl;
         esValido = false;
     }

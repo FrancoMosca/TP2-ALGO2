@@ -13,6 +13,7 @@
 #define CANTIDAD_CARTAS_MAZO_JUGADORES 7
 
 
+
 class BatallaDigital {
 private:
     Tablero *tableroPrincipal;

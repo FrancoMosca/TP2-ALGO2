@@ -44,7 +44,7 @@ BatallaDigital::~BatallaDigital() {
 }
 
 void BatallaDigital::iniciarJuego() {
-    cout << "--------------->Bienvenido a la Batalla Digital<-----------------------\n";
+    cout << "--------------->BIENVENIDO A LA BATALLA DIGITAL<-----------------------\n";
     this->crearTableroPrincipal();
     this->crearJugadores();
     this->imprimirJugadores();
@@ -59,22 +59,22 @@ void BatallaDigital::iniciarJuego() {
 void BatallaDigital::crearTableroPrincipal() {
     size_t fila, columna, profundidad;
 
-    cout << "Ingresa las dimensiones del tablero (filas,columnas y profundidad deben ser mayor o igual a 7)" << endl;
-    cout << "Filas:" << endl;
+    cout << "INGRESE LAS DIMENSIONES DEL TABLERO (FILAS, COLUMNAS Y PROFUNDIDAD DEBEN SER MAYOR O IGUAL A 7)" << endl;
+    cout << "FILAS:" << endl;
     cin >> fila;
-    cout << "Columnas:" << endl;
+    cout << "COLUMNAS:" << endl;
     cin >> columna;
-    cout << "Profundidad:" << endl;
+    cout << "PROFUNDIDAD:" << endl;
     cin >> profundidad;
 
     while (fila < 6 || columna < 6 || profundidad < 6) {
-        cout << "[Error]: La cantidad de filas, columnas y profundidad debe ser mayor o igual a 7" << endl;
-        cout << "Ingresa las dimensiones del tablero" << endl;
-        cout << "Filas:" << endl;;
+        cout << "[ERROR]: LA CANTIDAD DE FILAS, COLUMNAS Y PROFUNDIDAD DEBE SER MAYOR O IGUAL A 7" << endl;
+        cout << "INGRESE LAS DIMENSIONES DEL TABLERO" << endl;
+        cout << "FILAS:" << endl;;
         cin >> fila;
-        cout << "Columnas:" << endl;
+        cout << "COLUMNAS:" << endl;
         cin >> columna;
-        cout << "Profundidad:" << endl;
+        cout << "PROFUNDIDAD:" << endl;
         cin >> profundidad;
     }
     this->tableroPrincipal = new Tablero(fila, columna, profundidad);
@@ -86,7 +86,7 @@ void BatallaDigital::mostrarTableroPorCoordenadas() {
         for (int j = 1; j <= tablero->getColumna(); j++) {
             for (int k = 1; k <= tablero->getProfundidad(); k++) {
                 int id = tablero->obtenerCasillero(i, j, k)->getFicha()->getIdJugador();
-                cout << "Casillero [" << i << "]" << " [" << j << "]" << " [" << k << "]" << " " << id
+                cout << "CASILLERO [" << i << "]" << " [" << j << "]" << " [" << k << "]" << " " << id
                      << " " << tableroPrincipal->obtenerCasillero(i, j, k)->getFicha()->getElementoFicha() << endl;
             }
         }
@@ -100,12 +100,12 @@ void BatallaDigital::crearJugadores() {
     char simboloFicha = ' ';
     int cantidadJugadores = getCantidadJugadores();
     for (size_t i = 0; i < (size_t) cantidadJugadores; i++) {
-        cout << "Ingrese el nombre del idJugador " << i + 1 << ":\n";
+        cout << "INGRESE EL NOMBRE DEL IDJUGADOR " << i + 1 << ":\n";
         cin >> nombreJugador;
-        cout << "Ingrese la ficha del idJugador " << i + 1 << " (1 caracter):\n";
+        cout << "INGRESE LA FICHA DEL IDJUGADOR " << i + 1 << " (1 caracter):\n";
         cin >> simboloFicha;
         while (esFichaOcupadaPorOtroJugador(simboloFicha)) {
-            cout << "[Error]: La ficha elegida ya esta en uso por otro idJugador, seleccione otra: ";
+            cout << "[ERROR]: LA FICHA ELEGIDA YA ESTA EN USO POR OTRO IDJUGADOR, SELECCIONE OTRA: ";
             cin >> simboloFicha;
         }
         nuevoJugador = new Jugador(nombreJugador, simboloFicha);
@@ -117,10 +117,10 @@ void BatallaDigital::crearJugadores() {
 
 int BatallaDigital::getCantidadJugadores() {
     int inputCantidadJugadores = 0;
-    cout << "Ingrese la cantidad de jugadores (De 2 a 6 jugadores): \n";
+    cout << "INGRESE LA CANTIDAD DE JUGADORES (DE 2 A 6 JUGADORES): \n";
     cin >> inputCantidadJugadores;
     while (inputCantidadJugadores < 2 || inputCantidadJugadores > 6) {
-        cout << "[Error]: Deben jugar de 2 a 6 jugadores: ";
+        cout << "[ERROR]: DEBEN JUGAR DE 2 A 6 JUGADORES: ";
         cin >> inputCantidadJugadores;
     }
     return inputCantidadJugadores;
@@ -142,33 +142,33 @@ void BatallaDigital::imprimirJugadores() {
     while (this->jugadores->avanzarCursor()) {
         cout << "[" << (this->jugadores->obtenerCursor())->getIdJugador() << "] ";
         cout << (this->jugadores->obtenerCursor())->getNombreJugador();
-        cout << " con la ficha : " << this->jugadores->obtenerCursor()->getFicha()->getElementoFicha() << "\n";
+        cout << " CON LA FICHA : " << this->jugadores->obtenerCursor()->getFicha()->getElementoFicha() << "\n";
     }
     cout << "-------------------------------------------\n";
 }
 
 void BatallaDigital::crearMazo() {
-    cout << "Iniciando proceso de creacion de Mazo..." << endl;
+    cout << "INICIANDO PROCESO DE CREACION DE MAZO..." << endl;
     Mazo *nuevoMazo = NULL;
     nuevoMazo = new Mazo(CANTIDAD_CARTAS_MAZO_PRINCIPAL);
     nuevoMazo->barajarMazo();
     this->mazo = nuevoMazo;
-    cout << "Mazo creado satisfactoriamente" << endl;
+    cout << "MAZO CREADO SATISFACTORIAMENTE" << endl;
 }
 
 void BatallaDigital::crearMazoPorJugador() {
-    cout << "Iniciando proceso de repartision de cartas para el idJugador..." << endl;
+    cout << "INICIANDO PROCESO DE REPARTICION DE CARTAS PARA EL ID JUGADOR..." << endl;
     this->jugadores->iniciarCursor();
     while (this->jugadores->avanzarCursor()) {
         Mazo *nuevoMazo = new Mazo();
         this->jugadores->obtenerCursor()->setMazo(nuevoMazo);
     }
-    cout << "Proceso de reparticion terminado " << endl;
+    cout << "PROCESO DE REPARTICION TERMINADO " << endl;
 }
 
 void BatallaDigital::jugarJuego() {
 
-    cout << "Jugar juego " << endl;
+    cout << "JUGAR JUEGO " << endl;
     int fila, columna, profundidad;
     while (!this->hayGanador) {
         this->cantidadJugadasRealizadas++;
@@ -176,7 +176,7 @@ void BatallaDigital::jugarJuego() {
         if (jugadorActual->getCantidadElementosVivos()) {
             cout << "[ RONDA: " << this->cantidadJugadasRealizadas << " ] ES EL TURNO DEL JUGADOR: "
                  << this->jugadorActual->getNombreJugador() << endl << endl;
-            cout << "revise las imagenes para ver el estado del tablero" << endl;
+            cout << "REVISE LAS IMAGENES PARA VER EL ESTADO DEL TABLERO" << endl;
             mostrarTablero(this->tableroPrincipal, jugadorActual->getIdJugador());
             this->repartirCartas();
             this->elegirCarta();
@@ -185,17 +185,17 @@ void BatallaDigital::jugarJuego() {
             this->decrementarTurnosFichas();
             this->actualizarArmamento();
         } else {
-            cout << "YA MORISTE !!!!!!!!" << endl;
+            cout << "YA MORISTE !!!" << endl;
         }
         this->avanzarTurno();
     }
-    cout << "FELICIDADES: " << this->nombreJugadorGanador << endl;
+    cout << "FELICIDADES GANADOR: " << this->nombreJugadorGanador << endl;
 }
 
 void BatallaDigital::repartirCartas() {
     if (mazo->getCantidadCartas() > 0 &&
         jugadorActual->getMazo()->getCantidadCartas() < CANTIDAD_CARTAS_MAZO_JUGADORES) {
-        cout << "REPARTIENDO CARTAS PARA LOS JUGADORES " << endl << endl;
+        cout << "REPARTIENDO CARTAS PARA LOS JUGADORES... " << endl << endl;
         this->repartirCartasAlJugadorActual();
     }
 }
@@ -203,7 +203,7 @@ void BatallaDigital::repartirCartas() {
 void BatallaDigital::elegirCarta() {
     jugadorActual->getMazo()->imprimirMazo();
     char usarCarta;
-    cout << endl << "DESEA USAR LA CARTA OBTENIDA. Ingrese 'S' SI ES AFIRMATIVO " << endl;
+    cout << endl << "DESEA USAR LA CARTA OBTENIDA. INGRESE 'S' SI ES AFIRMATIVO " << endl;
     cin >> usarCarta;
     if (usarCarta == 'S') {
         int numeroCarta;
@@ -214,7 +214,7 @@ void BatallaDigital::elegirCarta() {
 }
 
 void BatallaDigital::agregarMina(int fila, int columna, int profundidad) {
-    cout << "Ahora Debes ingresar una mina" << endl;
+    cout << "AHORA DEBES INGRESAR UNA MINA" << endl;
     solicitarIngresoDeCordenadas(fila, columna, profundidad);
     while (!(esFichaRangoValida(fila, columna, profundidad))) {
         solicitarIngresoDeCordenadas(fila, columna, profundidad);
@@ -229,27 +229,27 @@ void BatallaDigital::agregarMina(int fila, int columna, int profundidad) {
         ficha->bloquear(5);
         cout << "UN SOLDADO MURIO, PUEDE SER ENEMIGO O UN SOLDADO COMPAÑERO. ATENTO A DONDE TIRAS LAS MINAS" << endl;
     } else if (tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() != TIERRA) {
-        cout << "La mina se ha perdido, recuerde que solo se pueden ubicar minas en las coordenadas donde haya tierra"
+        cout << "LA MINA SE HA PERDIDO, RECUERDE QUE SOLO SE PUEDEN UBICAR MINAS EN LAS COORDENADAS DONDE HAYA TIERRA"
              << endl;
     }
 }
 
 void BatallaDigital::solicitarIngresoDeCordenadas(int &filas, int &columnas, int &profundidad) {
-    cout << "Ingrese una fila :" << endl;
+    cout << "INGRESE UNA FILA:" << endl;
     cin >> filas;
-    cout << "Ingrese una columna :" << endl;
+    cout << "INGRESE UNA COLUMNA:" << endl;
     cin >> columnas;
-    cout << "Ingrese una profundidad : " << endl;
+    cout << "INGRESE UNA PROFUNDIDAD: " << endl;
     cin >> profundidad;
 }
 
 bool BatallaDigital::esFichaValida(int &fila, int &columna, int &profundidad) {
     if (!estaEnRangoValido(fila, columna, profundidad)) {
-        cout << "->[Error]: ingresante un rango invalido, recuerda que va desde 1 al maximo,por favor ingrese devuelta"
+        cout << "->[ERROR]: INGRESASTE UN RANGO INVALIDO, RECUERDA QUE VA DESDE 1 AL MAXIMO, POR FAVOR INGRESE DEVUELTA"
              << endl;
         return false;
     } else if (!estaCasilleroLibre(fila, columna, profundidad)) {
-        cout << "->[Error]: La casilla ya se encuentra ocupada,por favor elige otra :\n";
+        cout << "->[ERROR]: LA CASILLA YA SE ENCUENTRA OCUPADA, POR FAVOR ELIGA OTRA:\n";
         return false;
     }
     return true;
@@ -346,14 +346,14 @@ void BatallaDigital::crearArmamentoDelJugador() {
             cin >> cantidadBarcos;
         }
         generarPosiciones(cantidadBarcos, 'B', jugador);
-        cout << "Usted tiene " << jugador->getCantidadInsertsRestantes()
-             << " . Puede decir que cantidad de soldados/armamento puede crear" << endl;
-        cout << endl << "Cuantos aviones quiere agregar ";
+        cout << "USTED TIENE " << jugador->getCantidadInsertsRestantes()
+             << " . PUEDE DECIR QUE CANTIDAD DE SOLDADOS/ARMAMENTO PUEDE CREAR" << endl;
+        cout << endl << "CUANTOS AVIONES QUIERE AGREGAR";
         cin >> cantidadAviones;
         while (this->validarInsertsDisponibles(cantidadAviones, jugador->getCantidadInsertsRestantes()) ||
                (cantidadAviones > (this->tableroPrincipal->getFila() * this->tableroPrincipal->getColumna() *
                                    (this->tableroPrincipal->getProfundidad() - 5) / jugadores->contarElementos()))) {
-            cout << "aviones de mas, solo puede agregar "<<(this->tableroPrincipal->getColumna()) * ( this->tableroPrincipal->getColumna()) * (this->tableroPrincipal->getProfundidad() -5) / (jugadores->contarElementos())<<" aviones, Cuantos aviones quiere agregar: ";
+            cout << "AVIONES DE MAS, SOLO PUEDE AGREGAR "<<(this->tableroPrincipal->getColumna()) * ( this->tableroPrincipal->getColumna()) * (this->tableroPrincipal->getProfundidad() -5) / (jugadores->contarElementos())<<" AVIONES, CUANTOS AVIONES QUIERE AGREGAR: ";
             cin >> cantidadAviones;
         }
         generarPosiciones(cantidadAviones, 'A', jugador);
@@ -395,7 +395,7 @@ void BatallaDigital::generarPosiciones(int cantidadElementos, char simboloFicha,
             profundidad = (1 + std::rand() % (this->tableroPrincipal->getProfundidad() - 1));
         }
         tableroPrincipal->setCasilla(fila, columna, profundidad, simboloFicha, jugador->getIdJugador());
-        cout << "Se inserto la casilla [" << fila << "][" << columna << "][" << profundidad << "] = " << simboloFicha
+        cout << "SE INSERTO LA CASILLA [" << fila << "][" << columna << "][" << profundidad << "] = " << simboloFicha
              << endl << endl;
     }
     jugador->setCantidadInsertsRestantes(jugador->getCantidadInsertsRestantes() - cantidadElementos);
@@ -421,7 +421,7 @@ bool BatallaDigital::validarInsertsDisponibles(int cantidadElementos, int insert
 bool BatallaDigital::esFichaRangoValida(int fila, int columna, int profundidad) {
     bool esValido = true;
     if (!estaEnRangoValido(fila, columna, profundidad)) {
-        cout << "->[Error]: ingresante un rango invalido, recuerda que va desde 1 al maximo,por favor ingrese devuelta"
+        cout << "->[ERROR]: INGRESASTE UN RANGO INVALIDO, RECUERDA QUE VA DESDE 1 AL MAXIMO, POR FAVOR INGRESE DEVUELTA"
              << endl;
         esValido = false;
     }
@@ -429,25 +429,25 @@ bool BatallaDigital::esFichaRangoValida(int fila, int columna, int profundidad) 
 }
 
 void BatallaDigital::decidirMoverSoldadoArmamento(int fila, int columna, int profundidad) {
-    cout << "Ahora Debes  mover un soldado o un armamento (AVION O BARCO)" << endl;
-    cout << "Elige un soldado tuyo:" << endl;
+    cout << "AHORA DEBES MOVER UN SOLDADO O UN ARMAMENTO (AVION O BARCO)" << endl;
+    cout << "ELIGE UN SOLDADO TUYO:" << endl;
     solicitarIngresoDeCordenadas(fila, columna, profundidad);
     while (!(esFichaRangoValida(fila, columna, profundidad))) {
         solicitarIngresoDeCordenadas(fila, columna, profundidad);
     }
     char movimiento;
-    cout << "Ingrese Movimiento (movimientos validos: w,s,a,d,x,z (puede ser en mayuscula))" << endl;
+    cout << "INGRESE MOVIMIENTO (MOVIMIENTO VALIDOS: w,s,a,d,x,z (PUEDE SER EN MAYUSCULA))" << endl;
     cin >> movimiento;
 
     int nuevaProfundidad;
-    cout << "Ingrese la nueva profundidad, debe ser 1 mayor o menor que la del soldado elegido" << endl;
+    cout << "INGRESE LA NUEVA PROFUNDIDAD, DEBE SER 1 MAYOR O MENOR QUE LA DEL SOLDADO ELEGIDO" << endl;
     cin >> nuevaProfundidad;
     if (validarSoldadoArmamentoElegido(fila, columna, profundidad) && validarMovimiento(movimiento) &&
         (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() ==
          this->tableroPrincipal->obtenerCasillero(fila, columna, nuevaProfundidad)->getTerreno())) {
         moverElemento(fila, columna, profundidad, movimiento, nuevaProfundidad);
     } else {
-        cout << "Perdiste Un turno por haber elegido mal, sorry :( " << endl;
+        cout << "PERDISTE UN TURNO POR HABER ELEGIDO MAL, SORRY :( " << endl;
     }
 }
 
@@ -457,14 +457,14 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'W': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila - 1, columna, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno " << endl;
+                cout << "ES POSICION BLOQUEADA, PERDISTE UN TURNO " << endl;
             } else if (existeMina(fila - 1, columna, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna, nuevaProfundidad, VACIO, 0);
             } else if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() !=
                        this->tableroPrincipal->obtenerCasillero(fila - 1, columna, profundidad)->getTerreno()) {
-                cout << "te moviste a un bioma no adecuado, se ha predido el turno" << endl;
+                cout << "TE MOVISTE AUN BIOMA NO ADECUADO, SE HA PERDIDO EL TURNO" << endl;
 
             } else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna, nuevaProfundidad, SOLDADO,
@@ -476,14 +476,14 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'S': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila + 1, columna, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno" << endl;
+                cout << "ES POSICION BLOQUEADA, PERDISTE UN TURNO" << endl;
             } else if (existeMina(fila + 1, columna, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna, nuevaProfundidad, VACIO, 0);
             } else if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() !=
                        this->tableroPrincipal->obtenerCasillero(fila + 1, columna, profundidad)->getTerreno()) {
-                cout << "te moviste a un bioma no adecuado, se ha predido el turno" << endl;
+                cout << "TE MOVISTE AUN BIOMA NO ADECUADO, SE HA PERDIDO EL TURNO" << endl;
 
             } else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna, nuevaProfundidad, SOLDADO,
@@ -495,14 +495,14 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'A': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila, columna - 1, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+                cout << "ES POSICION BLOQUEADA, PERDISTE UN TURNO " << endl;
             } else if (existeMina(fila, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila, columna - 1, nuevaProfundidad, VACIO, 0);
             } else if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() !=
                        this->tableroPrincipal->obtenerCasillero(fila, columna - 1, profundidad)->getTerreno()) {
-                cout << "te moviste a un bioma no adecuado, se ha predido el turno" << endl;
+                cout << "TE MOVISTE AUN BIOMA NO ADECUADO, SE HA PERDIDO EL TURNO" << endl;
 
             } else {
                 this->tableroPrincipal->setCasilla(fila, columna - 1, nuevaProfundidad, SOLDADO,
@@ -514,14 +514,14 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'D': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila, columna + 1, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+                cout << "ES POSICION BLOQUEADA, PERDISTE UN TURNO " << endl;
             } else if (existeMina(fila, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila, columna + 1, nuevaProfundidad, VACIO, 0);
             } else if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() !=
                        this->tableroPrincipal->obtenerCasillero(fila, columna + 1, profundidad)->getTerreno()) {
-                cout << "te moviste a un bioma no adecuado, se ha predido el turno" << endl;
+                cout << "TE MOVISTE AUN BIOMA NO ADECUADO, SE HA PERDIDO EL TURNO" << endl;
 
             } else {
                 this->tableroPrincipal->setCasilla(fila, columna + 1, nuevaProfundidad, SOLDADO,
@@ -533,14 +533,14 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'Q': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila - 1, columna - 1, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+                cout << "ES POSICION BLOQUEADA, PERDISTE UN TURNO " << endl;
             } else if (existeMina(fila - 1, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna - 1, nuevaProfundidad, VACIO, 0);
             } else if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() !=
                        this->tableroPrincipal->obtenerCasillero(fila - 1, columna - 1, profundidad)->getTerreno()) {
-                cout << "te moviste a un bioma no adecuado, se ha predido el turno" << endl;
+                cout << "TE MOVISTE AUN BIOMA NO ADECUADO, SE HA PERDIDO EL TURNO" << endl;
 
             } else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna - 1, nuevaProfundidad, SOLDADO,
@@ -552,14 +552,14 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'E': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila - 1, columna + 1, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+                cout << "ES POSICION BLOQUEADA, PERDISTE UN TURNO " << endl;
             } else if (existeMina(fila - 1, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila - 1, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila - 1, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila - 1, columna + 1, nuevaProfundidad, VACIO, 0);
             } else if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() !=
                        this->tableroPrincipal->obtenerCasillero(fila - 1, columna + 1, profundidad)->getTerreno()) {
-                cout << "te moviste a un bioma no adecuado, se ha predido el turno" << endl;
+                cout << "TE MOVISTE AUN BIOMA NO ADECUADO, SE HA PERDIDO EL TURNO" << endl;
 
             } else {
                 this->tableroPrincipal->setCasilla(fila - 1, columna + 1, nuevaProfundidad, SOLDADO,
@@ -571,14 +571,14 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'Z': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila + 1, columna - 1, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+                cout << "ES POSICION BLOQUEADA, PERDISTE UN TURNO " << endl;
             } else if (existeMina(fila + 1, columna - 1, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna - 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna - 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna - 1, nuevaProfundidad, VACIO, 0);
             } else if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() !=
                        this->tableroPrincipal->obtenerCasillero(fila + 1, columna - 1, profundidad)->getTerreno()) {
-                cout << "te moviste a un bioma no adecuado, se ha predido el turno" << endl;
+                cout << "TE MOVISTE AUN BIOMA NO ADECUADO, SE HA PERDIDO EL TURNO" << endl;
 
             } else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna - 1, nuevaProfundidad, SOLDADO,
@@ -590,14 +590,14 @@ void BatallaDigital::moverElemento(int fila, int columna, int profundidad, char 
         case 'X': {
             this->tableroPrincipal->setCasilla(fila, columna, profundidad, VACIO, 0);
             if (esPosicionBloqueada(fila + 1, columna + 1, nuevaProfundidad)) {
-                cout << "Es Posicion bloqueada, perdiste un turno boludo " << endl;
+                cout << "ES POSICION BLOQUEADA, PERDISTE UN TURNO " << endl;
             } else if (existeMina(fila + 1, columna + 1, nuevaProfundidad)) {
                 eliminarSoldado(fila + 1, columna + 1, nuevaProfundidad);
             } else if (existeSoldadoEnemigo(fila + 1, columna + 1, nuevaProfundidad)) {
                 this->tableroPrincipal->setCasilla(fila + 1, columna + 1, nuevaProfundidad, VACIO, 0);
             } else if (this->tableroPrincipal->obtenerCasillero(fila, columna, profundidad)->getTerreno() !=
                        this->tableroPrincipal->obtenerCasillero(fila + 1, columna + 1, profundidad)->getTerreno()) {
-                cout << "te moviste a un bioma no adecuado, se ha predido el turno" << endl;
+                cout << "TE MOVISTE AUN BIOMA NO ADECUADO, SE HA PERDIDO EL TURNO" << endl;
 
             } else {
                 this->tableroPrincipal->setCasilla(fila + 1, columna + 1, nuevaProfundidad, SOLDADO,

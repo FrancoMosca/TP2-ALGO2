@@ -48,15 +48,6 @@ void Ficha::setSimboloFecha(char simboloFicha) {
     Ficha::simboloFicha = simboloFicha;
 }
 
-
-int Ficha::getVidas() const {
-    return vidas;
-}
-
-void Ficha::setVidas(int vidas) {
-    Ficha::vidas = vidas;
-}
-
 int Ficha::getIdJugador() const {
     return idJugador;
 }

@@ -15,7 +15,7 @@ private:
     bool estaBloqueada;
     int turnosRestantesParaDesbloqueo;
     int idJugador;
-    int vidas;
+
 
 public:
     //pre: -
@@ -56,14 +56,6 @@ public:
     //pre: -
     //post: la ficha es del tipo "elementoF"
     void setSimboloFecha(char elementoF);
-
-    //pre: -
-    //post: retorna un entero que reprenta la cantidad de vidas que tiene la ficha 
-    int getVidas() const;
-
-    //pre: -
-    //post: la ficha tiene "vidas" vidas
-    void setVidas(int vidas);
 
     //Pre: -
     //Post: retorna un entero que representa la cantidad de turnos faltantes para que la ficha sea desbloqueada
